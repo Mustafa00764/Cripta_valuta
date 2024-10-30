@@ -57,6 +57,21 @@ const Header = () => {
 
   const handleBot = (user) => {
     console.log(user);
+
+    const { id, first_name, last_name, username } = user;
+
+    axios.post('http://154.53.45.100:3000/auth/telegram/callback', {
+      id,
+      first_name,
+      last_name,
+      username,
+    })
+    .then(res => {
+      console.log('Успешно отправлено:', res.data);
+    })
+    .catch(error => {
+      console.error('Ошибка:', error);
+    });
   };
 
   const UserId = async ()=>{
@@ -186,7 +201,7 @@ const Header = () => {
             }
             </div>
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
-              {/* <div className='h-[30px] w-[186px] '>
+              <div className='h-[30px] w-[186px] '>
                 <TelegramLoginButton
                   botName={TELEGRAM_BOT_USERNAME}
                   buttonSize="medium" // "large" | "medium" | "small"
@@ -195,7 +210,7 @@ const Header = () => {
                   dataOnauth={handleBot}
                   dataAuthUrl='http://154.53.45.100:3000/auth/telegram/callback'
                 />
-              </div> */}
+              </div>
               <div className='w-[50px] h-[50px]'>
                 <img src={LC_logo} alt="LC_logo" className='w-full h-full rounded-full'/>
               </div>
