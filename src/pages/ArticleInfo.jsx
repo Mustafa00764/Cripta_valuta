@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import arrowLeft from "../assets/svg/arrow_left_blue.svg";
 import articleImg from "../assets/images/articleimg.png";
 import person from "../assets/svg/Vector.svg";
@@ -14,13 +14,21 @@ import hashtag from "../assets/svg/hashtag.svg";
 import refresh from "../assets/svg/refresh.svg";
 import ArticleCard from "../components/ArticleCard";
 import { useNavigate } from "react-router-dom";
+import StarRating from '../components/StarRating';
 import { MenuContext } from "../context/MenuContext";
 import AdvertisimentCard from "../components/AdvertisimentCard";
 const ArticleInfo = () => {
   const navigate = useNavigate();
+  const [userRating, setUserRating] = useState(0);
+
 
   const goBack = () => {
     navigate(-1);
+  };
+
+  const handleRatingChange = (rating) => {
+    setUserRating(rating);
+    console.log('Оценка пользователя:', rating);
   };
 
   useEffect(()=>{
@@ -113,7 +121,8 @@ const ArticleInfo = () => {
                     </button>
                   </div>
                 </div>
-                <div className="flex flex-col text-textMode gap-2 xm:hidden">
+                <div className="flex w-full items-center justify-between text-textMode xm:hidden">
+                  <div className="flex flex-col gap-2"> 
                   <p className="text-[14px] leading-6">Поделиться:</p>
                   <div className="flex gap-2 items-center">
                     <div className="p-1 rounded-[10px] bg-pageMode cursor-pointer transition-all shareIcon">
@@ -136,6 +145,11 @@ const ArticleInfo = () => {
                         <path d="M8.8132 16.0784C9.79547 15.8414 10.6624 15.4559 11.4415 14.94L11.4076 14.961C11.7665 14.7143 12 14.2958 12 13.8211C12 13.069 11.4141 12.4593 10.6913 12.4593C10.4405 12.4593 10.2063 12.5328 10.0073 12.6595L10.0131 12.6558C9.15984 13.219 8.12136 13.5527 7.00793 13.5527C5.89449 13.5527 4.85529 13.2182 3.97968 12.6415L4.00274 12.6558C3.80528 12.5246 3.56457 12.4466 3.30585 12.4466C2.84318 12.4466 2.43673 12.697 2.20395 13.0742L2.20107 13.0795C2.20107 13.0795 2.20107 13.0795 2.20107 13.0832C2.07495 13.2887 2 13.5392 2 13.8084C2 14.2906 2.24142 14.7135 2.60464 14.955L2.60969 14.958C3.35486 15.4537 4.22182 15.8384 5.14788 16.0626L5.20409 16.0739L2.70409 18.6723C2.46483 18.9175 2.31637 19.258 2.31637 19.6352C2.31637 20.0019 2.4569 20.3341 2.68391 20.5771L2.70553 20.5996C2.94047 20.8448 3.26549 20.9963 3.62439 20.9963C3.98328 20.9963 4.3083 20.8448 4.54324 20.5996L7.00865 18.0469L9.45892 20.601C9.6953 20.847 10.0225 21 10.3835 21C11.1056 21 11.6908 20.3911 11.6908 19.6397C11.6908 19.264 11.5445 18.9243 11.3082 18.6775L8.81392 16.0784H8.8132ZM7.00793 12.2898C9.47117 12.2876 11.4674 10.2088 11.4674 7.64492C11.4674 5.07949 9.46901 3 7.0036 3C4.5382 3 2.53978 5.07949 2.53978 7.64492V7.64942C2.54483 10.2133 4.54324 12.2898 7.00793 12.2898ZM7.00793 5.72216C8.02911 5.72216 8.85644 6.58305 8.85644 7.64567C8.85644 8.70829 8.02911 9.56918 7.00793 9.56918C5.98818 9.56918 5.16085 8.70979 5.15941 7.64867C5.15941 7.64792 5.15941 7.64792 5.15941 7.64717C5.15941 6.58455 5.98674 5.72291 7.00793 5.72216Z" fill="#80A3FF"/>
                       </svg>
                     </div>
+                  </div>
+                  </div>
+                  <div className="flex items-center text-[20px] gap-3">
+                    <p>{userRating}</p>
+                    <StarRating maxRating={5} onRatingChange={handleRatingChange} />
                   </div>
                 </div>
               </div>

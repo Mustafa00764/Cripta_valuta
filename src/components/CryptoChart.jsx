@@ -33,7 +33,7 @@ const CryptoList = () => {
           priceChange: parseFloat(crypto.priceChange).toFixed(2),
           change: `${parseFloat(crypto.priceChangePercent).toFixed(2)}%`,
           color: parseFloat(crypto.priceChange) >= 0 ? 'green' : 'red',
-          img: ``
+          img: `/${crypto.symbol}.svg`
         }));
       setCryptoData(data);
     } catch (error) {
@@ -173,7 +173,7 @@ const CryptoList = () => {
                   >
                     <div className="flex items-center gap-2">
                       <div className="w-[30px] h-[30px] bg-black rounded-full flex justify-center items-center">
-                        <img src={crypto.img} alt="cryptoImg" className="w-full h-full object-cover" />
+                        <img src={crypto.img} alt="cryptoImg" className="object-cover" />
                       </div>
                       <p className="text-[10px] text-textMode text-start h-full">{crypto.name}</p>
                     </div>

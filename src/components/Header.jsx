@@ -60,7 +60,7 @@ const Header = () => {
 
     const { id, first_name, last_name, username } = user;
 
-    axios.post('http://154.53.45.100:3000/auth/telegram/callback', {
+    axios.post('http://154.53.45.100:8080/auth/telegram/callback', {
       id,
       first_name,
       last_name,
