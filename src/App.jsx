@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className='w-[100%] h-[100%] bg-pageMode transition-all'>
       <Routes>
-        <Route path='*' element={<UserLayout/>}/>
+        <Route path='/*' element={<UserLayout/>}/>
         <Route path='/admin/*' element={<AdminPanel/>}/>
       </Routes>
       

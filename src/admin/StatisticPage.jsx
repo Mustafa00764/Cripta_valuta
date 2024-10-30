@@ -8,7 +8,7 @@ const data = [
   { time: '08:00', onlines: 1000, files: 800, downloads: 500, visits: 1500 },
   { time: '09:00', onlines: 2000, files: 1600, downloads: 1000, visits: 2500 },
   { time: '10:00', onlines: 3000, files: 2000, downloads: 1500, visits: 3000 },
-  { time: '11:00', onlines: 4000, files: 2500, downloads: 2000, visits: 3500 },
+  { time: '11:00', onlines: 4000, files: 0, downloads: 2000, visits: 3500 },
   { time: '12:00', onlines: 3000, files: 2000, downloads: 1500, visits: 3000 },
   { time: '13:00', onlines: 2500, files: 1800, downloads: 1200, visits: 2500 },
   { time: '14:00', onlines: 2000, files: 1600, downloads: 1000, visits: 2000 },
