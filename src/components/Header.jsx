@@ -208,7 +208,7 @@ const Header = () => {
                   cornerRadius={15} // 0 - 20
                   usePic={false} // true | false
                   dataOnauth={handleBot}
-                  dataAuthUrl='http://154.53.45.100:3000/auth/telegram/callback'
+                  dataAuthUrl='http://154.53.45.100:8080/auth/telegram/callback'
                 />
               </div>
               <div className='w-[50px] h-[50px]'>

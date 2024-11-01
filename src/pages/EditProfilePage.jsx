@@ -84,7 +84,7 @@ const EditProfilePage = () => {
     }else if (el === 'photo' && vis === 'over') {
       setHints("High-quality personal photography strengthens readers' trust. You can also use other images. <br> Format: jpg, jpeg, png, webp.")
       hints.style.display = 'flex'
-      hints.style.top = '170px'
+      hints.style.top = '150px'
     }else if (el === 'about you' && vis === 'over') {
       setHints("Tell people about yourself: how did you start your journey, what inspires you and what are your goals. Share stories of success and difficulties, because your experience can inspire others to new achievements!")
       hints.style.display = 'flex'
@@ -108,7 +108,7 @@ const EditProfilePage = () => {
         <div className='flex w-full'>
         <div className='flex max-w-[660px] w-full flex-col border text-textMode bg-bgMode border-[#494E5B] py-[15px] px-6 rounded-[6px] mt-5'>
           <form className='w-full h-auto'>
-            <div className='flex w-full gap-4'>
+            <div className='flex w-full gap-4 md:flex-col'>
               <div className='flex flex-col w-full' onMouseOver={()=>hint('name','over')} onMouseOut={()=>hint('name','out')}>
                 <label htmlFor="name" className='text-[14px] font-semibold leading-6'>Name</label>
                 <input type="text" required id='name' minLength={3} defaultValue={'Maksim'} placeholder='Enter your name' className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>

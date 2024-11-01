@@ -95,17 +95,17 @@ const UserNavbar = () => {
             </div>
             </NavLink>
             <div className={hashtags?'opacity-[1] z-[0] transition-all absolute w-[270px] h-[152px] bg-bgMode py-6 px-8 left-[-32px] grid top-[72px] grid-cols-2':" transition-all opacity-0 h-0 z-[-10] py-0 absolute w-[270px] bg-bgMode px-8 left-[-32px] grid top-[72px] grid-cols-2 overflow-hidden"} onMouseOver={()=>getHeshtag(true)} onMouseOut={()=>getHeshtag(false)}>
-            <NavLink to={"/blockchain-2024"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex" : 'h-full flex ')}>
+            <NavLink to={"/altcoin"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex" : 'h-full flex ')}>
             <p className='hover:text-[#7399FF] transition-all'>Альткоины</p>                                                                                             
             </NavLink>
-            <NavLink to={"/bitcoin-2024"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex ')}>
-            <p className='hover:text-[#7399FF] transition-all'>Bitcoin</p>                                                                                             
+            <NavLink to={"/stablecoin"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex ')}>
+            <p className='hover:text-[#7399FF] transition-all'>Stablecoin</p>                                                                                             
             </NavLink>
-            <NavLink to={"/ethereum-2024"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex ')}>
-            <p className='hover:text-[#7399FF] transition-all'>Ethereum</p>
+            <NavLink to={"/meme-coin"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex ')}>
+            <p className='hover:text-[#7399FF] transition-all'>Meme-coins</p>
             </NavLink>
-            <NavLink to={"/nft-2024"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex ')}>
-            <p className='hover:text-[#7399FF] transition-all'>NFT</p>
+            <NavLink to={"/utility-token"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex ')}>
+            <p className='hover:text-[#7399FF] transition-all'>Utility Tokens</p>
             </NavLink>
             <NavLink to={"/defi-2024"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex ')}>
             <p className='hover:text-[#7399FF] transition-all'>DeFi</p>

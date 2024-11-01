@@ -109,7 +109,7 @@ const CryptoList = () => {
   }, [symbol, selectedRange]);
 
   return (
-    <Card sx={{ margin: '0px', padding: '0px' }} className='bg-pageMode text-textMode border border-bgMode'>
+    <Card sx={{ margin: '0px', padding: '0px' }} className='bg-bgMode text-textMode border border-bgMode'>
       <CardContent>
         <Typography variant="h6" component="div" gutterBottom>
           Криптовалюты
@@ -167,8 +167,8 @@ const CryptoList = () => {
                     onClick={() => borderNone(index, crypto.symbol)}
                     className={
                       crypto.symbol === symbol
-                        ? "crypto-item flex justify-between py-[12px] rounded-[6px] px-[10px] cursor-pointer bg-bgMode border-b-[1px] border-pageMode"
-                        : "cursor-pointer crypto-item last:border-b-[0px] flex justify-between py-[12px] px-[10px] bg-pageMode border-b border-pageMode"
+                        ? "crypto-item flex justify-between py-[12px] rounded-[6px] px-[10px] cursor-pointer bg-pageMode border-b-[1px] border-pageMode"
+                        : "cursor-pointer crypto-item last:border-b-[0px] flex justify-between py-[12px] px-[10px] bg-bgMode border-b border-pageMode"
                     }
                   >
                     <div className="flex items-center gap-2">

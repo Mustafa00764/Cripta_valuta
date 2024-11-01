@@ -63,7 +63,7 @@ const AdminDashboard = () => {
             <p>New Admin</p>
           </div>
           <div>
-          <label htmlFor="category" className='pl-[15px] flex gap-[5px] items-center'>Status <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+          <label htmlFor="category" className='pl-[15px] flex gap-[5px] text-textMode items-center'>Status <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <div className="relative mt-1">
               <button
                 type="button"

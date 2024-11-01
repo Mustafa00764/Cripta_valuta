@@ -15,10 +15,10 @@ import NFTPage from '../pages/NFTPage'
 import DeFiPage from '../pages/DeFiPage'
 import P2EPage from '../pages/P2EPage'
 import EthereumPage from '../pages/EthereumPage'
-import HBitcoinPage from '../pages/HBitcoinPage'
+import StablecoinsPage from '../pages/StablecoinsPage'
 import AltcoinsPage from '../pages/AltcoinsPage'
-import HEthereumPage from '../pages/HEthereumPage'
-import HNFTPage from '../pages/HNFTPage'
+import Meme_coinsPage from '../pages/Meme_coinsPage'
+import UtilityTokensPage from '../pages/UtilityTokensPage'
 import HDeFiPage from '../pages/HDeFiPage'
 import UserMenu from '../components/UserMenu'
 import AdminPanel from '../admin/AdminPanel'
@@ -82,10 +82,10 @@ const UserLayout = () => {
           <Route path='/defi' element={<DeFiPage/>}/>
           <Route path='/p2e' element={<P2EPage/>}/>
           <Route path='/ethereum' element={<EthereumPage/>}/>
-          <Route path='/bitcoin-2024' element={<HBitcoinPage/>}/>
-          <Route path='/blockchain-2024' element={<AltcoinsPage/>}/>
-          <Route path='/ethereum-2024' element={<HEthereumPage/>}/>
-          <Route path='/nft-2024' element={<HNFTPage/>}/>
+          <Route path='/Stablecoin' element={<StablecoinsPage/>}/>
+          <Route path='/altcoin' element={<AltcoinsPage/>}/>
+          <Route path='/meme-coin' element={<Meme_coinsPage/>}/>
+          <Route path='/utility-token' element={<UtilityTokensPage/>}/>
           <Route path='/defi-2024' element={<HDeFiPage/>}/>
           <Route path='/a' element={<AdminPanel/>}/>
           <Route path='/airdrop' element={<AirdropPage/>}/>

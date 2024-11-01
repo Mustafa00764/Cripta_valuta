@@ -43,7 +43,7 @@ const StarRating = ({ maxRating = 5, onRatingChange }) => {
             {/* Половина звезды - правая */}
             <span
               className={`text-2xl relative overflow-hidden  right-0 ${
-                hover >= wholeStarValue || rating >= wholeStarValue ? 'text-yellow-400' : 'text-gray-300'
+                hover >= wholeStarValue || rating >= wholeStarValue ? 'text-yellow-400' : 'text-gray-300 ob'
               }`}
               style={{ width: '100%', display: 'inline-block', position: 'absolute' }}
               onClick={() => handleClick(wholeStarValue)}
