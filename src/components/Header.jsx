@@ -89,8 +89,8 @@ const Header = () => {
 
   const handleBot = async (authData) => {
     try {
-      // Отправка данных авторизации на сервер
-      const response = await axios.post('http://154.53.45.100:8080/auth/telegram/callback', {
+      // Отправляем данные авторизации на Vercel API-роут
+      const response = await axios.post('/api/telegramCallback', {
         id: authData.id,
         firstName: authData.first_name,
         lastName: authData.last_name,
@@ -100,16 +100,15 @@ const Header = () => {
         hash: authData.hash,
       });
   
-      // Обработка ответа от сервера
-      console.log('Server response:', response.data);
+      console.log('Ответ от сервера:', response.data);
       if (response.data.message === 'Registration successful!') {
-        // Здесь можно сохранить токен в локальное хранилище или перенаправить пользователя
         alert('Регистрация успешна!');
       }
     } catch (error) {
       console.error('Ошибка при авторизации:', error);
     }
   };
+  
 
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>
