@@ -21,6 +21,7 @@ const Header = () => {
   const [dmenu, setDmenu] = useState(false);
   const {menu,setMenu} = useContext(MenuContext)
   const {mobileSearch, setMobileSearch} = useContext(SearchContext)
+  const [user, setUser] = useState(null);
   const {theme, setTheme, toggleTheme} = useContext(AdminContext)
   const crypto = [
     {
@@ -55,24 +56,24 @@ const Header = () => {
     },
   ]
 
-  const handleBot = (user) => {
-    console.log(user);
+  // const handleBot = (user) => {
+  //   console.log(user);
 
-    const { id, first_name, last_name, username } = user;
+  //   const { id, first_name, last_name, username } = user;
 
-    axios.post('http://154.53.45.100:8080/auth/telegram/callback', {
-      id,
-      first_name,
-      last_name,
-      username,
-    })
-    .then(res => {
-      console.log('Успешно отправлено:', res.data);
-    })
-    .catch(error => {
-      console.error('Ошибка:', error);
-    });
-  };
+  //   axios.post('http://154.53.45.100:8080/auth/telegram/callback', {
+  //     id,
+  //     first_name,
+  //     last_name,
+  //     username,
+  //   })
+  //   .then(res => {
+  //     console.log('Успешно отправлено:', res.data);
+  //   })
+  //   .catch(error => {
+  //     console.error('Ошибка:', error);
+  //   });
+  // };
 
   const UserId = async ()=>{
     // try {
@@ -86,9 +87,34 @@ const Header = () => {
     // }
   }
 
+  const handleBot = async (userData) => {
+    try {
+        const response = await axios.post('http://154.53.45.100:8080/auth/telegram/callback', userData);
+
+        if (response.status === 200) {
+            const { token, username } = response.data;
+
+            // Сохраняем токен в localStorage
+            localStorage.setItem('authToken', token);
+
+            // Обновляем состояние пользователя
+            setUser({ username });
+        } else {
+            console.error('Ошибка авторизации');
+        }
+    } catch (error) {
+        console.error('Ошибка соединения с сервером:', error);
+    }
+};
+
   useEffect(() => {
-    UserId()
-  }, []);
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        // Если токен есть, можно загрузить данные пользователя с сервера
+        // Здесь можно добавить запрос для получения данных, если это необходимо
+        setUser({ username: 'ВашеИмя' }); // Замените на имя из запроса к бэкенду
+    }
+}, []);
 
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>
