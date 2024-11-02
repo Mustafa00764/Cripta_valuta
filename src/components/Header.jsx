@@ -87,34 +87,29 @@ const Header = () => {
     // }
   }
 
-  const handleBot = async (userData) => {
+  const handleBot = async (authData) => {
     try {
-        const response = await axios.post('http://154.53.45.100:8080/auth/telegram/callback', userData);
-
-        if (response.status === 200) {
-            const { token, username } = response.data;
-
-            // Сохраняем токен в localStorage
-            localStorage.setItem('authToken', token);
-
-            // Обновляем состояние пользователя
-            setUser({ username });
-        } else {
-            console.error('Ошибка авторизации');
-        }
+      // Отправка данных авторизации на сервер
+      const response = await axios.post('http://154.53.45.100:8080/auth/telegram/callback', {
+        id: authData.id,
+        firstName: authData.first_name,
+        lastName: authData.last_name,
+        username: authData.username,
+        photoUrl: authData.photo_url,
+        authDate: authData.auth_date,
+        hash: authData.hash,
+      });
+  
+      // Обработка ответа от сервера
+      console.log('Server response:', response.data);
+      if (response.data.message === 'Registration successful!') {
+        // Здесь можно сохранить токен в локальное хранилище или перенаправить пользователя
+        alert('Регистрация успешна!');
+      }
     } catch (error) {
-        console.error('Ошибка соединения с сервером:', error);
+      console.error('Ошибка при авторизации:', error);
     }
-};
-
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-        // Если токен есть, можно загрузить данные пользователя с сервера
-        // Здесь можно добавить запрос для получения данных, если это необходимо
-        setUser({ username: 'ВашеИмя' }); // Замените на имя из запроса к бэкенду
-    }
-}, []);
+  };
 
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>
@@ -230,11 +225,10 @@ const Header = () => {
               <div className='h-[30px] w-[186px] '>
                 <TelegramLoginButton
                   botName={TELEGRAM_BOT_USERNAME}
-                  buttonSize="medium" // "large" | "medium" | "small"
-                  cornerRadius={15} // 0 - 20
-                  usePic={false} // true | false
-                  dataOnauth={handleBot}
-                  dataAuthUrl='http://154.53.45.100:8080/auth/telegram/callback'
+                  buttonSize="medium"
+                  cornerRadius={15}
+                  usePic={false}
+                  dataOnauth={handleBot} // Используем только dataOnauth
                 />
               </div>
               <div className='w-[50px] h-[50px]'>

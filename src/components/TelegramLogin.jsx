@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 
 const TelegramLoginButton = ({
   wrapperProps,
-  dataAuthUrl,
   usePic = false,
   botName,
   className,
@@ -16,12 +15,9 @@ const TelegramLoginButton = ({
   useEffect(() => {
     if (ref.current === null) return;
 
-    if (
-      typeof dataOnauth === "undefined" &&
-      typeof dataAuthUrl === "undefined"
-    ) {
+    if (typeof dataOnauth === "undefined") {
       throw new Error(
-        "One of this props should be defined: dataAuthUrl (redirect URL), dataOnauth (callback fn) should be defined."
+        "Prop dataOnauth (callback fn) should be defined to handle the authentication."
       );
     }
 
@@ -45,15 +41,9 @@ const TelegramLoginButton = ({
     }
 
     script.setAttribute("data-userpic", usePic.toString());
-
-    if (typeof dataAuthUrl === "string") {
-      script.setAttribute("data-auth-url", dataAuthUrl);
-    } else {
-      script.setAttribute(
-        "data-onauth",
-        "TelegramLoginWidget.dataOnauth(user)"
-      );
-    }
+    
+    // Используем data-onauth вместо data-auth-url
+    script.setAttribute("data-onauth", "TelegramLoginWidget.dataOnauth(user)");
 
     script.async = true;
 
@@ -66,7 +56,6 @@ const TelegramLoginButton = ({
     requestAccess,
     usePic,
     ref,
-    dataAuthUrl,
   ]);
 
   return (
@@ -77,7 +66,5 @@ const TelegramLoginButton = ({
     />
   );
 };
-
-
 
 export default TelegramLoginButton;
