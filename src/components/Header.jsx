@@ -89,7 +89,7 @@ const Header = () => {
     // }
   }
   useEffect(()=>{
-    setIsAuthenticated(SON.parse(localStorage.getItem("user"))?true:false)
+    setIsAuthenticated(JSON.parse(localStorage.getItem("user"))?true:false)
   },[])
 
   const handleBot = async (user) => {
