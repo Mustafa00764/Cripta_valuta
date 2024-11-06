@@ -219,29 +219,27 @@ const Header = () => {
               })
             }
             </div>
+            {!isAuthenticated?(
+              <div>
+                <TelegramLoginButton
+                  botName={TELEGRAM_BOT_USERNAME}
+                  buttonSize="medium"
+                  cornerRadius={15}
+                  usePic={false}
+                  dataOnauth={handleBot}
+                />
+              </div>
+            ):(
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
               <div className='h-[30px] w-[186px] '>
-                {
-                  !isAuthenticated ?(
-                    <TelegramLoginButton
-                      botName={TELEGRAM_BOT_USERNAME}
-                      buttonSize="medium"
-                      cornerRadius={15}
-                      usePic={false}
-                      dataOnauth={handleBot}
-                    />
-                  ):(
-                    <>
-                    <div className='w-[50px] h-[50px]'>
-                      <img src={LC_logo} alt="LC_logo" className='w-full h-full rounded-full'/>
-                    </div>
-                    <p>Max00764</p>
-                    </>
-                  )
-                }
+                <div className='w-[50px] h-[50px]'>
+                  <img src={LC_logo} alt="LC_logo" className='w-full h-full rounded-full'/>
+                </div>
+                <p>Max00764</p>
               </div>
 
             </div>
+            )}
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>
               <img src={mobileSearch?close:search_white} alt='search' />
             </div>
