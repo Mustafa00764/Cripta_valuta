@@ -101,7 +101,7 @@ const Header = () => {
       })
       .then((response) => {
         setIsAuthenticated(true);
-        console.log('Успешная аутентификация:', response.data);
+        console.log('Успешная аутентификация:', response);
       })
       .catch((error) => {
         console.error('Ошибка при аутентификации:', error);
@@ -234,7 +234,7 @@ const Header = () => {
               <div className='w-[50px] h-[50px]'>
                 <img src={LC_logo} alt="LC_logo" className='w-full h-full rounded-full'/>
               </div>
-              <p>Max00764</p>
+              <p>Max00764 👨‍💻</p>
             </div>
             )}
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>
