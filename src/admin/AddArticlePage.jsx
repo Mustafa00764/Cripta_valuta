@@ -131,7 +131,23 @@ const AddArticlePage = () => {
   const [fontSize, setFontSize] = useState(16);
   const [imagesList, setImagesList] = useState([]);
   const [publishDate, setPublishDate] = useState(pubDate.split("-").reverse().join("-"));
+  const [tags, setTags] = useState([]);
+  const [input, setInput] = useState("");
 
+  // Добавление тега по нажатию клавиши Enter
+  const handleAddTag = (e) => {
+    if (e.key === "Enter" && input.trim()) {
+      if (!tags.includes(input)) {
+        setTags([...tags, input.trim()]);
+      }
+      setInput("");
+    }
+  };
+
+  // Удаление тега
+  const handleRemoveTag = (tagToRemove) => {
+    setTags(tags.filter((tag) => tag !== tagToRemove));
+  };
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setIsOpen(false);
@@ -414,9 +430,42 @@ const AddArticlePage = () => {
             </div>
           </div>
           <div>
+            <div>
+              <label htmlFor="tags" className='pl-[15px] mt-[15px] flex gap-[5px] items-center'>Tags <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+              <div className="flex flex-col mt-[5px]">
+              <input
+                  type="text"
+                  className="w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]"
+                  placeholder="Введите тег и нажмите Enter"
+                  value={input}
+                  id='tags'
+                  maxLength={30}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleAddTag}
+                />
+                <div className='flex flex-wrap gap-2 mt-[15px] bg-bgMode rounded-[8px] p-2 min-h-[54px] w-[300px]'>
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="flex items-center bg-pageMode justify-center text-textMode px-2 gap-1 py-1 rounded-lg"
+                  >
+                    {tag}
+                    <button
+                      type="button"
+                      className=" text-[20px] text-[red] hover:text-red-900"
+                      onClick={() => handleRemoveTag(tag)}
+                    >
+                      &times;
+                    </button>
+                  </span>
+                ))}
+                </div>
+
+              </div>
+            </div>
             {/* Поле для ввода даты публикации */}
             <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
-              <label htmlFor="publishDate" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Pub Date <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+              <label htmlFor="publishDate" className='pl-[15px] flex gap-[5px] mb-[5px] items-center'>Pub Date <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
               <input
                 type="date"
                 id="publishDate"
@@ -495,7 +544,7 @@ const AddArticlePage = () => {
           <div className={`mt-[15px] ${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all`}>
           <label htmlFor="" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Main Content <span className='text-[#FF8F00] text-[14px] '>(unlimited)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
           <div className={`w-full max-w-[1280px] `}>
-            <div className={`border flex gap-1 border-b-0 cursor-pointer h-[41px] border-[#262E34] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-t-[12px] overflow-hidden`}>
+            <div className={`border flex flex-wrap gap-1 border-b-0 cursor-pointer h-auto border-[#262E34] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-t-[12px] overflow-hidden`}>
               <button className={` w-[40px] flex justify-center items-center h-[40px]`} onClick={() => toggleInlineStyle('BOLD')}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.315 19.5C15.474 19.5 17.433 17.8695 17.433 15.2655C17.433 13.3065 15.957 11.841 13.947 11.6865V11.604C14.7168 11.4881 15.4198 11.1009 15.9292 10.5123C16.4386 9.9237 16.7208 9.17242 16.725 8.394C16.725 6.129 14.982 4.704 12.204 4.704H5.76453V19.5H12.315ZM8.86203 7.011H11.406C12.8505 7.011 13.6815 7.6875 13.6815 8.877C13.6815 10.128 12.738 10.857 11.0865 10.857H8.86203V7.011ZM8.86203 17.193V12.897H11.457C13.2825 12.897 14.277 13.635 14.277 15.0195C14.277 16.434 13.3125 17.193 11.529 17.193H8.86203Z" fill={theme?"#0C1013":"#FFFFFF"}/>
@@ -566,7 +615,7 @@ const AddArticlePage = () => {
               <button onClick={() => toggleBlockTypes('header-three')} className={` w-[50px] h-[40px]`}>18px</button>
               <button onClick={() => toggleBlockTypes('header-two')} className={` w-[50px] h-[40px]`}>20px</button>
               <button onClick={() => toggleBlockTypes('header-one')} className={` w-[50px] h-[40px]`}>24px</button>
-              <button className='w-[60px] h-full text-[#0C1013] bg-sideBarTextLight'>{fontSize}px</button>
+              <button className='w-[60px] h-[40px] text-[#0C1013] bg-sideBarTextLight'>{fontSize}px</button>
             </div>
             <div className={`w-full outline-none border overflow-hidden min-h-[200px] h-auto border-[#262E34] p-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-b-[12px]`}>
               <Editor
@@ -592,15 +641,15 @@ const AddArticlePage = () => {
               className={`w-full outline-none border min-h-[150px] max-w- border-[#262E34] p-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
             ></textarea>
           </div>
+          <button className="mt-4 px-4 py-2 bg-blue-500 text-white" type='submit'>
+            Отправить
+          </button>
         </form>
         <div className='mt-[15px]'>
         <label htmlFor="subtitle" className='pl-[15px] text-textMode flex gap-[5px] mb-[10px] items-center'>Preview <span className='text-[#FF8F00] text-[14px] '>(click and watch demo)</span></label>
           <DemoCard pubDate={publishDate} title={title} subtitle={subtitle} categories={selectedCategory} poster={croppedImage} main={getContentAsHTML()}/>
         </div>
         <div>
-          <button className="mt-4 px-4 py-2 bg-blue-500 text-white" onClick={sendToBackend}>
-            Отправить
-          </button>
         </div>
       </div>
     </div>

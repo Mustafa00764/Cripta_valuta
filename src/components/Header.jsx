@@ -23,6 +23,7 @@ const Header = () => {
   const {mobileSearch, setMobileSearch} = useContext(SearchContext)
   const [user, setUser] = useState(null);
   const {theme, setTheme, toggleTheme} = useContext(AdminContext)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const crypto = [
     {
       id: 1,
@@ -87,26 +88,24 @@ const Header = () => {
     // }
   }
 
-  const handleBot = async (authData) => {
-    try {
-      // Отправляем данные авторизации на Vercel API-роут
-      const response = await axios.post('/api/telegramCallback', {
-        id: authData.id,
-        firstName: authData.first_name,
-        lastName: authData.last_name,
-        username: authData.username,
-        photoUrl: authData.photo_url,
-        authDate: authData.auth_date,
-        hash: authData.hash,
+  const handleBot = async (user) => {
+    axios
+      .get('http://154.53.45.100:8080/auth/telegram/callback', {
+        params: {
+          id: user.id,
+          username: user.username,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          photo_url: user.photo_url,
+        },
+      })
+      .then((response) => {
+        setIsAuthenticated(true);
+        console.log('Успешная аутентификация:', response.data);
+      })
+      .catch((error) => {
+        console.error('Ошибка при аутентификации:', error);
       });
-  
-      console.log('Ответ от сервера:', response.data);
-      if (response.data.message === 'Registration successful!') {
-        alert('Регистрация успешна!');
-      }
-    } catch (error) {
-      console.error('Ошибка при авторизации:', error);
-    }
   };
   
 
@@ -222,18 +221,26 @@ const Header = () => {
             </div>
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
               <div className='h-[30px] w-[186px] '>
-                <TelegramLoginButton
-                  botName={TELEGRAM_BOT_USERNAME}
-                  buttonSize="medium"
-                  cornerRadius={15}
-                  usePic={false}
-                  dataOnauth={handleBot} // Используем только dataOnauth
-                />
+                {
+                  !isAuthenticated ?(
+                    <TelegramLoginButton
+                      botName={TELEGRAM_BOT_USERNAME}
+                      buttonSize="medium"
+                      cornerRadius={15}
+                      usePic={false}
+                      dataOnauth={handleBot}
+                    />
+                  ):(
+                    <>
+                    <div className='w-[50px] h-[50px]'>
+                      <img src={LC_logo} alt="LC_logo" className='w-full h-full rounded-full'/>
+                    </div>
+                    <p>Max00764</p>
+                    </>
+                  )
+                }
               </div>
-              <div className='w-[50px] h-[50px]'>
-                <img src={LC_logo} alt="LC_logo" className='w-full h-full rounded-full'/>
-              </div>
-              <p>Max00764</p>
+
             </div>
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>
               <img src={mobileSearch?close:search_white} alt='search' />
