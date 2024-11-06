@@ -101,7 +101,7 @@ const Header = () => {
       })
       .then((response) => {
         setIsAuthenticated(true);
-        console.log('Успешная аутентификация:', response);
+        console.log('Успешная аутентификация:', response.config.params);
       })
       .catch((error) => {
         console.error('Ошибка при аутентификации:', error);
