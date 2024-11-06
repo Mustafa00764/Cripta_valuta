@@ -103,12 +103,7 @@ const Header = () => {
       .then((response) => {
         setIsAuthenticated(true);
         setUser(response.config.params)
-        console.log('Успешная аутентификация:', response.config.params.id);
-        console.log('Успешная аутентификация:', response.config.params.last_name);
-        console.log('Успешная аутентификация:', response.config.params.photo_url);
-        console.log('Успешная аутентификация:', response.config.params.username);
-        console.log('Успешная аутентификация:', response.config.params.first_name);
-        localStorage.setItem("user", user)
+        console.log('Успешная аутентификация:', response.config.params);
       })
       .catch((error) => {
         console.error('Ошибка при аутентификации:', response.config.params);
