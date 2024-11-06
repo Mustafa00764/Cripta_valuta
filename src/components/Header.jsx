@@ -102,7 +102,12 @@ const Header = () => {
       })
       .then((response) => {
         setIsAuthenticated(true);
-        console.log('Успешная аутентификация:', response.config.params);
+        console.log('Успешная аутентификация:', response.config.params.id);
+        console.log('Успешная аутентификация:', response.config.params.last_name);
+        console.log('Успешная аутентификация:', response.config.params.photo_url);
+        console.log('Успешная аутентификация:', response.config.params.username);
+        console.log('Успешная аутентификация:', response.config.params.first_name);
+
         setUser(response.config.params)
         localStorage.setItem("user",{id:response.config.params.id,last_name:response.config.params.last_name,photo_url:response.config.params.photo_url,username:response.config.params.username,first_name:response.config.params.first_name})
       })
