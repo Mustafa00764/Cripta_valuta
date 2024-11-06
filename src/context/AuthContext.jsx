@@ -9,7 +9,7 @@ const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
 
   useEffect(()=>{
-    localStorage.setItem("user", user)
+    localStorage.setItem("user", JSON.parse(user))
   },[user])
 
   return (
