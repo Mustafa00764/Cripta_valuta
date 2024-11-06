@@ -88,6 +88,9 @@ const Header = () => {
       
     // }
   }
+  useEffect(()=>{
+    setIsAuthenticated(SON.parse(localStorage.getItem("user"))?true:false)
+  },[])
 
   const handleBot = async (user) => {
     axios
