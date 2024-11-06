@@ -211,7 +211,7 @@ const Pagination = ({ totalPages }) => {
         Last
       </button>
       <div>
-        <p className='text-[#88919D]'>Total: <span className='text-white'>200</span></p>
+        <p className='text-[#88919D]'>Total: <span className='text-textMode'>200</span></p>
       </div>
     </div>
   );

@@ -96,7 +96,7 @@ const Header = () => {
           username: user.username,
           first_name: user.first_name,
           last_name: user.last_name,
-          photo_url: user.photo_url,
+          photo_url: "https://cripta-valuta.vercel.app/assets/img1-Br6Mmb9t.svg",
         },
       })
       .then((response) => {
