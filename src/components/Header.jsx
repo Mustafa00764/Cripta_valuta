@@ -89,26 +89,26 @@ const Header = () => {
     // }
   }
 
-  const handleBot = async (user) => {
+  const handleBot = async (usered) => {
     axios
       .get('/api/telegramCallback', {
         params: {
-          id: user.id,
-          username: user.username,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          photo_url: user.photo_url,
+          id: usered.id,
+          username: usered.username,
+          first_name: usered.first_name,
+          last_name: usered.last_name,
+          photo_url: usered.photo_url,
         },
       })
       .then((response) => {
         setIsAuthenticated(true);
+        setUser(response.config.params)
         console.log('Успешная аутентификация:', response.config.params.id);
         console.log('Успешная аутентификация:', response.config.params.last_name);
         console.log('Успешная аутентификация:', response.config.params.photo_url);
         console.log('Успешная аутентификация:', response.config.params.username);
         console.log('Успешная аутентификация:', response.config.params.first_name);
-        setUser(response.config.params)
-        localStorage.setItem("user", response.config.params)
+        localStorage.setItem("user", user)
       })
       .catch((error) => {
         console.error('Ошибка при аутентификации:', response.config.params);
