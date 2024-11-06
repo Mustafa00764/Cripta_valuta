@@ -6,11 +6,12 @@ import LC_logo from '../assets/images/LC_logo.jpeg'
 import moon from '../assets/svg/moon.svg'
 import sun from '../assets/svg/black-sun-with-rays.svg'
 import { AdminContext } from '../context/AdminContext'
+import { AuthContext } from "../context/AuthContext";
 
 const UserMenu = ({hidden}) => {
   const { menu, setMenu } = useContext(MenuContext);
   const {theme, setTheme, toggleTheme} = useContext(AdminContext)
-
+  const {user, setUser} = useContext(AuthContext)
   const mode = () => {
     toggleTheme()
   }
@@ -25,10 +26,10 @@ const UserMenu = ({hidden}) => {
       <div className="w-full h-[110px] p-[24px] border-b-2 border-[#0C1013]">
         <div className=" flex justify-between">
           <div className="flex items-center gap-2 text-white">
-            <img className="w-[60px] h-[60px] rounded-full " src={LC_logo} alt="LC_logo" />
+            <img className="w-[60px] h-[60px] rounded-full " src={user?user.photo_url:""} alt="photo" />
             <p className="text-[22px] flex flex-col">
-              Максим
-              <span className="text-[10px]">@Max00764</span>
+              {user?user.first_name:""}
+              <span className="text-[10px]">@{user?user.username:""}</span>
             </p>
           </div>
           <div>
