@@ -90,7 +90,7 @@ const Header = () => {
 
   const handleBot = async (user) => {
     axios
-      .get('http://154.53.45.100:8080/auth/telegram/callback', {
+      .get('/api/telegramCallback', {
         params: {
           id: user.id,
           username: user.username,
