@@ -13,6 +13,9 @@ export default async function handler(req, res) {
     if (response.data && response.data.user) {
       // Возвращаем клиенту данные пользователя, полученные с бэкенда
       res.status(200).json(response.data.user);
+      console.log('====================================');
+      console.log(response.data.user);
+      console.log('====================================');
     } else {
       res.status(404).json({ success: false, message: 'Пользователь не найден' });
     }
