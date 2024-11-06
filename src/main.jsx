@@ -11,20 +11,23 @@ import AdminProvider from "./context/AdminContext.jsx";
 import { StyledEngineProvider } from '@mui/material/styles';
 import { global } from 'global';
 import SearchProvider from "./context/SearchContext.jsx";
+import AuthProvider from "./context/AuthContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
-      <SearchProvider>
-        <AdminProvider>
-          <MenuProvider>
-            <CryptoProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </CryptoProvider>
-          </MenuProvider>
-        </AdminProvider>
-      </SearchProvider>
+      <AuthProvider>
+        <SearchProvider>
+          <AdminProvider>
+            <MenuProvider>
+              <CryptoProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </CryptoProvider>
+            </MenuProvider>
+          </AdminProvider>
+        </SearchProvider>
+      </AuthProvider>
     </StyledEngineProvider>
   </React.StrictMode>
 );

@@ -13,6 +13,7 @@ import { SearchContext } from '../context/SearchContext'
 import { AdminContext } from '../context/AdminContext'
 import moon from '../assets/svg/moon.svg'
 import sun from '../assets/svg/black-sun-with-rays.svg'
+import { AuthContext } from '../context/AuthContext'
 const Header = () => {
   const { data } = useContext(CryptoContext)
   const TELEGRAM_BOT_USERNAME = 'crypto_test_111_bot';
@@ -21,7 +22,7 @@ const Header = () => {
   const [dmenu, setDmenu] = useState(false);
   const {menu,setMenu} = useContext(MenuContext)
   const {mobileSearch, setMobileSearch} = useContext(SearchContext)
-  const [user, setUser] = useState(null);
+  const {user, setUser} = useContext(AuthContext)
   const {theme, setTheme, toggleTheme} = useContext(AdminContext)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const crypto = [
@@ -102,6 +103,7 @@ const Header = () => {
       .then((response) => {
         setIsAuthenticated(true);
         console.log('Успешная аутентификация:', response.config.params);
+        setUser(response.config.params)
       })
       .catch((error) => {
         console.error('Ошибка при аутентификации:', error);
@@ -116,10 +118,10 @@ const Header = () => {
         <div className="w-full h-[110px] p-[24px] border-b-2 border-[#0C1013]">
         <div className=" flex justify-between">
           <div className="flex items-center gap-2 text-white">
-            <img className="w-[60px] h-[60px] rounded-full " src={LC_logo} alt="LC_logo" />
+            <img className="w-[60px] h-[60px] rounded-full " src={user.photo_url} alt="photo" />
             <p className="text-[22px] flex flex-col">
-              Максим
-              <span className="text-[10px]">@Max00764</span>
+              {user.first_name}
+              <span className="text-[10px]">@{user.username}</span>
             </p>
           </div>
           <div>
@@ -232,9 +234,9 @@ const Header = () => {
             ):(
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
               <div className='w-[50px] h-[50px]'>
-                <img src={LC_logo} alt="LC_logo" className='w-full h-full rounded-full'/>
+                <img src={user.photo_url} alt="photo" className='w-full h-full rounded-full'/>
               </div>
-              <p>Max00764 👨‍💻</p>
+              <p>{user.first_name}{user.last_name?user.last_name:""}</p>
             </div>
             )}
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>
