@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export default async function handler(req, res) {
   const { id, username, first_name, last_name, photo_url } = req.query
-  console.log(req,res);
   
   
   try {
