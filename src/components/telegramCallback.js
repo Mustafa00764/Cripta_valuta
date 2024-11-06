@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export default async function handler(req, res) {
-  const { id, username, first_name, last_name, photo_url } = req.query;
+  const { id, username, first_name, last_name, photo_url } = req.query
+  console.log(req,res);
+  
   
   try {
     // Отправляем запрос на внутренний сервер, передавая параметры пользователя
@@ -13,9 +15,6 @@ export default async function handler(req, res) {
     if (response.data && response.data.user) {
       // Возвращаем клиенту данные пользователя, полученные с бэкенда
       res.status(200).json(response.data.user);
-      console.log('====================================');
-      console.log(response.data);
-      console.log('====================================');
     } else {
       res.status(404).json({ success: false, message: 'Пользователь не найден' });
     }
