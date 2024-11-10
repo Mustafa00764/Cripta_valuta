@@ -92,43 +92,36 @@ const Header = () => {
   useEffect(()=>{
     setIsAuthenticated(JSON.parse(localStorage.getItem("user"))?true:false)
   },[])
-
-
-const handleBot = async (user) => {
-  try {
-    // Отправка данных пользователя на сервер
-    const response = await axios.get('http://154.53.45.100:8080/auth/telegram/callback', {
-      params: {
+  const handleBot = async (user) => {
+    try {
+      // Send user data to server
+      const response = await axios.post('http://154.53.45.100:8080/auth/telegram/callback', {
         id: user.id,
         username: user.username,
         first_name: user.first_name,
         last_name: user.last_name,
         photo_url: user.photo_url,
-      },
-      httpsAgent: new http.Agent({ rejectUnauthorized: false }),  // Отключение проверки SSL для тестов
-    });
+      });
 
-    // Поймать токен из ответа сервера
-    if (response.data && response.data.token) {
-      const token = response.data.token;
-      console.log('Токен получен:', token);
+      // Extract token and user data from response
+      const { token, user: serverUser } = response.data || {};
 
-      // Сохранить токен для последующих запросов
-      localStorage.setItem('authToken', token);
+      if (token) {
+        // Store token in localStorage and set axios authorization header
+        localStorage.setItem('authToken', token);
+        axios.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-      // Настроить заголовки для последующих запросов с токеном
-      axios.defaults.headers['Authorization'] = `Bearer ${token}`;
-
-      // Установить состояние пользователя и аутентификацию
-      setIsAuthenticated(true);
-      setUser(response.data.user);
-    } else {
-      console.log('Токен не найден в ответе', response.data);
+        // Update authentication status and user info
+        setIsAuthenticated(true);
+        setUser(serverUser);
+      } else {
+        console.warn('Token not found in server response:', response.data);
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
+      alert('Failed to authenticate. Please try again.');
     }
-  } catch (error) {
-    console.error('Ошибка при аутентификации:', error);
-  }
-};
+  };
 
 
   
