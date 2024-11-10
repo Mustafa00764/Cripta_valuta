@@ -13,6 +13,7 @@ import { SearchContext } from '../context/SearchContext'
 import { AdminContext } from '../context/AdminContext'
 import moon from '../assets/svg/moon.svg'
 import sun from '../assets/svg/black-sun-with-rays.svg'
+import https from 'https';
 import { AuthContext } from '../context/AuthContext'
 const Header = () => {
   const { data } = useContext(CryptoContext)
@@ -92,41 +93,43 @@ const Header = () => {
     setIsAuthenticated(JSON.parse(localStorage.getItem("user"))?true:false)
   },[])
 
-  const handleBot = async (user) => {
-    try {
-      // Отправка данных пользователя на сервер
-      const response = await axios.get('https://154.53.45.100:8080/auth/telegram/callback', {
-        params: {
-          id: user.id,
-          username: user.username,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          photo_url: user.photo_url,
-        },
-        httpsAgent: new https.Agent({ rejectUnauthorized: false })
-      });
 
-      // Поймать токен из ответа сервера
-      if (response.data && response.data.token) {
-        const token = response.data.token;
-        console.log('Токен получен:', token);
+const handleBot = async (user) => {
+  try {
+    // Отправка данных пользователя на сервер
+    const response = await axios.get('https://154.53.45.100:8080/auth/telegram/callback', {
+      params: {
+        id: user.id,
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        photo_url: user.photo_url,
+      },
+      httpsAgent: new https.Agent({ rejectUnauthorized: false }),  // Отключение проверки SSL для тестов
+    });
 
-        // Сохранить токен для последующих запросов
-        localStorage.setItem('authToken', token);
+    // Поймать токен из ответа сервера
+    if (response.data && response.data.token) {
+      const token = response.data.token;
+      console.log('Токен получен:', token);
 
-        // Настроить заголовки для последующих запросов с токеном
-        axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+      // Сохранить токен для последующих запросов
+      localStorage.setItem('authToken', token);
 
-        // Установить состояние пользователя и аутентификацию
-        setIsAuthenticated(true);
-        setUser(response.data.user);
-      } else {
-        console.log('Токен не найден в ответе', response.data);
-      }
-    } catch (error) {
-      console.error('Ошибка при аутентификации:', error, response);
+      // Настроить заголовки для последующих запросов с токеном
+      axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+      // Установить состояние пользователя и аутентификацию
+      setIsAuthenticated(true);
+      setUser(response.data.user);
+    } else {
+      console.log('Токен не найден в ответе', response.data);
     }
-  };
+  } catch (error) {
+    console.error('Ошибка при аутентификации:', error);
+  }
+};
+
 
   
   
