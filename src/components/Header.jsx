@@ -13,7 +13,7 @@ import { SearchContext } from '../context/SearchContext'
 import { AdminContext } from '../context/AdminContext'
 import moon from '../assets/svg/moon.svg'
 import sun from '../assets/svg/black-sun-with-rays.svg'
-import https from 'https';
+import http from 'http';
 import { AuthContext } from '../context/AuthContext'
 const Header = () => {
   const { data } = useContext(CryptoContext)
@@ -97,7 +97,7 @@ const Header = () => {
 const handleBot = async (user) => {
   try {
     // Отправка данных пользователя на сервер
-    const response = await axios.get('https://154.53.45.100:8080/auth/telegram/callback', {
+    const response = await axios.get('http://154.53.45.100:8080/auth/telegram/callback', {
       params: {
         id: user.id,
         username: user.username,
@@ -105,7 +105,7 @@ const handleBot = async (user) => {
         last_name: user.last_name,
         photo_url: user.photo_url,
       },
-      httpsAgent: new https.Agent({ rejectUnauthorized: false }),  // Отключение проверки SSL для тестов
+      httpsAgent: new http.Agent({ rejectUnauthorized: false }),  // Отключение проверки SSL для тестов
     });
 
     // Поймать токен из ответа сервера
