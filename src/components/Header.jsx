@@ -120,10 +120,10 @@ const Header = () => {
         setIsAuthenticated(true);
         setUser(response.data.user);
       } else {
-        console.log('Токен не найден в ответе');
+        console.log('Токен не найден в ответе', response);
       }
     } catch (error) {
-      console.error('Ошибка при аутентификации:', error);
+      console.error('Ошибка при аутентификации:', error, response);
     }
   };
 
