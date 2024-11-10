@@ -103,6 +103,7 @@ const Header = () => {
           last_name: user.last_name,
           photo_url: user.photo_url,
         },
+        httpsAgent: new https.Agent({ rejectUnauthorized: false })
       });
 
       // Поймать токен из ответа сервера
