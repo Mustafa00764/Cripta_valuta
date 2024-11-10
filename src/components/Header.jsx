@@ -94,6 +94,7 @@ const Header = () => {
 
   const handleBot = async (user) => {
     try {
+      // Отправка данных пользователя на сервер
       const response = await axios.get('/api/telegramCallback', {
         params: {
           id: user.id,
@@ -103,16 +104,30 @@ const Header = () => {
           photo_url: user.photo_url,
         },
       });
-  
-      const { token, user: userData } = response.data;
-      setIsAuthenticated(true);
-      setUser(userData);
-      localStorage.setItem("token", token); // Сохранить токен в localStorage
-      console.log('Успешная аутентификация, токен сохранен');
+
+      // Поймать токен из ответа сервера
+      if (response.data && response.data.token) {
+        const token = response.data.token;
+        console.log('Токен получен:', token);
+
+        // Сохранить токен для последующих запросов
+        localStorage.setItem('authToken', token);
+
+        // Настроить заголовки для последующих запросов с токеном
+        axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+        // Установить состояние пользователя и аутентификацию
+        setIsAuthenticated(true);
+        setUser(response.data.user);
+      } else {
+        console.log('Токен не найден в ответе');
+      }
     } catch (error) {
       console.error('Ошибка при аутентификации:', error);
     }
   };
+
+  
   
 
   return (
