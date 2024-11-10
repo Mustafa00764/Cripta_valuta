@@ -95,7 +95,7 @@ const Header = () => {
   const handleBot = async (user) => {
     try {
       // Send user data to server
-      const response = await axios.get('http://154.53.45.100:8080/auth/telegram/callback', {
+      const response = await axios.get('//154.53.45.100:8080/auth/telegram/callback', {
         params:{
           id: user.id,
           username: user.username,
@@ -103,8 +103,6 @@ const Header = () => {
           last_name:user.last_name,
           photo_url:user.photo_url,
         }
-      },{
-
       });
 
       // Extract token and user data from response
