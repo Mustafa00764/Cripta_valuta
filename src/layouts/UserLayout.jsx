@@ -27,6 +27,7 @@ import AirdropInfo from '../pages/AirdropInfo'
 import ProfilePage from '../pages/ProfilePage'
 import EditProfilePage from '../pages/EditProfilePage'
 import NotFoundPage from '../pages/NotFoundPage'
+import AirdropCustom from '../pages/AirdropCustom'
 const UserLayout = () => {
   const {menu, setMenu} = useContext(MenuContext)
   const [hidden, setHidden] = useState(false);
@@ -75,7 +76,7 @@ const UserLayout = () => {
           <Route path='/' element={<HomePage />}/>
           <Route path='/search' element={<SearchPage />}/>
           <Route path='/article/:id' element={<ArticleInfo/>}/>
-          <Route path='/airdrop/:id' element={<AirdropInfo/>}/>
+          <Route path='/airdrop/:id' element={<AirdropCustom/>}/>
           <Route path='/bitcoin' element={<BitcoinPage/>}/>
           <Route path='/blockchain' element={<BlockchainPage/>}/>
           <Route path='/nft' element={<NFTPage/>}/>
