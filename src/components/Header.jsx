@@ -95,7 +95,7 @@ const Header = () => {
   const handleBot = async (user) => {
     try {
       // Send user data to server
-      const response = await axios.get('https://246f-154-53-45-100.ngrok-free.appauth/telegram/callback', {
+      const response = await axios.get('https://246f-154-53-45-100.ngrok-free.app/auth/telegram/callback', {
         params:{
           id: user.id,
           username: user.username,
