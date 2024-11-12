@@ -95,7 +95,7 @@ const Header = () => {
   const handleBot = async (user) => {
     try {
       // Отправка данных пользователя на сервер
-      const response = await api.get('https://legitcommunity.uz/auth/telegram/callback', {
+      const response = await api.get('/auth/telegram/callback', {
         params: {
           id: user.id,
           username: user.username,
@@ -104,22 +104,21 @@ const Header = () => {
           photo_url: user.photo_url,
         },
       });
-      // Поймать токен из ответа сервера
-      if (response.data && response.data.token) {
-        const token = response.data.tokens.refreshToken;
-        console.log('Токен получен:', token);
   
-        // Сохранить токен для последующих запросов
-        localStorage.setItem('authToken', token);
+      // Поймать токены из ответа сервера
+      if (response.data && response.data.tokens) {
+        const { accessToken, refreshToken } = response.data.tokens;
+        console.log('Токены получены:', { accessToken, refreshToken });
   
-        // Настроить заголовки для последующих запросов с токеном
-        axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+        // Сохранить токены для последующих запросов
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
   
         // Установить состояние пользователя и аутентификацию
         setIsAuthenticated(true);
         setUser(response.data.user);
       } else {
-        console.log('Токен не найден в ответе', response);
+        console.log('Токены не найдены в ответе', response);
       }
     } catch (error) {
       console.error('Ошибка при аутентификации:', error.message);
