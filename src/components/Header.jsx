@@ -23,9 +23,8 @@ const Header = () => {
   const [dmenu, setDmenu] = useState(false);
   const {menu,setMenu} = useContext(MenuContext)
   const {mobileSearch, setMobileSearch} = useContext(SearchContext)
-  const {user, setUser} = useContext(AuthContext)
   const {theme, setTheme, toggleTheme} = useContext(AdminContext)
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin } = useContext(AuthContext);
   const crypto = [
     {
       id: 1,
@@ -78,20 +77,6 @@ const Header = () => {
   //   });
   // };
 
-  const UserId = async ()=>{
-    // try {
-    //   const respons = await axios.get('http://154.53.45.100:3000/users/1')
-    //   setUsers(respons)
-    //   console.log(users);
-      
-    // } catch (error) {
-    //   console.log(error);
-      
-    // }
-  }
-  useEffect(()=>{
-    setIsAuthenticated(JSON.parse(localStorage.getItem("user"))?true:false)
-  },[])
   const handleBot = async (user) => {
     try {
       // Отправка данных пользователя на сервер
@@ -110,7 +95,7 @@ const Header = () => {
         const { accessToken, refreshToken } = response.data.tokens;
         console.log('Токены получены:', { accessToken, refreshToken });
   
-        // Сохранить токены для последующих запросов
+        // Сохранить токены в localStorage
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
   
@@ -124,6 +109,27 @@ const Header = () => {
       console.error('Ошибка при аутентификации:', error.message);
     }
   };
+  
+  // При монтировании компонента проверяем наличие данных в localStorage
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+  
+    if (accessToken && refreshToken) {
+      setIsAuthenticated(true);
+      // Дальше можно сделать запрос, чтобы получить данные пользователя, используя accessToken
+      // Например:
+      api.get('/user/me', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        }
+      }).then(response => {
+        setUser(response.data);
+      }).catch(err => {
+        console.error('Ошибка при получении данных пользователя', err);
+      });
+    }
+  }, []);
   
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>
@@ -248,9 +254,9 @@ const Header = () => {
             ):(
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
               <div className='w-[50px] h-[50px]'>
-                <img src={user?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
+                <img src={user.photo_url} alt="photo" className='w-full h-full rounded-full'/>
               </div>
-              <p>{user?user.first_name:""}{user.last_name?user.last_name:""}</p>
+              <p>{user.first_name}{user.last_name}</p>
             </div>
             )}
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>
