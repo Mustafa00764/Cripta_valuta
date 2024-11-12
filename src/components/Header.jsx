@@ -13,7 +13,7 @@ import { SearchContext } from '../context/SearchContext'
 import { AdminContext } from '../context/AdminContext'
 import moon from '../assets/svg/moon.svg'
 import sun from '../assets/svg/black-sun-with-rays.svg'
-import http from 'http';
+import api from '../components/axiosRefresh'
 import { AuthContext } from '../context/AuthContext'
 const Header = () => {
   const { data } = useContext(CryptoContext)
@@ -95,7 +95,7 @@ const Header = () => {
   const handleBot = async (user) => {
     try {
       // Отправка данных пользователя на сервер
-      const response = await axios.get('https://legitcommunity.uz/auth/telegram/callback', {
+      const response = await api.get('https://legitcommunity.uz/auth/telegram/callback', {
         params: {
           id: user.id,
           username: user.username,
@@ -104,10 +104,9 @@ const Header = () => {
           photo_url: user.photo_url,
         },
       });
-  
       // Поймать токен из ответа сервера
       if (response.data && response.data.token) {
-        const token = response.data.token;
+        const token = response.data.tokens.refreshToken;
         console.log('Токен получен:', token);
   
         // Сохранить токен для последующих запросов
@@ -127,11 +126,6 @@ const Header = () => {
     }
   };
   
-
-
-  
-  
-
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>
       <div className='container'>
