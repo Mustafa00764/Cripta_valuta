@@ -130,7 +130,6 @@ const Header = () => {
 
   // Получение данных пользователя при загрузке компонента
   useEffect(() => {
-    const fetchUserData = async () => {
       const accessToken = localStorage.getItem('accessToken');
       const userId = localStorage.getItem('userId');
 
@@ -168,9 +167,6 @@ const Header = () => {
           }
         }
       }
-    };
-
-    fetchUserData();
   }, []);
   
   
