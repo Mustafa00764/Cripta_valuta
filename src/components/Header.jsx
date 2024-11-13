@@ -159,7 +159,11 @@ const Header = () => {
     const userId = localStorage.getItem('userId');
     if (accessToken && userId) {
       try {
-        const response = api.get(`/users/:${userId}`);
+        const response = axios.get(`https://legitcommunity.uz/users/:${userId}`,{
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          }
+        });
         setUser(response.data);
         console.log(response);
         console.log(1);
