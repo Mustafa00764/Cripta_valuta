@@ -93,7 +93,7 @@ const Header = () => {
       // Поймать токены из ответа сервера
       if (response.data && response.data.tokens) {
         const { accessToken, refreshToken } = response.data.tokens;
-        console.log('Токены получены:', response);
+        console.log('Токены получены:', response, response.data.user);
   
         // Сохранить токены в localStorage
         localStorage.setItem('accessToken', accessToken);
