@@ -5,11 +5,11 @@ const api = axios.create({
   baseURL: 'https://legitcommunity.uz',
 });
 
-// Интерцептор для добавления `accessToken` к каждому запросу
+// Интерцептор для добавления accessToken к каждому запросу
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('accessToken');
   if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+    config.headers['Authorization'] = `Bearer ${token}`; // Используем обратные кавычки для строки
   }
   return config;
 }, (error) => {
@@ -32,11 +32,11 @@ api.interceptors.response.use(
           throw new Error("Refresh token отсутствует");
         }
 
-        // Отправляем запрос на обновление `accessToken` с `refreshToken`
+        // Отправляем запрос на обновление accessToken с refreshToken
         const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { token: refreshToken });
         const newAccessToken = response.data.accessToken;
 
-        // Сохраняем новый `accessToken` в localStorage
+        // Сохраняем новый accessToken в localStorage
         localStorage.setItem('accessToken', newAccessToken);
 
         // Добавляем новый токен к заголовкам исходного запроса и повторяем его
@@ -56,4 +56,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api
+export default api;
