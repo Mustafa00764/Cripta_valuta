@@ -93,7 +93,7 @@ const Header = () => {
       // Поймать токены из ответа сервера
       if (response.data && response.data.tokens) {
         const { accessToken, refreshToken } = response.data.tokens;
-        console.log('Токены получены:', { accessToken, refreshToken });
+        console.log('Токены получены:', response);
   
         // Сохранить токены в localStorage
         localStorage.setItem('accessToken', accessToken);
@@ -254,7 +254,7 @@ const Header = () => {
             ):(
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
               <div className='w-[50px] h-[50px]'>
-                <img src={user.first_name?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
+                <img src={user.photo_url?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
               </div>
               <p>{user.first_name?user.first_name:""}{user.last_name?user.last_name:""}</p>
             </div>
