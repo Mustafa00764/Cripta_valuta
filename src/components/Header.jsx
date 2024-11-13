@@ -136,11 +136,7 @@ const Header = () => {
     
     if (accessToken && userId) {
       try {
-        const response = await api.get(`/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await api.get(`/users/${userId}`);
         setUser(response.data.user);
         console.log(response.data.user);
         setIsAuthenticated(true);
