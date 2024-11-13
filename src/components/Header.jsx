@@ -121,7 +121,7 @@ const Header = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setUser(response.data);
+        setUser(response.data.user);
         setIsAuthenticated(true);
       } catch (error) {
         // Если accessToken истек, пробуем обновить его с помощью refreshToken
