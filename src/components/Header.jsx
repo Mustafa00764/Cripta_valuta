@@ -162,7 +162,7 @@ const Header = () => {
         const response = api.get(`/users/${userId}`);
         setUser(response.data);
         console.log(response);
-        
+        console.log(1);
         setIsAuthenticated(true);
       } catch (error) {
         // Если accessToken истек, пробуем обновить его с помощью refreshToken
@@ -173,7 +173,7 @@ const Header = () => {
         }
       }
     }
-    fetchUserData();
+    // fetchUserData();
   }, []);
   
   
