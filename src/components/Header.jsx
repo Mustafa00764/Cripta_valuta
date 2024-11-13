@@ -97,6 +97,8 @@ const Header = () => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('userId', userId);
+        console.log(response);
+        
 
         // Устанавливаем состояние авторизации и данные пользователя
         setIsAuthenticated(true);
@@ -116,11 +118,7 @@ const Header = () => {
 
     if (accessToken && userId) {
       try {
-        const response = await api.get(`/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = api.get(`/users/${userId}`);
         setUser(response.data.user);
         setIsAuthenticated(true);
       } catch (error) {
@@ -157,6 +155,24 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const userId = localStorage.getItem('userId');
+    if (accessToken && userId) {
+      try {
+        const response = api.get(`/users/${userId}`);
+        setUser(response.data.user);
+        console.log(response);
+        
+        setIsAuthenticated(true);
+      } catch (error) {
+        // Если accessToken истек, пробуем обновить его с помощью refreshToken
+        if (error.response && error.response.status === 401) {
+         refreshAccessToken();
+        } else {
+          console.error('Ошибка при получении данных пользователя', error);
+        }
+      }
+    }
     fetchUserData();
   }, []);
   
