@@ -118,7 +118,7 @@ const Header = () => {
 
     if (accessToken && userId) {
       try {
-        const response = api.get(`/users/${userId}`);
+        const response = api.get(`/users/:${userId}`);
         setUser(response.data);
         setIsAuthenticated(true);
       } catch (error) {
@@ -159,7 +159,7 @@ const Header = () => {
     const userId = localStorage.getItem('userId');
     if (accessToken && userId) {
       try {
-        const response = api.get(`/users/${userId}`);
+        const response = api.get(`/users/:${userId}`);
         setUser(response.data);
         console.log(response);
         console.log(1);
