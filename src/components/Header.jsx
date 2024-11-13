@@ -19,7 +19,7 @@ const Header = () => {
   const { data } = useContext(CryptoContext)
   const TELEGRAM_BOT_USERNAME = 'crypto_test_111_bot';
   const [message, setMessage] = useState('Processing...');
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(null);
   const [dmenu, setDmenu] = useState(false);
   const {menu,setMenu} = useContext(MenuContext)
   const {mobileSearch, setMobileSearch} = useContext(SearchContext)
@@ -76,8 +76,13 @@ const Header = () => {
   //     console.error('Ошибка:', error);
   //   });
   // };
-
   const handleBot = async (userData) => {
+    // Проверяем, что все данные пользователя присутствуют
+    if (!userData || !userData.id || !userData.username) {
+      console.error('Ошибка: данные пользователя отсутствуют');
+      return;
+    }
+
     try {
       const response = await api.get('/auth/telegram/callback', {
         params: {
@@ -97,8 +102,6 @@ const Header = () => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('userId', userId);
-        console.log(response);
-        
 
         // Устанавливаем состояние авторизации и данные пользователя
         setIsAuthenticated(true);
@@ -111,17 +114,21 @@ const Header = () => {
     }
   };
 
-  // Функция для получения данных пользователя
+  // Получение данных пользователя при загрузке компонента
   const fetchUserData = async () => {
+    const accessToken = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
-  
-    if (userId) {
+
+    if (accessToken && userId) {
       try {
-        const response = await api.get(`/users/${userId}`); // Динамически подставляем userId в URL
+        const response = await api.get(`/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
         setUser(response.data);
         setIsAuthenticated(true);
       } catch (error) {
-        // Если accessToken истек, пробуем обновить его с помощью refreshToken
         if (error.response && error.response.status === 401) {
           await refreshAccessToken();
         } else {
@@ -140,13 +147,12 @@ const Header = () => {
       if (response.data && response.data.accessToken) {
         const newAccessToken = response.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
-        fetchUserData(); // Повторно пытаемся получить данные пользователя с новым токеном
+        fetchUserData();
       } else {
         console.error('Ошибка обновления accessToken');
       }
     } catch (error) {
       console.error('Ошибка при обновлении токена:', error);
-      // Очистка токенов и перенаправление на страницу входа
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       window.location.href = '/login';
@@ -154,27 +160,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    const userId = localStorage.getItem('userId');
-    if (accessToken && userId) {
-      try {
-        const response = api.get(`/users/:${userId}`);
-        setUser(response.data);
-        console.log(response);
-        console.log(1);
-        setIsAuthenticated(true);
-      } catch (error) {
-        // Если accessToken истек, пробуем обновить его с помощью refreshToken
-        if (error.response && error.response.status === 401) {
-         refreshAccessToken();
-        } else {
-          console.error('Ошибка при получении данных пользователя', error);
-        }
-      }
-    }
-    // fetchUserData();
+    fetchUserData();
   }, []);
-  
+
   
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>
