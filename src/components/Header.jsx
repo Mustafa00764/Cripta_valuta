@@ -142,6 +142,8 @@ const Header = () => {
             },
           });
           setUser(response.data.user);
+          console.log(response.data.user);
+          
           setIsAuthenticated(true);
         } catch (error) {
           // Если accessToken истек, пробуем обновить его с помощью refreshToken
