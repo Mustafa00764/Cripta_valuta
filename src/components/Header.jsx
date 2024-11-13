@@ -109,6 +109,9 @@ const Header = () => {
         // Успешно получили данные пользователя
         setUser(response.data);
         setIsAuthenticated(true);
+        console.log('====================================');
+        console.log(response);
+        console.log('====================================');
       } catch (error) {
         // Если токен истек, пробуем обновить его с помощью refreshToken
         if (error.response && error.response.status === 401 && refreshToken) {
