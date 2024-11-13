@@ -14,7 +14,12 @@ import { AdminContext } from '../context/AdminContext'
 import moon from '../assets/svg/moon.svg'
 import sun from '../assets/svg/black-sun-with-rays.svg'
 import { AuthContext } from '../context/AuthContext'
-import api from "../components/axiosRefresh"
+// import api from "../components/axiosRefresh"
+const api = axios.create({
+  baseURL: 'https://legitcommunity.uz', // URL вашего сервера
+});
+
+
 const Header = () => {
   const { data } = useContext(CryptoContext)
   const TELEGRAM_BOT_USERNAME = 'crypto_test_111_bot';
@@ -76,13 +81,60 @@ const Header = () => {
   //     console.error('Ошибка:', error);
   //   });
   // };
-  const handleBot = async (userData) => {
-    // Проверяем, что все данные пользователя присутствуют
-    if (!userData || !userData.id || !userData.username) {
-      console.error('Ошибка: данные пользователя отсутствуют');
-      return;
-    }
+  const restoreSession = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    const userId = localStorage.getItem('userId');
 
+    if (accessToken && userId) {
+      try {
+        const response = await api.get(`/users/${userId}`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        setUser(response.data);
+        setIsAuthenticated(true);
+      } catch (error) {
+        // Если токен истек, пробуем обновить его с помощью refreshToken
+        if (error.response && error.response.status === 401 && refreshToken) {
+          const newAccessToken = await refreshAccessToken(refreshToken);
+          if (newAccessToken) {
+            try {
+              const response = await api.get(`/users/${userId}`, {
+                headers: { Authorization: `Bearer ${newAccessToken}` },
+              });
+
+              setUser(response.data);
+              setIsAuthenticated(true);
+            } catch (err) {
+              console.error('Ошибка при восстановлении данных пользователя', err);
+            }
+          }
+        }
+      }
+    }
+  };
+
+  // Функция обновления accessToken с использованием refreshToken
+  const refreshAccessToken = async (refreshToken) => {
+    try {
+      const response = await api.post('/auth/refresh-token', { token: refreshToken });
+      const newAccessToken = response.data.accessToken;
+
+      // Сохраняем новый accessToken в localStorage
+      localStorage.setItem('accessToken', newAccessToken);
+      return newAccessToken;
+    } catch (error) {
+      console.error('Ошибка обновления токена:', error);
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      window.location.href = '/login'; // Перенаправление на страницу входа
+    }
+    return null;
+  };
+
+  // Обработчик успешной авторизации через Telegram
+  const handleBot = async (userData) => {
     try {
       const response = await api.get('/auth/telegram/callback', {
         params: {
@@ -96,16 +148,14 @@ const Header = () => {
 
       if (response.data && response.data.tokens) {
         const { accessToken, refreshToken } = response.data.tokens;
-        const userId = response.data.user.id;
 
-        // Сохраняем токены и userId в localStorage
+        // Сохраняем токены и данные пользователя в localStorage
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('userId', userId);
+        localStorage.setItem('userId', response.data.user.id);
 
-        // Устанавливаем состояние авторизации и данные пользователя
-        setIsAuthenticated(true);
         setUser(response.data.user);
+        setIsAuthenticated(true);
       } else {
         console.log('Токены не найдены в ответе', response);
       }
@@ -114,53 +164,25 @@ const Header = () => {
     }
   };
 
-  // Получение данных пользователя при загрузке компонента
-  const fetchUserData = async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    const userId = localStorage.getItem('userId');
-
-    if (accessToken && userId) {
-      try {
-        const response = await api.get(`/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setUser(response.data);
-        setIsAuthenticated(true);
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          await refreshAccessToken();
-        } else {
-          console.error('Ошибка при получении данных пользователя', error);
+  // Автоматическое обновление токена через каждые 15 минут
+  const autoRefreshToken = () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (refreshToken) {
+      setInterval(async () => {
+        const newAccessToken = await refreshAccessToken(refreshToken);
+        if (newAccessToken) {
+          console.log('Токен обновлен автоматически');
         }
-      }
-    }
-  };
-
-  // Функция для обновления accessToken с использованием refreshToken
-  const refreshAccessToken = async () => {
-    try {
-      const refreshToken = localStorage.getItem('refreshToken');
-      const response = await api.post('/auth/refresh-token', { token: refreshToken });
-
-      if (response.data && response.data.accessToken) {
-        const newAccessToken = response.data.accessToken;
-        localStorage.setItem('accessToken', newAccessToken);
-        fetchUserData();
-      } else {
-        console.error('Ошибка обновления accessToken');
-      }
-    } catch (error) {
-      console.error('Ошибка при обновлении токена:', error);
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      window.location.href = '/login';
+      }, 15 * 60 * 1000); // 15 минут в миллисекундах
     }
   };
 
   useEffect(() => {
-    fetchUserData();
+    // Восстанавливаем сессию при загрузке компонента
+    restoreSession();
+
+    // Настроить автообновление токена, если есть refreshToken
+    autoRefreshToken();
   }, []);
 
   
