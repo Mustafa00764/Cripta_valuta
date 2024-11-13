@@ -22,7 +22,7 @@ const api = axios.create({
 // Функция для обновления accessToken с использованием refreshToken
 const refreshAccessToken = async (refreshToken) => {
   try {
-    const response = await axios.post('https://legitcommunity.uz/auth/refreshToken', { token: refreshToken });
+    const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
     const newAccessToken = response.data.accessToken;
     localStorage.setItem('accessToken', newAccessToken);
     return newAccessToken;
