@@ -132,7 +132,8 @@ const Header = () => {
   const fetchUserData = async () => {
     const accessToken = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
-
+    console.log(accessToken,userId);
+    
     if (accessToken && userId) {
       try {
         const response = await api.get(`/users/${userId}`, {
@@ -142,7 +143,6 @@ const Header = () => {
         });
         setUser(response.data.user);
         console.log(response.data.user);
-        
         setIsAuthenticated(true);
       } catch (error) {
         // Если accessToken истек, пробуем обновить его с помощью refreshToken
@@ -156,7 +156,8 @@ const Header = () => {
                   Authorization: `Bearer ${newAccessToken}`,
                 },
               });
-              setUser(response.data);
+              setUser(response.data.user);
+              console.log(response.data.user);
               setIsAuthenticated(true);
             } catch (err) {
               console.error('Ошибка при повторном получении данных пользователя', err);
