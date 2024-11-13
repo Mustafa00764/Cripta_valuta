@@ -79,7 +79,6 @@ const Header = () => {
 
   const handleBot = async (user) => {
     try {
-      // Отправка данных пользователя на сервер
       const response = await api.get('/auth/telegram/callback', {
         params: {
           id: user.id,
@@ -89,17 +88,17 @@ const Header = () => {
           photo_url: user.photo_url,
         },
       });
-  
-      // Поймать токены из ответа сервера
+
       if (response.data && response.data.tokens) {
         const { accessToken, refreshToken } = response.data.tokens;
-        console.log('Токены получены:', response, response.data.user);
-  
-        // Сохранить токены в localStorage
+        const userId = response.data.user.id;
+
+        // Сохраняем токены и userId в localStorage
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-  
-        // Установить состояние пользователя и аутентификацию
+        localStorage.setItem('userId', userId);
+
+        // Устанавливаем состояние авторизации и данные пользователя
         setIsAuthenticated(true);
         setUser(response.data.user);
       } else {
@@ -109,27 +108,69 @@ const Header = () => {
       console.error('Ошибка при аутентификации:', error.message);
     }
   };
-  
-  // При монтировании компонента проверяем наличие данных в localStorage
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
-  
-    if (accessToken && refreshToken) {
-      setIsAuthenticated(true);
-      // Дальше можно сделать запрос, чтобы получить данные пользователя, используя accessToken
-      // Например:
-      api.get(`/users/${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        }
-      }).then(response => {
-        setUser(response.data);
-      }).catch(err => {
-        console.error('Ошибка при получении данных пользователя', err);
-      });
+
+  // Функция для обновления accessToken с использованием refreshToken
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken');
+      const response = await api.post('/auth/refresh-token', { refreshToken });
+
+      if (response.data && response.data.accessToken) {
+        const newAccessToken = response.data.accessToken;
+        localStorage.setItem('accessToken', newAccessToken);
+        return newAccessToken;
+      } else {
+        console.error('Ошибка обновления accessToken');
+      }
+    } catch (error) {
+      console.error('Ошибка при обновлении токена:', error);
     }
+    return null;
+  };
+
+  // Получение данных пользователя при загрузке компонента
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+      const userId = localStorage.getItem('userId');
+
+      if (accessToken && userId) {
+        try {
+          const response = await api.get(`/users/${userId}`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          setUser(response.data);
+          setIsAuthenticated(true);
+        } catch (error) {
+          // Если accessToken истек, пробуем обновить его с помощью refreshToken
+          if (error.response && error.response.status === 401) {
+            const newAccessToken = await refreshAccessToken();
+            if (newAccessToken) {
+              try {
+                // Повторный запрос с новым accessToken
+                const response = await api.get(`/users/${userId}`, {
+                  headers: {
+                    Authorization: `Bearer ${newAccessToken}`,
+                  },
+                });
+                setUser(response.data);
+                setIsAuthenticated(true);
+              } catch (err) {
+                console.error('Ошибка при повторном получении данных пользователя', err);
+              }
+            }
+          } else {
+            console.error('Ошибка при получении данных пользователя', error);
+          }
+        }
+      }
+    };
+
+    fetchUserData();
   }, []);
+  
   
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>

@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+// Настройка экземпляра axios для API запросов
 const api = axios.create({
-  baseURL: 'https://legitcommunity.uz', 
+  baseURL: 'https://legitcommunity.uz',
 });
 
 // Интерцептор для добавления `accessToken` к каждому запросу
@@ -47,7 +48,7 @@ api.interceptors.response.use(
         // Очистка токенов и перенаправление на страницу входа при ошибке
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+        window.location.href = '/login'; // или показать уведомление, а затем перенаправить
       }
     }
 
