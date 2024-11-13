@@ -77,15 +77,15 @@ const Header = () => {
   //   });
   // };
 
-  const handleBot = async (user) => {
+  const handleBot = async (userData) => {
     try {
       const response = await api.get('/auth/telegram/callback', {
         params: {
-          id: user.id,
-          username: user.username,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          photo_url: user.photo_url,
+          id: userData.id,
+          username: userData.username,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
+          photo_url: userData.photo_url,
         },
       });
 
@@ -109,60 +109,50 @@ const Header = () => {
     }
   };
 
+  // Функция для получения данных пользователя
+  const fetchUserData = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const userId = localStorage.getItem('userId');
+
+    if (accessToken && userId) {
+      try {
+        const response = await api.get(`/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setUser(response.data);
+        setIsAuthenticated(true);
+      } catch (error) {
+        // Если accessToken истек, пробуем обновить его с помощью refreshToken
+        if (error.response && error.response.status === 401) {
+          await refreshAccessToken();
+        } else {
+          console.error('Ошибка при получении данных пользователя', error);
+        }
+      }
+    }
+  };
+
   // Функция для обновления accessToken с использованием refreshToken
   const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken');
-      const response = await api.post('/auth/refresh-token', { refreshToken });
+      const response = await api.post('/auth/refresh-token', { token: refreshToken });
 
       if (response.data && response.data.accessToken) {
         const newAccessToken = response.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
-        return newAccessToken;
+        fetchUserData(); // Повторно пытаемся получить данные пользователя с новым токеном
       } else {
         console.error('Ошибка обновления accessToken');
       }
     } catch (error) {
       console.error('Ошибка при обновлении токена:', error);
-    }
-    return null;
-  };
-
-  // Получение данных пользователя при загрузке компонента
-  const fetchUserData = async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    const userId = localStorage.getItem('userId');
-    console.log(accessToken,userId);
-    
-    if (accessToken && userId) {
-      try {
-        const response = await api.get(`/users/${userId}`);
-        setUser(response.data.user);
-        console.log(response.data.user);
-        setIsAuthenticated(true);
-      } catch (error) {
-        // Если accessToken истек, пробуем обновить его с помощью refreshToken
-        if (error.response && error.response.status === 401) {
-          const newAccessToken = await refreshAccessToken();
-          if (newAccessToken) {
-            try {
-              // Повторный запрос с новым accessToken
-              const response = await api.get(`/users/${userId}`, {
-                headers: {
-                  Authorization: `Bearer ${newAccessToken}`,
-                },
-              });
-              setUser(response.data.user);
-              console.log(response.data.user);
-              setIsAuthenticated(true);
-            } catch (err) {
-              console.error('Ошибка при повторном получении данных пользователя', err);
-            }
-          }
-        } else {
-          console.error('Ошибка при получении данных пользователя', error);
-        }
-      }
+      // Очистка токенов и перенаправление на страницу входа
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      window.location.href = '/login';
     }
   };
 
