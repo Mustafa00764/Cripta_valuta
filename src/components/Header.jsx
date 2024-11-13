@@ -129,44 +129,48 @@ const Header = () => {
   };
 
   // Получение данных пользователя при загрузке компонента
-  useEffect(() => {
-      const accessToken = localStorage.getItem('accessToken');
-      const userId = localStorage.getItem('userId');
+  const fetchUserData = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const userId = localStorage.getItem('userId');
 
-      if (accessToken && userId) {
-        try {
-          const response = await api.get(`/users/${userId}`, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-          setUser(response.data.user);
-          console.log(response.data.user);
-          
-          setIsAuthenticated(true);
-        } catch (error) {
-          // Если accessToken истек, пробуем обновить его с помощью refreshToken
-          if (error.response && error.response.status === 401) {
-            const newAccessToken = await refreshAccessToken();
-            if (newAccessToken) {
-              try {
-                // Повторный запрос с новым accessToken
-                const response = await api.get(`/users/${userId}`, {
-                  headers: {
-                    Authorization: `Bearer ${newAccessToken}`,
-                  },
-                });
-                setUser(response.data);
-                setIsAuthenticated(true);
-              } catch (err) {
-                console.error('Ошибка при повторном получении данных пользователя', err);
-              }
+    if (accessToken && userId) {
+      try {
+        const response = await api.get(`/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setUser(response.data.user);
+        console.log(response.data.user);
+        
+        setIsAuthenticated(true);
+      } catch (error) {
+        // Если accessToken истек, пробуем обновить его с помощью refreshToken
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken();
+          if (newAccessToken) {
+            try {
+              // Повторный запрос с новым accessToken
+              const response = await api.get(`/users/${userId}`, {
+                headers: {
+                  Authorization: `Bearer ${newAccessToken}`,
+                },
+              });
+              setUser(response.data);
+              setIsAuthenticated(true);
+            } catch (err) {
+              console.error('Ошибка при повторном получении данных пользователя', err);
             }
-          } else {
-            console.error('Ошибка при получении данных пользователя', error);
           }
+        } else {
+          console.error('Ошибка при получении данных пользователя', error);
         }
       }
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
   }, []);
   
   
