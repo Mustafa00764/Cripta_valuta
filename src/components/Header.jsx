@@ -254,9 +254,9 @@ const Header = () => {
             ):(
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
               <div className='w-[50px] h-[50px]'>
-                <img src={user.photo_url} alt="photo" className='w-full h-full rounded-full'/>
+                <img src={user.photo_url?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
               </div>
-              <p>{user.firstName}{""}</p>
+              <p>{user.firstName?user.firstName:""}{""}</p>
             </div>
             )}
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>
