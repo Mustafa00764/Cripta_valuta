@@ -183,6 +183,10 @@ const Header = () => {
 
     // Настроить автообновление токена, если есть refreshToken
     autoRefreshToken();
+
+
+    console.log(user);
+    
   }, []);
 
   
