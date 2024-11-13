@@ -119,7 +119,7 @@ const Header = () => {
     if (accessToken && userId) {
       try {
         const response = api.get(`/users/${userId}`);
-        setUser(response.data.user);
+        setUser(response.data);
         setIsAuthenticated(true);
       } catch (error) {
         // Если accessToken истек, пробуем обновить его с помощью refreshToken
@@ -160,7 +160,7 @@ const Header = () => {
     if (accessToken && userId) {
       try {
         const response = api.get(`/users/${userId}`);
-        setUser(response.data.user);
+        setUser(response.data);
         console.log(response);
         
         setIsAuthenticated(true);
