@@ -119,7 +119,7 @@ const Header = () => {
       setIsAuthenticated(true);
       // Дальше можно сделать запрос, чтобы получить данные пользователя, используя accessToken
       // Например:
-      api.get('/user/me', {
+      api.get(`/users/${user.id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         }
