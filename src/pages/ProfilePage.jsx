@@ -21,11 +21,11 @@ const ProfilePage = () => {
                 <img src={user?user.photo_url:""} alt="" className='border border-[#494E5B] rounded-[10px]'/>
               </div>
               <div className=' text-[24px] font-semibold text-center'>
-                <p>{user.username?user.username:"User"}</p>
+                <p>{user?user.username:"User"}</p>
               </div>
               <div className='hidden md:flex flex-col gap-5 text-center'>
                 <div className=''>
-                  <p className='text-[32px] font-semibold leading-[32px] break-words'>{user.firstName?user.firstName:"User"}</p>
+                  <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
                 </div>
                 <Link to={'/settings/profile'} className='w-full flex'>
                   <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
@@ -45,7 +45,7 @@ const ProfilePage = () => {
                   </div>
                   <div className='flex items-center gap-2 '>
                     <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                    <p>{user.status?user.status:""}</p>
+                    <p>{user?user.status:""}</p>
                   </div>
                 </div>
               </div>
