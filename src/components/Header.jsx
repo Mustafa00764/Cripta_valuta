@@ -102,7 +102,7 @@ const Header = () => {
 
     if (accessToken && userId) {
       try {
-        const response = await api.get(`https://legitcommunity.uz/users/${userId}`, {
+        const response = await axios.get(`https://legitcommunity.uz/users/${userId}`, {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
