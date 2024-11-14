@@ -28,7 +28,7 @@ const UserMenu = ({hidden}) => {
           <div className="flex items-center gap-2 text-white">
             <img className="w-[60px] h-[60px] rounded-full " src={user?user.photo_url:""} alt="photo" />
             <p className="text-[22px] flex flex-col">
-              {user?user.first_name:""}
+              {user?user.firstName:""}
               <span className="text-[10px]">@{user?user.username:""}</span>
             </p>
           </div>
