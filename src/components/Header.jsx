@@ -96,7 +96,7 @@ const Header = () => {
   // };
    // Функция для восстановления состояния сессии
    const restoreSession = async () => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');  
     const refreshToken = localStorage.getItem('refreshToken');
     const userId = localStorage.getItem('userId');
 
@@ -109,9 +109,7 @@ const Header = () => {
         // Успешно получили данные пользователя
         setUser(response.data);
         setIsAuthenticated(true);
-        console.log('====================================');
         console.log(response);
-        console.log('====================================');
       } catch (error) {
         // Если токен истек, пробуем обновить его с помощью refreshToken
         if (error.response && error.response.status === 401 && refreshToken) {
@@ -179,7 +177,7 @@ const Header = () => {
           <div className="flex items-center gap-2 text-white">
             <img className="w-[60px] h-[60px] rounded-full " src={user?user.photo_url:""} alt="photo" />
             <p className="text-[22px] flex flex-col">
-              {user?user.first_name:""}
+              {user?user.firstName:""}
               <span className="text-[10px]">@{user?user.username:""}</span>
             </p>
           </div>
