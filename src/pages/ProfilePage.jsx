@@ -64,7 +64,7 @@ const ProfilePage = () => {
             </div>
             <div className='py-5 w-auto pr-5 pl-[30px] md:pl-0 flex flex-col gap-[10px]'>
               <div className='md:hidden'>
-                <p className='text-[32px] font-semibold leading-[32px] break-words'>Максим</p>
+                <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
               </div>
               <div>
                 <p>Я фронтенд разработчик с 3-х летним опытом знаю React.js, JavaScript, HTML, CSS, SCSS, SASS, Tailwind css, TypeScript и многое другое. Также я умею работать с API и Git и могу создать вам рабочий сайт который вам точно понравится.</p>
