@@ -112,7 +112,7 @@ const EditProfilePage = () => {
 
     // Сначала отправляем изображения на /upload
     const formData = new FormData();
-    formData.append("image1", photo);
+    formData.append("image1", croppedImage);
     formData.append("image2", posterPhoto);
 
     try {
@@ -155,14 +155,14 @@ const EditProfilePage = () => {
   }
   return (
     <div className='w-full'>
-      <div className="mx-auto max-w-[988px] py-5 px-3">
+      <div className="mx-auto max-w-[1012px] w-full py-5 px-3">
         <div className='mt-5'>
           <p className='text-[32px] text-textMode font-semibold leading-[42px] md:text-[24px] md:leading-[32px]'>Настройки</p>
         </div>
         <div className='flex w-full'>
-        <div className='flex max-w-[660px] w-full flex-col border text-textMode bg-bgMode border-[#494E5B] py-[15px] px-6 rounded-[6px] mt-5'>
+        <div className='flex max-w-[684px] w-full flex-col border text-textMode bg-bgMode border-[#494E5B] py-[15px] px-6 rounded-[6px] mt-5'>
           <form className='w-full h-auto' onSubmit={handleSubmit}>
-            <div className='flex w-full gap-4 md:flex-col'>
+            <div className='flex w-full mb-[15px] gap-4 md:flex-col'>
               <div className='flex flex-col w-full' onMouseOver={()=>hint('name','over')} onMouseOut={()=>hint('name','out')}>
                 <label htmlFor="name" className='text-[14px] font-semibold leading-6'>Name</label>
                 <input type="text" required id='name' onChange={(e)=>setName(e.target.value)} minLength={3} defaultValue={user?user.firstName:""} placeholder='Enter your name' className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
@@ -172,9 +172,9 @@ const EditProfilePage = () => {
                 <input type="text" id='username' value={user?user.username:""} readOnly className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
               </div>
             </div>
-            <div className={` mt-[15px] flex flex-wrap gap-4 transition-all`} onMouseOver={()=>hint('photo','over')} onMouseOut={()=>hint('photo','out')}>
+            <label htmlFor="photo" className='text-[14px] relative font-semibold leading-6'>Photo</label>
+            <div className={` flex gap-4 flex-wrap transition-all items-center`} onMouseOver={()=>hint('photo','over')} onMouseOut={()=>hint('photo','out')}>
             <div>
-            <label htmlFor="photo" className='text-[14px] font-semibold leading-6'>Photo</label>
             <label htmlFor="photo" style={{backgroundImage: user ? `url(${user.photo_url})` : ``}} className={` w-[200px] [&>svg]:hover:opacity-[1] cursor-pointer h-[200px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-[12px] border border-[#262E34]`}>
               <input type="file" id='photo' accept='image/*' required onChange={(e)=> handleImageUpload(e,setPhoto)} name='poster' className=' w-0 h-0'/>
               <svg className={photo?" opacity-0 transition-all md:hidden":"md:hidden"} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,7 +185,7 @@ const EditProfilePage = () => {
               </svg>
             </label>
             </div>
-            <div className={`w-full flex-wrap ${photo != LC_logo && photo != undefined ?"flex":"hidden"} gap-4`}>
+            <div className={` flex-wrap ${photo != LC_logo && photo != undefined ?"flex":"hidden"} gap-4`}>
               {photo != LC_logo && (
                 <div className="relative w-[200px] h-[200px] rounded-[12px] overflow-hidden">
                 <Cropper
