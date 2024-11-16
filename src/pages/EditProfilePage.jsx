@@ -183,7 +183,7 @@ const EditProfilePage = () => {
             </label>
             </div>
             <div className={`w-full flex-wrap ${photo != LC_logo && photo != undefined ?"flex":"hidden"} gap-4`}>
-              {photo !== LC_logo && (
+              {photo !== user.photo_url && (
                 <div className="relative w-[200px] h-[200px] rounded-[12px] overflow-hidden">
                 <Cropper
                   image={photo}
@@ -197,7 +197,7 @@ const EditProfilePage = () => {
                 </div>
               )}
 
-              {photo !== LC_logo && (
+              {photo !== user.photo_url && (
                 <div className="flex w-[200px] relative h-[200px] canvased">
                   <canvas ref={previewCanvasRef} className="w-full h-full rounded-[12px] border border-[#262E34]" />
                 </div>
