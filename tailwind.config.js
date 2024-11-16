@@ -58,6 +58,8 @@ export default {
       'xs': {'max': '1130px'},
       // => @media (max-width: 1023px) { ... }
 
+      'rs': {'max': '1012px'},
+
       'ml': {'max': '960px'},
       // => @media (max-width: 1300px) { ... }
 

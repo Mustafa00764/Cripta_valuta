@@ -234,7 +234,7 @@ const EditProfilePage = () => {
           </div>
           </form>
         </div>
-        <div className='max-w-[304px] w-full pt-5 pl-6 ml:hidden'>
+        <div className='max-w-[304px] w-full pt-5 pl-6 rs:hidden'>
           <div className='hints hidden p-5 relative rounded-[6px] text-textMode bg-bgMode' dangerouslySetInnerHTML={{ __html: hints }}></div>
         </div>
         </div>
