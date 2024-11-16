@@ -16,11 +16,11 @@ const ProfilePage = () => {
       <div className="container">
         <div className='border flex justify-between bg-bgMode -mt-[20px] md:px-5 w-full rounded-[15px] border-[#494E5B] pl-5 pb-5'>
           <div className='flex md:flex-col w-full'>
-            <div className='flex flex-col gap-5 w-full'>
+            <div className='flex flex-col gap-5 '>
               <div className='p-[10px] w-[222.5px] h-[222.5px] mx-auto rounded-[15px] border border-[#494E5B] -mt-[20px] bg-bgMode'>
                 <img src={user?user.photo_url:""} alt="" className='border border-[#494E5B] rounded-[10px]'/>
               </div>
-              <div className=' text-[24px] font-semibold text-center'>
+              <div className=' text-[24px] font-semibold text-start md:text-center'>
                 <p>{user?user.username:"User"}</p>
               </div>
               <div className='hidden md:flex flex-col gap-5 text-center'>
@@ -62,7 +62,7 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
-            <div className='py-5 w-full pr-5 pl-[30px] md:pl-0 flex flex-col gap-[10px]'>
+            <div className='py-5 max-w-[631.4px] w-auto relative pr-5 pl-[30px] md:pl-0 flex flex-col gap-[10px]'>
               <div className='md:hidden'>
                 <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
               </div>

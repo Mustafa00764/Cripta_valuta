@@ -183,8 +183,8 @@ const EditProfilePage = () => {
               </svg>
             </label>
             </div>
-            <div className={`w-full flex-wrap ${photo != user.photo_url && photo != undefined ?"flex":"hidden"} gap-4`}>
-              {photo !== user.photo_url && (
+            <div className={`w-full flex-wrap ${photo && photo != undefined ?"flex":"hidden"} gap-4`}>
+              {photo && (
                 <div className="relative w-[200px] h-[200px] rounded-[12px] overflow-hidden">
                 <Cropper
                   image={photo}
@@ -198,7 +198,7 @@ const EditProfilePage = () => {
                 </div>
               )}
 
-              {photo !== user.photo_url && (
+              {photo && (
                 <div className="flex w-[200px] relative h-[200px] canvased">
                   <canvas ref={previewCanvasRef} className="w-full h-full rounded-[12px] border border-[#262E34]" />
                 </div>
