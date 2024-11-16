@@ -19,9 +19,9 @@ const EditProfilePage = () => {
   const [textLength, setTextLength] = useState(0)
   const [hints, setHints] = useState('')
   const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken } = useContext(AuthContext);
-  const [photo, setPhoto] = useState(user.photo_url)
-  const [name, setName] = useState(user.firstName);
-  const [about, setAbout] = useState(user.about);
+  const [photo, setPhoto] = useState(user?user.photo_url:"")
+  const [name, setName] = useState(user?user.firstName:"");
+  const [about, setAbout] = useState(user?user.about:"");
   const [file, setFile] = useState(null);
   
   const handleImageUpload = async (e, setImage) => {
