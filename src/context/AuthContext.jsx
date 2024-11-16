@@ -23,8 +23,20 @@ const AuthProvider = ({children}) => {
     setIsAuthenticated(true);
   };
 
+  const refreshAccessToken = async (refreshToken) => {
+    try {
+      const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = response.data.accessToken;
+      localStorage.setItem('accessToken', newAccessToken);
+      return newAccessToken;
+    } catch (error) {
+      console.error('Ошибка обновления токена:', error);
+      return null;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{user, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
+    <AuthContext.Provider value={{user,refreshAccessToken, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
       {children}
     </AuthContext.Provider>
   )

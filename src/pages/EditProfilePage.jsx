@@ -6,6 +6,9 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { getCroppedImg } from '../admin/cropImage';
 import { Line } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
+import api from '../components/axiosRefresh';
+import { AuthContext } from '../context/AuthContext'    
+
 const EditProfilePage = () => {
   const [photo, setPhoto] = useState(LC_logo)
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
@@ -16,6 +19,7 @@ const EditProfilePage = () => {
   const [croppedImage, setCroppedImage] = useState();
   const [textLength, setTextLength] = useState(0)
   const [hints, setHints] = useState('')
+  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken } = useContext(AuthContext);
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];    
     if (file && /\.(jpe?g|png|webp)$/i.test(file.name)) {
@@ -111,17 +115,17 @@ const EditProfilePage = () => {
             <div className='flex w-full gap-4 md:flex-col'>
               <div className='flex flex-col w-full' onMouseOver={()=>hint('name','over')} onMouseOut={()=>hint('name','out')}>
                 <label htmlFor="name" className='text-[14px] font-semibold leading-6'>Name</label>
-                <input type="text" required id='name' minLength={3} defaultValue={'Maksim'} placeholder='Enter your name' className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
+                <input type="text" required id='name' minLength={3} defaultValue={user?user.firstName:""} placeholder='Enter your name' className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
               </div>
               <div className='flex flex-col w-full' onMouseOver={()=>hint('username','over')} onMouseOut={()=>hint('username','out')}>
                 <label htmlFor="username" className='text-[14px] font-semibold leading-6'>UserName</label>
-                <input type="text" id='username' value='Max00764' readOnly className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
+                <input type="text" id='username' value={user?user.username:""} readOnly className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
               </div>
             </div>
             <div className={` mt-[15px] flex flex-wrap gap-4 transition-all`} onMouseOver={()=>hint('photo','over')} onMouseOut={()=>hint('photo','out')}>
             <div>
             <label htmlFor="photo" className='text-[14px] font-semibold leading-6'>Photo</label>
-            <label htmlFor="photo" style={{backgroundImage: photo ? `url(${photo})` : ``}} className={` w-[200px] [&>svg]:hover:opacity-[1] cursor-pointer h-[200px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-[12px] border border-[#262E34]`}>
+            <label htmlFor="photo" style={{backgroundImage: user ? `url(${user.photo_url})` : ``}} className={` w-[200px] [&>svg]:hover:opacity-[1] cursor-pointer h-[200px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-[12px] border border-[#262E34]`}>
               <input type="file" id='photo' accept='image/*' required onChange={handleImageUpload} name='poster' className=' w-0 h-0'/>
               <svg className={photo?" opacity-0 transition-all md:hidden":"md:hidden"} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M45.8334 14.0625C46.6963 14.0625 47.3959 13.3629 47.3959 12.5C47.3959 11.6371 46.6963 10.9375 45.8334 10.9375V14.0625ZM29.1667 10.9375C28.3038 10.9375 27.6042 11.6371 27.6042 12.5C27.6042 13.3629 28.3038 14.0625 29.1667 14.0625V10.9375ZM39.0625 4.16666C39.0625 3.30372 38.3629 2.60416 37.5 2.60416C36.6371 2.60416 35.9375 3.30372 35.9375 4.16666H39.0625ZM35.9375 20.8333C35.9375 21.6962 36.6371 22.3958 37.5 22.3958C38.3629 22.3958 39.0625 21.6962 39.0625 20.8333H35.9375ZM45.8334 10.9375H37.5V14.0625H45.8334V10.9375ZM37.5 10.9375H29.1667V14.0625H37.5V10.9375ZM35.9375 4.16666V12.5H39.0625V4.16666H35.9375ZM35.9375 12.5V20.8333H39.0625V12.5H35.9375Z" fill={"#FFFFFF"}/>

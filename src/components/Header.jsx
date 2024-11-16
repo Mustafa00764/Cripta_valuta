@@ -13,24 +13,11 @@ import { SearchContext } from '../context/SearchContext'
 import { AdminContext } from '../context/AdminContext'
 import moon from '../assets/svg/moon.svg'
 import sun from '../assets/svg/black-sun-with-rays.svg'
-import { AuthContext } from '../context/AuthContext'
-// import api from "../components/axiosRefresh"
-const api = axios.create({
-  baseURL: 'https://legitcommunity.uz',
-});
+import { AuthContext } from '../context/AuthContext'    
+import api from "../components/axiosRefresh"
 
 // Функция для обновления accessToken с использованием refreshToken
-const refreshAccessToken = async (refreshToken) => {
-  try {
-    const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
-    const newAccessToken = response.data.accessToken;
-    localStorage.setItem('accessToken', newAccessToken);
-    return newAccessToken;
-  } catch (error) {
-    console.error('Ошибка обновления токена:', error);
-    return null;
-  }
-};
+
 
 
 const Header = () => {
@@ -42,7 +29,8 @@ const Header = () => {
   const {menu,setMenu} = useContext(MenuContext)
   const {mobileSearch, setMobileSearch} = useContext(SearchContext)
   const {theme, setTheme, toggleTheme} = useContext(AdminContext)
-  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken } = useContext(AuthContext);
   const crypto = [
     {
       id: 1,
@@ -76,25 +64,6 @@ const Header = () => {
     },
   ]
 
-  // const handleBot = (user) => {
-  //   console.log(user);
-
-  //   const { id, first_name, last_name, username } = user;
-
-  //   axios.post('http://154.53.45.100:8080/auth/telegram/callback', {
-  //     id,
-  //     first_name,
-  //     last_name,
-  //     username,
-  //   })
-  //   .then(res => {
-  //     console.log('Успешно отправлено:', res.data);
-  //   })
-  //   .catch(error => {
-  //     console.error('Ошибка:', error);
-  //   });
-  // };
-   // Функция для восстановления состояния сессии
    const restoreSession = async () => {
     const accessToken = localStorage.getItem('accessToken');  
     const refreshToken = localStorage.getItem('refreshToken');
@@ -123,6 +92,8 @@ const Header = () => {
               setIsAuthenticated(true);
             } catch (err) {
               console.error('Ошибка при восстановлении данных пользователя', err);
+            } finally {
+              setLoading(false);
             }
           }
         } else {
@@ -289,11 +260,23 @@ const Header = () => {
                 />
               </div>
             ):(
-            <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}> 
-              <div className='w-[50px] h-[50px]'>
-                <img src={user?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
-              </div>
-              <p>{user?user.firstName:""}{""}</p>
+            <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}>
+              {
+                !loading?
+                  <>
+                  <div className='w-[50px] h-[50px]'>
+                  <img src={user?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
+                  </div>
+                  <p>{user?user.firstName:""}{""}</p>
+                  </>
+                :
+                  <>
+                  <span
+                    className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                  >Loading...</span>
+                  </>
+              } 
+              
             </div>
             )}
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>
