@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useContext, useRef, useState } from 'react'
 import LC_logo from '../assets/images/LC_logo.jpeg'
 import Cropper from 'react-easy-crop';
 import ReactCrop from 'react-image-crop';
