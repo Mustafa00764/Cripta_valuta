@@ -118,6 +118,8 @@ const Header = () => {
           first_name: user.first_name,
           last_name: user.last_name,
           photo_url: user.photo_url,
+          about:"",
+          profileHeader:"https://cdn-edge.kwork.ru/files/cover/header11.jpg"
         },
       });
 
@@ -261,22 +263,10 @@ const Header = () => {
               </div>
             ):(
             <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={()=>setDmenu(true)} onMouseOut={()=>setDmenu(false)}>
-              {
-                !loading?
-                  <>
-                  <div className='w-[50px] h-[50px]'>
-                  <img src={user?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
-                  </div>
-                  <p>{user?user.firstName:""}{""}</p>
-                  </>
-                :
-                  <>
-                  <span
-                    className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                  >Loading...</span>
-                  </>
-              } 
-              
+              <div className='w-[50px] h-[50px]'>
+              <img src={user?user.photo_url:""} alt="photo" className='w-full h-full rounded-full'/>
+              </div>
+              <p>{user?user.firstName:""}{""}</p>
             </div>
             )}
             <div className='hidden lg:block cursor-pointer w-[30px] ' onClick={()=>setMobileSearch(!mobileSearch)}>

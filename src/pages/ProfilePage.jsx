@@ -67,7 +67,7 @@ const ProfilePage = () => {
                 <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
               </div>
               <div>
-                <p>Я фронтенд разработчик с 3-х летним опытом знаю React.js, JavaScript, HTML, CSS, SCSS, SASS, Tailwind css, TypeScript и многое другое. Также я умею работать с API и Git и могу создать вам рабочий сайт который вам точно понравится.</p>
+                <p></p>
               </div>
             </div>
           </div>
