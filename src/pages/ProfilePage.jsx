@@ -62,7 +62,7 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
-            <div className='py-5 w-auto pr-5 pl-[30px] md:pl-0 flex flex-col gap-[10px]'>
+            <div className='py-5 w-full pr-5 pl-[30px] md:pl-0 flex flex-col gap-[10px]'>
               <div className='md:hidden'>
                 <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
               </div>
