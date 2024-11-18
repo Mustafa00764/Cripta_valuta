@@ -39,9 +39,7 @@ const EditProfilePage = () => {
       const canvas = previewCanvasRef.current;
       const croppedImageUrl = await getCroppedImg(photo, croppedAreaPixels, canvas);
       setCroppedImage(croppedImageUrl);
-      console.log('====================================');
-      console.log(croppedImageUrl);
-      console.log('====================================');
+      console.log(croppedAreaPixels);
     } catch (error) {
       console.error('Error cropping image:', error);
     }
@@ -50,6 +48,7 @@ const EditProfilePage = () => {
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
     updatePreview(photo, croppedAreaPixels);
+    console.log(croppedArea);
   }, [photo]);
 
   const lengthCheck = (e) => {
@@ -97,6 +96,7 @@ const EditProfilePage = () => {
   }
 
   const handleSubmit = async (event) => {
+    if (!croppedAreaPixels) return;
     event.preventDefault();
 
     if (!photo || !posterPhoto) {
@@ -105,6 +105,7 @@ const EditProfilePage = () => {
     }
 
     // Получение токенов из локального хранилища
+    const blob = await getCroppedImg(photo, croppedAreaPixels);
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
@@ -115,7 +116,7 @@ const EditProfilePage = () => {
 
     // Сначала отправляем изображения на /upload
     const formData = new FormData();
-    formData.append("image1", croppedImage);
+    formData.append("image1",  blob, "cropped-image.jpg");
     formData.append("image2", posterPhoto);
 
     try {
