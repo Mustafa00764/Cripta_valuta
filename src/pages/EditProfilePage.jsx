@@ -96,67 +96,93 @@ const EditProfilePage = () => {
   }
 
   const handleSubmit = async (event) => {
-    if (!croppedAreaPixels) return;
     event.preventDefault();
-
+  
+    if (!croppedAreaPixels) {
+      alert("Сначала обрежьте изображение!");
+      return;
+    }
+  
     if (!photo || !posterPhoto) {
       alert("Выберите оба изображения для загрузки!");
       return;
     }
-    const canvas = document.createElement("canvas");
-    // Получение токенов из локального хранилища
-    const blob = await getCroppedImg(photo, croppedAreaPixels, canvas);
+  
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-
+  
     if (!accessToken || !refreshToken) {
       alert("Вы не авторизованы!");
       return;
     }
-
-    // Сначала отправляем изображения на /upload
-    const formData = new FormData();
-    formData.append("image1",  blob, "cropped-image.jpg");
-    formData.append("image2", posterPhoto);
-
+  
     try {
-      // Отправка изображений на /upload
+      const canvas = document.createElement("canvas");
+      const blob = await getCroppedImg(photo, croppedAreaPixels, canvas);
+  
+      if (!blob) {
+        throw new Error("Ошибка при обрезке изображения.");
+      }
+  
+      // Создание FormData для отправки изображений
+      const formData = new FormData();
+      formData.append("image1", blob, "cropped-image.jpg");
+      formData.append("image2", posterPhoto);
+  
+      // Отправка изображений
       const uploadResponse = await api.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`, // Добавление accessToken для авторизации
+          Authorization: `Bearer ${accessToken}`,
         },
       });
-
-      const image1Path = uploadResponse.data.image1Path;
-      const image2Path = uploadResponse.data.image2Path;
-
-      // Теперь отправляем информацию пользователя на /users/id
-      const userId = user.id; // Замените на актуальный ID пользователя
+  
+      const { image1Path, image2Path } = uploadResponse.data;
+  
+      if (!image1Path || !image2Path) {
+        throw new Error("Ошибка загрузки изображений на сервер.");
+      }
+  
+      // Обновление данных пользователя
+      const userId = user.id; // Убедитесь, что `user.id` определен
       const userData = {
         firstName: name,
         about,
-        lastName:user.lastName,
+        lastName: user.lastName,
         username: user.username,
         isSubscribed: user.isSubscribed,
         photo_url: image1Path,
         profileHeader: image2Path,
       };
-
-      // Запрос на обновление данных пользователя
+  
       const userResponse = await api.put(`/users/${userId}`, userData, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`, // Добавление accessToken для авторизации
+          Authorization: `Bearer ${accessToken}`,
         },
       });
-
+  
       console.log("Профиль успешно обновлен:", userResponse.data);
       alert("Профиль обновлен!");
     } catch (error) {
       console.error("Ошибка обновления профиля:", error);
+  
+      // Обновление токенов при ошибке авторизации
+      if (error.response && error.response.status === 401) {
+        try {
+          const tokenResponse = await api.post("/auth/refresh", { refreshToken });
+          localStorage.setItem("accessToken", tokenResponse.data.accessToken);
+          alert("Токен обновлен. Попробуйте снова.");
+        } catch (tokenError) {
+          console.error("Ошибка обновления токена:", tokenError);
+          alert("Не удалось обновить токен. Авторизуйтесь снова.");
+        }
+      } else {
+        alert("Произошла ошибка. Попробуйте позже.");
+      }
     }
-  }
+  };
+  
   return (
     <div className='w-full'>
       <div className="mx-auto max-w-[1012px] w-full py-5 px-3">
