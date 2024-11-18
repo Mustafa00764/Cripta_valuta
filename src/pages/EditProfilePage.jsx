@@ -117,19 +117,30 @@ const EditProfilePage = () => {
     }
   
     try {
+      // Создаем canvas для обрезки изображения
       const canvas = document.createElement("canvas");
-      const blob = await getCroppedImg(photo, croppedAreaPixels, canvas);
+      const croppedBlob = await getCroppedImg(photo, croppedAreaPixels, canvas);
   
-      if (!blob) {
+      if (!croppedBlob) {
         throw new Error("Ошибка при обрезке изображения.");
       }
   
-      // Создание FormData для отправки изображений
-      const formData = new FormData();
-      formData.append("image1", blob, "cropped-image.jpg");
-      formData.append("image2", posterPhoto);
+      // Проверяем, является ли posterPhoto строкой (URL)
+      let posterBlob = posterPhoto;
+      if (typeof posterPhoto === "string") {
+        const response = await fetch(posterPhoto);
+        if (!response.ok) {
+          throw new Error("Ошибка загрузки posterPhoto.");
+        }
+        posterBlob = await response.blob(); // Преобразуем URL в Blob
+      }
   
-      // Отправка изображений
+      // Создаем FormData
+      const formData = new FormData();
+      formData.append("image1", croppedBlob, "cropped-image.jpg");
+      formData.append("image2", posterBlob, "poster-image.jpg");
+  
+      // Отправляем данные на /upload
       const uploadResponse = await api.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -143,7 +154,7 @@ const EditProfilePage = () => {
         throw new Error("Ошибка загрузки изображений на сервер.");
       }
   
-      // Обновление данных пользователя
+      // Обновление профиля пользователя
       const userId = user.id; // Убедитесь, что `user.id` определен
       const userData = {
         firstName: name,
@@ -166,22 +177,9 @@ const EditProfilePage = () => {
       alert("Профиль обновлен!");
     } catch (error) {
       console.error("Ошибка обновления профиля:", error);
-  
-      // Обновление токенов при ошибке авторизации
-      if (error.response && error.response.status === 401) {
-        try {
-          const tokenResponse = await api.post("/auth/refresh", { refreshToken });
-          localStorage.setItem("accessToken", tokenResponse.data.accessToken);
-          alert("Токен обновлен. Попробуйте снова.");
-        } catch (tokenError) {
-          console.error("Ошибка обновления токена:", tokenError);
-          alert("Не удалось обновить токен. Авторизуйтесь снова.");
-        }
-      } else {
-        alert("Произошла ошибка. Попробуйте позже.");
-      }
     }
   };
+  
   
   return (
     <div className='w-full'>
