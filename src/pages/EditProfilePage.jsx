@@ -103,9 +103,9 @@ const EditProfilePage = () => {
       alert("Выберите оба изображения для загрузки!");
       return;
     }
-
+    const canvas = document.createElement("canvas");
     // Получение токенов из локального хранилища
-    const blob = await getCroppedImg(photo, croppedAreaPixels);
+    const blob = await getCroppedImg(photo, croppedAreaPixels, canvas);
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 

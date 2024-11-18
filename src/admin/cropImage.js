@@ -1,17 +1,22 @@
 export const getCroppedImg = (imageSrc, croppedAreaPixels, canvas) => {
   return new Promise((resolve, reject) => {
     const image = new Image();
-    image.crossOrigin = "anonymous"; // Указываем поддержку CORS
-    image.src = imageSrc; // Добавляем уникальный параметр, чтобы обойти кеш
+    image.crossOrigin = "anonymous"; // Поддержка CORS
+    image.src = imageSrc; // Уникальный параметр для обхода кеша
 
     image.onload = () => {
       try {
         const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          reject(new Error('Canvas context is not available.'));
+          return;
+        }
 
-        // Устанавливаем размеры canvas на основе обрезанной области
+        // Устанавливаем размеры canvas
         canvas.width = croppedAreaPixels.width;
         canvas.height = croppedAreaPixels.height;
 
+        // Рисуем изображение
         ctx.drawImage(
           image,
           croppedAreaPixels.x,
@@ -24,17 +29,17 @@ export const getCroppedImg = (imageSrc, croppedAreaPixels, canvas) => {
           croppedAreaPixels.height
         );
 
-        // Пробуем создать Blob из canvas
+        // Создаем Blob
         canvas.toBlob(
           (blob) => {
             if (blob) {
               const url = URL.createObjectURL(blob);
-              resolve(url); // Возвращаем URL для Blob
+              resolve(url);
             } else {
               reject(new Error('Canvas toBlob failed.'));
             }
           },
-          'image/jpeg'
+          'image/jpeg' // Формат
         );
       } catch (error) {
         reject(new Error(`Canvas processing error: ${error.message}`));
