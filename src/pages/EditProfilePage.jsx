@@ -142,20 +142,29 @@ const EditProfilePage = () => {
       }
   
       // Создаем FormData
-      const formData = new FormData();
-      formData.append("image1", croppedFile);
-      formData.append("image2", posterFile);
+      const formData1 = new FormData();
+      const formData2 = new FormData();
+
+      formData1.append("file", croppedFile);
+      formData2.append("file", posterFile);
   
       // Отправляем данные на /upload
-      const uploadResponse = await api.post("/upload", formData, {
+      const uploadResponse1 = await api.post("/upload", formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const uploadResponse2 = await api.post("/upload", formData2, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${accessToken}`,
         },
       });
   
-      const { image1Path, image2Path } = uploadResponse.data;
-  
+      const image1Path = uploadResponse1.data;
+      const image2Path = uploadResponse2.data;
+
       if (!image1Path || !image2Path) {
         throw new Error("Ошибка загрузки изображений на сервер.");
       }
