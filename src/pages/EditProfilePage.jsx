@@ -109,11 +109,8 @@ const EditProfilePage = () => {
   
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-  
-    if (!accessToken || !refreshToken) {
-      alert("Вы не авторизованы!");
-      return;
-    }
+    const userId = localStorage.getItem('userId'); // Убедитесь, что `user.id` определен
+
   
     try {
       // Создаем canvas для обрезки изображения
@@ -143,7 +140,6 @@ const EditProfilePage = () => {
       }
   
       // Обновление профиля пользователя
-      const userId = user.id; // Убедитесь, что `user.id` определен
       const userData = {
         username: user.username,
         firstName: name,
@@ -156,7 +152,6 @@ const EditProfilePage = () => {
   
       const userResponse = await api.put(`/users/${userId}`, userData, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
@@ -164,6 +159,31 @@ const EditProfilePage = () => {
       console.log("Профиль успешно обновлен:", userResponse.data);
       alert("Профиль обновлен!");
     } catch (error) {
+      const userData = {
+        username: user.username,
+        firstName: name,
+        lastName: user.lastName,
+        about: about,
+        isSubscribed: user.isSubscribed,
+      };
+      // Если токен истек, пробуем обновить его с помощью refreshToken
+      if (error.response && error.response.status === 401 && refreshToken) {
+        const newAccessToken = await refreshAccessToken(refreshToken);
+        if (newAccessToken) {
+          try {
+            const userResponse = await api.put(`/users/${userId}`, userData, {
+              headers: {
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            });
+            console.log(userResponse);
+          } catch (err) {
+            console.error('Ошибка обновления профиля:', err);
+          }
+        }
+      } else {
+        console.error('Ошибка обновления профиля:', error);
+      }
       console.error("Ошибка обновления профиля:", error);
     }
   };
