@@ -2,7 +2,7 @@ export const getCroppedImg = (imageSrc, croppedAreaPixels, canvas) => {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.crossOrigin = "anonymous"; // Указываем поддержку CORS
-    image.src = `${imageSrc}?_=${Date.now()}`; // Добавляем уникальный параметр, чтобы обойти кеш
+    image.src = imageSrc; // Добавляем уникальный параметр, чтобы обойти кеш
 
     image.onload = () => {
       try {
