@@ -39,6 +39,9 @@ const EditProfilePage = () => {
       const canvas = previewCanvasRef.current;
       const croppedImageUrl = await getCroppedImg(photo, croppedAreaPixels, canvas);
       setCroppedImage(croppedImageUrl);
+      console.log('====================================');
+      console.log(croppedImageUrl);
+      console.log('====================================');
     } catch (error) {
       console.error('Error cropping image:', error);
     }
