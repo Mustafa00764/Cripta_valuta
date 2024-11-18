@@ -146,10 +146,10 @@ const EditProfilePage = () => {
       // Обновление профиля пользователя
       const userId = user.id; // Убедитесь, что `user.id` определен
       const userData = {
-        firstName: name,
-        about,
-        lastName: user.lastName,
         username: user.username,
+        firstName: name,
+        lastName: user.lastName,
+        about: about,
         isSubscribed: user.isSubscribed,
         photo_url: image1Path,
         profileHeader: image2Path,
