@@ -130,8 +130,13 @@ const EditProfilePage = () => {
   
       // Проверяем, если posterPhoto уже является File, то используем его как есть
       let posterFile = posterPhoto;
-      if (!(posterPhoto instanceof File)) {
-        throw new Error("posterPhoto должно быть объектом типа File.");
+      if (typeof posterPhoto === "string") {
+        const response = await fetch(posterPhoto);
+        if (!response.ok) {
+          throw new Error("Ошибка загрузки posterPhoto.");
+        }
+        const posterBlob = await response.blob();
+        posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
       }
   
       // Создаем FormData и добавляем изображения
