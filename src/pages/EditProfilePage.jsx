@@ -94,7 +94,6 @@ const EditProfilePage = () => {
     }
     
   }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -125,20 +124,10 @@ const EditProfilePage = () => {
         throw new Error("Ошибка при обрезке изображения.");
       }
   
-      // Проверяем, является ли posterPhoto строкой (URL)
-      let posterBlob = posterPhoto;
-      if (typeof posterPhoto === "string") {
-        const response = await fetch(posterPhoto);
-        if (!response.ok) {
-          throw new Error("Ошибка загрузки posterPhoto.");
-        }
-        posterBlob = await response.blob(); // Преобразуем URL в Blob
-      }
-  
       // Создаем FormData
       const formData = new FormData();
-      formData.append("image1", croppedBlob, "cropped-image.jpg");
-      formData.append("image2", posterBlob, "poster-image.jpg");
+      formData.append("image1", croppedBlob);
+      formData.append("image2", posterPhoto);
   
       // Отправляем данные на /upload
       const uploadResponse = await api.post("/upload", formData, {
@@ -179,6 +168,7 @@ const EditProfilePage = () => {
       console.error("Ошибка обновления профиля:", error);
     }
   };
+  
   
   
   return (
