@@ -94,6 +94,8 @@ const EditProfilePage = () => {
     }
     
   }
+
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -110,7 +112,7 @@ const EditProfilePage = () => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
     const userId = localStorage.getItem('userId');
-  
+
     if (!accessToken || !refreshToken) {
       alert("Вы не авторизованы!");
       return;
@@ -125,10 +127,10 @@ const EditProfilePage = () => {
         throw new Error("Ошибка при обрезке изображения.");
       }
   
-      // Преобразуем Blob в File для обрезанного изображения
+      // Преобразуем Blob в File
       const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
   
-      // Проверяем, если posterPhoto уже является File, то используем его как есть
+      // Проверяем, является ли posterPhoto строкой (URL)
       let posterFile = posterPhoto;
       if (typeof posterPhoto === "string") {
         const response = await fetch(posterPhoto);
@@ -139,17 +141,12 @@ const EditProfilePage = () => {
         posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
       }
   
-      // Создаем FormData и добавляем изображения
+      // Создаем FormData
       const formData = new FormData();
-      formData.append("image1", croppedFile);  // Обрезанное изображение
-      formData.append("image2", posterFile);  // Poster photo
+      formData.append("image1", croppedFile);
+      formData.append("image2", posterFile);
   
-      // Проверяем содержимое formData
-      formData.forEach((value, key) => {
-        console.log(key, value);  // Выводим содержимое formData для проверки
-      });
-  
-      // Отправляем данные на сервер
+      // Отправляем данные на /upload
       const uploadResponse = await api.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -170,11 +167,10 @@ const EditProfilePage = () => {
         lastName: user.lastName,
         username: user.username,
         isSubscribed: user.isSubscribed,
-        photo_url: image1Path,    // Путь к обрезанному изображению
-        profileHeader: image2Path,  // Путь к header (poster)
+        photo_url: image1Path,
+        profileHeader: image2Path,
       };
   
-      // Отправляем обновленные данные пользователя
       const userResponse = await api.put(`/users/${userId}`, userData, {
         headers: {
           "Content-Type": "application/json",
@@ -186,12 +182,13 @@ const EditProfilePage = () => {
       alert("Профиль обновлен!");
     } catch (error) {
       if (error.response) {
-        console.error("Ответ сервера:", error.response.data);  // Ответ сервера с ошибкой
+        console.error("Ответ сервера:", error.response.data); // Сообщение об ошибке от сервера
       } else {
-        console.error("Ошибка:", error.message);  // Логируем ошибку
+        console.error("Ошибка:", error.message);
       }
     }
   };
+  
   
   
   
