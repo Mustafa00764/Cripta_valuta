@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import LC_logo from '../assets/images/LC_logo.jpeg'
 import Cropper from 'react-easy-crop';
 import ReactCrop from 'react-image-crop';
@@ -199,6 +199,14 @@ const EditProfilePage = () => {
       }
     }
   };
+
+  useEffect(()=>{
+    if (user) {
+      if(user.profileHeader != undefined){
+        setPosterPhoto(user.profileHeader)
+      }
+    }
+  },[])
   
   return (
     <div className='w-full'>
@@ -256,7 +264,7 @@ const EditProfilePage = () => {
           </div>
           <div className='flex flex-col mt-5' onMouseOver={()=>hint('about you','over')} onMouseOut={()=>hint('about you','out')}>
             <label htmlFor="information_about_you" className='text-[14px] font-semibold leading-6'>Information about you</label>
-            <textarea name="" defaultValue={about} required minLength={200} onChange={(e)=>lengthCheck(e)}  maxLength={1200} placeholder='Enter something about yourself' id="information_about_you" className='min-h-[206px] h-auto bg-bgMode outline-none border border-[#494E5B] rounded-[6px] p-3 text-[14px]'></textarea>
+            <textarea name="" value={about} required minLength={200} onChange={(e)=>lengthCheck(e)}  maxLength={1200} placeholder='Enter something about yourself' id="information_about_you" className='min-h-[206px] h-auto bg-bgMode outline-none border border-[#494E5B] rounded-[6px] p-3 text-[14px]'></textarea>
             <div className='w-full flex justify-end mt-1'>
               <p className='text-[#999] text-[12px] leading-4'>{textLength} из 1200 символов (минимум 200)</p>
             </div>
