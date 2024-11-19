@@ -211,7 +211,7 @@ const EditProfilePage = () => {
       console.log(user);
     }
     users()
-  },[])
+  },[user])
   
   return (
     <div className='w-full'>
