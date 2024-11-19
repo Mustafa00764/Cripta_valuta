@@ -18,7 +18,7 @@ const ProfilePage = () => {
           <div className='flex md:flex-col w-full'>
             <div className='flex flex-col gap-5 '>
               <div className='p-[10px] w-[222.5px] h-[222.5px] mx-auto rounded-[15px] border border-[#494E5B] -mt-[20px] bg-bgMode'>
-                <img src={user?user.photo_url:""} alt="" className='border border-[#494E5B] object-cover rounded-[10px]'/>
+                <img src={user?user.photo_url:""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
               </div>
               <div className=' text-[24px] font-semibold text-start md:text-center'>
                 <p>{user?user.username:"User"}</p>
