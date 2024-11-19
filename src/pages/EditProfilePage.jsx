@@ -21,7 +21,7 @@ const EditProfilePage = () => {
   const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken } = useContext(AuthContext);
   const [photo, setPhoto] = useState(user?user.photo_url:LC_logo)
   const [name, setName] = useState(user?user.firstName:"");
-  const [about, setAbout] = useState(user?user.about:"");
+  const [about, setAbout] = useState("");
   const [file, setFile] = useState(null);
 
   const handleImageUpload = async (e, setImage) => {
@@ -201,12 +201,16 @@ const EditProfilePage = () => {
   };
 
   useEffect(()=>{
-    if (user) {
-      if(user.profileHeader != undefined){
-        setPosterPhoto(user.profileHeader)
+    const users = async () =>{
+      if (user) {
+        if(user.profileHeader != undefined){
+          setPosterPhoto(user.profileHeader)
+          setAbout(user.about)
+        }
       }
+      console.log(user);
     }
-    console.log(user);
+    users()
   },[])
   
   return (
