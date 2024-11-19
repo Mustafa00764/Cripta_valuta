@@ -206,6 +206,7 @@ const EditProfilePage = () => {
         setPosterPhoto(user.profileHeader)
       }
     }
+    console.log(user);
   },[])
   
   return (
@@ -220,7 +221,7 @@ const EditProfilePage = () => {
             <div className='flex w-full mb-[15px] gap-4 md:flex-col'>
               <div className='flex flex-col w-full' onMouseOver={()=>hint('name','over')} onMouseOut={()=>hint('name','out')}>
                 <label htmlFor="name" className='text-[14px] font-semibold leading-6'>Name</label>
-                <input type="text" required id='name' onChange={(e)=>setName(e.target.value)} minLength={3} defaultValue={user?user.firstName:""} placeholder='Enter your name' className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
+                <input type="text" required id='name' maxLength={15} onChange={(e)=>setName(e.target.value)} minLength={3} defaultValue={user?user.firstName:""} placeholder='Enter your name' className='w-full h-[50px] bg-bgMode border border-[#494E5B] rounded-[6px] outline-none px-3'/>
               </div>
               <div className='flex flex-col w-full' onMouseOver={()=>hint('username','over')} onMouseOut={()=>hint('username','out')}>
                 <label htmlFor="username" className='text-[14px] font-semibold leading-6'>UserName</label>
