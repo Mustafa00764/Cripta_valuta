@@ -232,7 +232,7 @@ const EditProfilePage = () => {
               </svg>
             </label>
             </div>
-            <div className={` flex-wrap ${photo != LC_logo && photo != undefined ?"flex":"hidden"} gap-4`}>
+            <div className={` flex-wrap ${photo != LC_logo && photo != undefined && photo != user.photo_url ?"flex":"hidden"} gap-4`}>
               {photo != LC_logo && (
                 <div className="relative w-[200px] h-[200px] rounded-[12px] overflow-hidden">
                 <Cropper
