@@ -98,14 +98,9 @@ const EditProfilePage = () => {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    if (!croppedAreaPixels) {
-      alert("Сначала обрежьте изображение!");
-      return;
-    }
-  
-    if (!photo || !posterPhoto) {
-      alert("Выберите оба изображения для загрузки!");
+
+    if (user && photo == user.photo_url && posterPhoto == user.profileHeader && name == user.firstName && about == user.about) {
+      alert("Сначала измените что-нибудь!");
       return;
     }
   
