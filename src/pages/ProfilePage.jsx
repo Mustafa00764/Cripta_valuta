@@ -7,6 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
   const {user, setUser} = useContext(AuthContext)
+  const [about, setAbout] = useState(user?user.about:"");
 
   return ( 
     <div className='text-textMode'>
@@ -67,7 +68,7 @@ const ProfilePage = () => {
                 <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
               </div>
               <div>
-                <p></p>
+                <p>{about}</p>
               </div>
             </div>
           </div>
