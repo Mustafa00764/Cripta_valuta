@@ -9,6 +9,7 @@ const ProfilePage = () => {
   const {user, setUser} = useContext(AuthContext)
   const [about, setAbout] = useState(user?user.about:"");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
+  
   useEffect(()=>{
     const users = async () =>{
       if (user) {
@@ -25,7 +26,7 @@ const ProfilePage = () => {
   return ( 
     <div className='text-textMode'>
       <div className='w-full h-[226px]'>
-        <img src="https://cdn-edge.kwork.ru/files/cover/header11.jpg" alt="" className='w-full h-full object-cover object-top'/>
+        <img src={posterPhoto} alt="" className='w-full h-full object-cover object-top'/>
       </div>
       <div className="container">
         <div className='border flex justify-between bg-bgMode -mt-[20px] md:px-5 w-full rounded-[15px] border-[#494E5B] pl-5 pb-5'>
