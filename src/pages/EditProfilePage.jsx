@@ -23,7 +23,7 @@ const EditProfilePage = () => {
   const [name, setName] = useState(user?user.firstName:"");
   const [about, setAbout] = useState(user?user.about:"");
   const [file, setFile] = useState(null);
-  
+
   const handleImageUpload = async (e, setImage) => {
     const file = e.target.files[0];    
     if (file && /\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
@@ -164,8 +164,8 @@ const EditProfilePage = () => {
       });
       console.log(uploadResponse2.data);
 
-      const image1Path = uploadResponse1.data;
-      const image2Path = uploadResponse2.data;
+      const image1Path = "https://legitcommunity.uz"+uploadResponse1.data;
+      const image2Path = "https://legitcommunity.uz"+uploadResponse2.data;
 
       if (!image1Path || !image2Path) {
         throw new Error("Ошибка загрузки изображений на сервер.");
@@ -199,10 +199,6 @@ const EditProfilePage = () => {
       }
     }
   };
-  
-  
-  
-  
   
   return (
     <div className='w-full'>

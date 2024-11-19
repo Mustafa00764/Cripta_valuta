@@ -4,6 +4,8 @@ import axios from 'axios';
 const api = axios.create({
   baseURL: 'https://legitcommunity.uz',
 });
+"https://legitcommunity.uz/upload/b13b7267-04f9-4b21-bcbf-c0c8571d5d38.jpg"
+"https://legitcommunity.uz/upload/6f06b841-0af1-483f-9d0f-663f4a6b7374.jpg"
 
 // // Интерцептор для добавления accessToken к каждому запросу
 // api.interceptors.request.use((config) => {

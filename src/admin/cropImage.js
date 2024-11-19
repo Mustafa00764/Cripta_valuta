@@ -2,7 +2,7 @@ export const getCroppedImg = (imageSrc, croppedAreaPixels, canvas) => {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.crossOrigin = "anonymous"; // Поддержка CORS
-    image.src = imageSrc; // Уникальный параметр для обхода кеша
+    image.src = imageSrc;
 
     image.onload = () => {
       try {
@@ -33,8 +33,7 @@ export const getCroppedImg = (imageSrc, croppedAreaPixels, canvas) => {
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              const url = URL.createObjectURL(blob);
-              resolve(url);
+              resolve(blob); // Возвращаем сам Blob
             } else {
               reject(new Error('Canvas toBlob failed.'));
             }
