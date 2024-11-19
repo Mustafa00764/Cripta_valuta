@@ -155,13 +155,15 @@ const EditProfilePage = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+      console.log(uploadResponse1.data);
       const uploadResponse2 = await api.post("/upload", formData2, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${accessToken}`,
         },
       });
-  
+      console.log(uploadResponse2.data);
+
       const image1Path = uploadResponse1.data;
       const image2Path = uploadResponse2.data;
 
