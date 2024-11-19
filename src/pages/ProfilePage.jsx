@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ArticleCard from "../components/ArticleCard";
 import AirdropCard from "../components/AirdropCard";
 import { Link } from 'react-router-dom';
@@ -8,6 +8,19 @@ const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
   const {user, setUser} = useContext(AuthContext)
   const [about, setAbout] = useState(user?user.about:"");
+  const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
+  useEffect(()=>{
+    const users = async () =>{
+      if (user) {
+        if(user.profileHeader != undefined){
+          setPosterPhoto(user.profileHeader)
+          setAbout(user.about)
+        }
+      }
+      console.log(user);
+    }
+    users()
+  },[user])
 
   return ( 
     <div className='text-textMode'>
