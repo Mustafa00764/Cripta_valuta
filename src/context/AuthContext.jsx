@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import api from "../components/axiosRefresh"
 
 export const AuthContext = createContext();
 
@@ -8,14 +9,6 @@ export const AuthContext = createContext();
 const AuthProvider = ({children}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('accessToken');
-    if (storedToken) {
-      setIsAuthenticated(true);
-      // Логика для получения данных о пользователе
-    }
-  }, []);
 
   const handleLogin = (userData) => {
     localStorage.setItem('accessToken', userData.accessToken);
@@ -34,6 +27,57 @@ const AuthProvider = ({children}) => {
       return null;
     }
   };
+
+
+  const restoreSession = async () => {
+    const accessToken = localStorage.getItem('accessToken');  
+    const refreshToken = localStorage.getItem('refreshToken');
+    const userId = localStorage.getItem('userId');
+
+    if (accessToken && userId) {
+      try {
+        const response = await api.get(`/users/${userId}`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        // Успешно получили данные пользователя
+        setUser(response.data);
+        setIsAuthenticated(true);
+        console.log(response);
+      } catch (error) {
+        // Если токен истек, пробуем обновить его с помощью refreshToken
+        if (error.response && error.response.status === 401 && refreshToken) {
+          const newAccessToken = await refreshAccessToken(refreshToken);
+          if (newAccessToken) {
+            try {
+              const response = await api.get(`/users/${userId}`, {
+                headers: { Authorization: `Bearer ${newAccessToken}` },
+              });
+              setUser(response.data);
+              setIsAuthenticated(true);
+            } catch (err) {
+              console.error('Ошибка при восстановлении данных пользователя', err);
+            } finally {
+              setLoading(false);
+            }
+          }
+        } else {
+          console.error('Ошибка при получении данных пользователя', error);
+        }
+      }
+    }
+  };
+
+  // Восстановление сессии при загрузке компонента
+  useEffect(() => {
+    restoreSession();
+    const storedToken = localStorage.getItem('accessToken');
+    if (storedToken) {
+      setIsAuthenticated(true);
+      // Логика для получения данных о пользователе
+    }
+  }, []);
+
 
   return (
     <AuthContext.Provider value={{user,refreshAccessToken, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>

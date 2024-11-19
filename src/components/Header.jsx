@@ -64,50 +64,6 @@ const Header = () => {
     },
   ]
 
-   const restoreSession = async () => {
-    const accessToken = localStorage.getItem('accessToken');  
-    const refreshToken = localStorage.getItem('refreshToken');
-    const userId = localStorage.getItem('userId');
-
-    if (accessToken && userId) {
-      try {
-        const response = await api.get(`/users/${userId}`, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-
-        // Успешно получили данные пользователя
-        setUser(response.data);
-        setIsAuthenticated(true);
-        console.log(response);
-      } catch (error) {
-        // Если токен истек, пробуем обновить его с помощью refreshToken
-        if (error.response && error.response.status === 401 && refreshToken) {
-          const newAccessToken = await refreshAccessToken(refreshToken);
-          if (newAccessToken) {
-            try {
-              const response = await api.get(`/users/${userId}`, {
-                headers: { Authorization: `Bearer ${newAccessToken}` },
-              });
-              setUser(response.data);
-              setIsAuthenticated(true);
-            } catch (err) {
-              console.error('Ошибка при восстановлении данных пользователя', err);
-            } finally {
-              setLoading(false);
-            }
-          }
-        } else {
-          console.error('Ошибка при получении данных пользователя', error);
-        }
-      }
-    }
-  };
-
-  // Восстановление сессии при загрузке компонента
-  useEffect(() => {
-    restoreSession();
-  }, []);
-
   // Функция для обработки авторизации через Telegram
   const handleBot = async (user) => {
     try {
