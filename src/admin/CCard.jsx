@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import CModel from './CModel';
 
 const CCard = ({name, icon, description, num, id}) => {
   const order = ["cover", "headings"];
