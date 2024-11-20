@@ -151,7 +151,7 @@ const CategoriesPage = () => {
             <input type="radio" id='Articles' name='category' className='hidden'/>
             <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
               <p>Categories</p>
-              <p>5</p>
+              <p>{categories.length}</p> 
             </div>
           </label>
         </div>
