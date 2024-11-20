@@ -127,7 +127,15 @@ const EditProfilePage = () => {
   
       // Проверяем, является ли posterPhoto строкой (URL)
       let posterFile = posterPhoto;
-      
+      if (typeof posterPhoto === "string") {
+        const response = await fetch(posterPhoto);
+        if (!response.ok) {
+          throw new Error("Ошибка загрузки posterPhoto.");
+        }
+        const posterBlob = await response.blob();
+        posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
+      }
+  
       // Создаем FormData
       const formData1 = new FormData();
       const formData2 = new FormData();
