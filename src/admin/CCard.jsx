@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const CCard = () => {
+const CCard = ({name,icon,description}) => {
   const order = ["cover", "headings"];
   const [cover, setCover] = useState("")
   const [headings, setHeadings] = useState()
@@ -15,14 +15,14 @@ const CCard = () => {
     </div>
     <div className='w-[150px] items-center gap-4 flex justify-center h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 ' src="" alt="" />
+        <img className='border-0 ' src={icon} alt="" />
       </div>
     </div>
     <div className='w-[300px]'>
-      <p>{"max00764"}</p>
+      <p>{name}</p>
     </div>
     <div className='flex-auto'>
-      <p>{"online"}</p>
+      <p>{description}</p>
     </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>
       <div className='options_edit transition-all'>

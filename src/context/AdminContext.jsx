@@ -13,7 +13,7 @@ const AdminProvider = ({ children }) => {
   const [postered, setPostered] = useState(null)
   const [titled, setTitled] = useState("")
   const [subtitled, setSubtitled] = useState("")
-  const [categorie, setCategories] = useState("Empty")
+  const [categories, setCategories] = useState([])
   const [pubDate, setPubDate] = useState("")
   const [conclusione, setConclusione] = useState("")
   const [main, setMain] = useState("<p><br></p>")
@@ -67,7 +67,7 @@ const AdminProvider = ({ children }) => {
   },[])
 
   return (
-    <AdminContext.Provider value={{theme, setTheme,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categorie,pubDate,titled,subtitled}}>
+    <AdminContext.Provider value={{theme, setTheme,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
       {children}
     </AdminContext.Provider>
   )

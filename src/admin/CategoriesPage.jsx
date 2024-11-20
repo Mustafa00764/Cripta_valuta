@@ -25,13 +25,39 @@ import api from '../components/axiosRefresh.js'
 
 
 const CategoriesPage = () => {
-  const {setCategories,setMain,setImage,setPostered,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categorie,pubDate,titled,subtitled} = useContext(AdminContext)
+  const {setCategories,setMain,setImage,setPostered,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
   const [minDate, setMinDate] = useState('');
   const [name, setName] = useState(titled);
   const [description, setDescription] = useState(subtitled);
   const [conclusion, setConclusion] = useState(conclusione);
   const {theme, setTheme} = useContext(AdminContext)
   const [poster, setPoster] = useState(postered)
+
+  const handleRestore = async () => {
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (!accessToken || !refreshToken) {
+      alert("Вы не авторизованы!");
+      return;
+    }
+
+    try {
+      
+      const response = await api.get("/categories",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      setCategories(response.data)
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  }
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];    
@@ -112,6 +138,10 @@ const CategoriesPage = () => {
     }
   }
 
+  useEffect(()=>{
+    handleRestore()
+  },[categories])
+
   return (
     <div className='w-full h-auto'>
       <PanelHeader title={'Categories'}/>
@@ -144,7 +174,15 @@ const CategoriesPage = () => {
             </div>
           </div>
           <div className=' relative'>
-            <CCard/>
+            {
+              categories.map(v=>{
+                return (
+                  <>
+                  <CCard name={v.name} icon={v.icon} description={v.description} />
+                  </>
+                )
+              })
+            }
           </div>
         </div>
         <div className={`text-[24px] mt-4 font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
