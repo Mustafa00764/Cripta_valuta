@@ -131,6 +131,7 @@ const CategoriesPage = () => {
       })
       console.log("Профиль успешно обновлен:", response.data);
       alert("Профиль обновлен!");
+      handleRestore()
     } catch (error) {
 
       console.log(error);
