@@ -22,8 +22,8 @@ const CCard = ({name, icon, description, id}) => {
       <p>{name}</p>
     </div>
     <div className=' flex-auto h-[24px] relative overflow-hidden'>
-        <p className='w-full whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{description}</p>
-      </div>
+      <p className=' max-w-[450px] whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{description}</p>
+    </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>
       <div className='options_edit transition-all'>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
