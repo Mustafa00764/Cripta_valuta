@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const CCard = ({name,icon,description}) => {
+const CCard = ({name, icon, description, id}) => {
   const order = ["cover", "headings"];
   const [cover, setCover] = useState("")
   const [headings, setHeadings] = useState()
@@ -11,17 +11,17 @@ const CCard = ({name,icon,description}) => {
   return (
     <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
-      <p>{1}</p>
+      <p>{id}</p>
     </div>
     <div className='w-[150px] items-center gap-4 flex justify-center h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 ' src={icon} alt="" />
+        <img className='border-0 object-center object-cover' src={icon} alt="" />
       </div>
     </div>
     <div className='w-[300px]'>
       <p>{name}</p>
     </div>
-    <div className=' flex-auto flex justify-center h-[24px] relative overflow-hidden'>
+    <div className=' flex-auto h-[24px] relative overflow-hidden'>
         <p className='w-full whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{description}</p>
       </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>

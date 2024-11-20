@@ -178,7 +178,7 @@ const CategoriesPage = () => {
               categories.map(v=>{
                 return (
                   <>
-                  <CCard name={v.name} icon={v.icon} description={v.description} />
+                  <CCard key={v.id} id={v.id} name={v.name}  icon={v.icon} description={v.description} />
                   </>
                 )
               })
