@@ -73,6 +73,12 @@ const CategoriesPage = () => {
     }
   };
 
+  const handleRemove = () => {
+    setPoster(null)
+    setName("")
+    setDescription("")
+  }
+
   const handleSubmite = async (event) => {
     event.preventDefault();
 
@@ -129,8 +135,8 @@ const CategoriesPage = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      console.log("Профиль успешно обновлен:", response.data);
-      alert("Профиль обновлен!");
+      console.log("Категория успешно добавлена:", response.data);
+      alert("The category has been added successfully!");
       handleRestore()
     } catch (error) {
 
