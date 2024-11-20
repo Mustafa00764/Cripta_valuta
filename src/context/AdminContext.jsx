@@ -62,12 +62,38 @@ const AdminProvider = ({ children }) => {
     
   };
 
+  const handleRestore = async () => {
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (!accessToken || !refreshToken) {
+      alert("Вы не авторизованы!");
+      return;
+    }
+
+    try {
+      
+      const response = await api.get("/categories",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      setCategories(response.data)
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  }
+
   useEffect(()=>{
     toggleTheme()
   },[])
 
   return (
-    <AdminContext.Provider value={{theme, setTheme,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
+    <AdminContext.Provider value={{theme, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
       {children}
     </AdminContext.Provider>
   )

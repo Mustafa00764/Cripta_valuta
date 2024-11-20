@@ -1,39 +1,9 @@
-import PanelHeader from './PanelHeader'
-import React, { useContext, useRef, useState, useCallback, useEffect } from 'react'
-import axios from 'axios';
-import { AdminContext } from '../context/AdminContext'
-import chevronDown from "../assets/svg/ChevronDown.svg"
-import pattern from "../assets/images/pattern.png"
-import white_pattern from "../assets/images/white_pattern.png"
-import { FaBold, FaItalic, FaUnderline, FaStrikethrough, FaQuoteLeft } from 'react-icons/fa';
-import Cropper from 'react-easy-crop';
-import { getCroppedImg } from './cropImage';
-import ReactCrop from 'react-image-crop';
-import 'react-image-crop/dist/ReactCrop.css';
-import { Editor, EditorState, RichUtils, AtomicBlockUtils, convertToRaw, convertFromRaw, ContentState, convertFromHTML, CompositeDecorator, Modifier } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
-import { stateFromHTML } from 'draft-js-import-html';
-import { DefaultDraftBlockRenderMap } from 'draft-js';
-import { Map } from 'immutable';
-import 'draft-js/dist/Draft.css';
-import DemoCard from './DemoCard.jsx';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import ArticleDemo from './ArticleDemo.jsx';
-import ADCard from './ADCard.jsx';
-import CCard from './CCard.jsx';
-import api from '../components/axiosRefresh.js'
-import CModel from './CModel.jsx';
+import React from 'react'
 
-
-const CategoriesPage = () => {
-  const {setCategories,setMain,setImage,setPostered,handleRestore,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
-  const [minDate, setMinDate] = useState('');
-  const [conclusion, setConclusion] = useState(conclusione);
-  const {theme, setTheme} = useContext(AdminContext)
-  const [name, setName] = useState(titled);
-  const [description, setDescription] = useState(subtitled);
-  const [poster, setPoster] = useState(postered)
-
+const CModel = () => {
+  const [name, setName] = useState();
+  const [description, setDescription] = useState();
+  const [poster, setPoster] = useState()
 
 
   const handleImageUpload = async (event) => {
@@ -49,12 +19,6 @@ const CategoriesPage = () => {
       alert('Please upload a valid image (JPG, PNG, GIF, WebP).');
     }
   };
-
-  const handleRemove = () => {
-    setPoster(null)
-    setName("")
-    setDescription("")
-  }
 
   const handleSubmite = async (event) => {
     event.preventDefault();
@@ -123,55 +87,12 @@ const CategoriesPage = () => {
     }
   }
 
-  useEffect(()=>{
-    handleRestore()
-  },[categories])
 
   return (
-    <div className='w-full h-auto'>
-      <PanelHeader title={'Categories'}/>
-      <div className='w-full h-full px-[40px]'>
-      <div className='h-[78px] py-[14px] max-w-[150px]'>
-          <label htmlFor="Articles">
-            <input type="radio" id='Articles' name='category' className='hidden'/>
-            <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
-              <p>Categories</p>
-              <p>{categories.length}</p> 
-            </div>
-          </label>
-        </div>
-        <div className='max-w-[1200px] mt-5 text-sideBarTextLight w-full max-h-[550px] relative h-auto  '>
-          <div className=' h-[50px] flex items-center text-center bg-[#151B1F] rounded-t-[12px]'>
-            <div className='w-[100px]'>
-              <p>#</p>
-            </div>
-            <div className='w-[150px]'>
-              <p>icon</p>
-            </div>
-            <div className='w-[300px]'>
-              <p>name</p>
-            </div>
-            <div className='flex-auto'>
-              <p>description</p>
-            </div>
-            <div className='w-[200px]'>
-              <p>options</p>
-            </div>
-          </div>
-          <div className=' relative'>
-            {
-              categories.map((v,index)=>{
-                return (
-                  <>
-                  <CCard key={v.id} id={v.id} num={index+1} name={v.name}  icon={v.icon} description={v.description} />
-                  </>
-                )
-              })
-            }
-          </div>
-        </div>
+    <div>
+      <div>
         <div className={`text-[24px] mt-4 font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
-          <p>New Category</p>
+          <p>Edit Category</p>
         </div>
         <form onSubmit={handleSubmite}>
           <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all mt-[5px] `}>
@@ -228,4 +149,4 @@ const CategoriesPage = () => {
   )
 }
 
-export default CategoriesPage
+export default CModel
