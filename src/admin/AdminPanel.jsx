@@ -12,11 +12,12 @@ import AdminDashboard from './AdminDashboard'
 import UsersDashboard from './UsersDashboard'
 import AuthorsDashboard from './AuthorsDashboard'
 import StatisticPage from './StatisticPage'
+import CategoriesPage from './CategoriesPage'
 
 const AdminPanel = () => {
   const {theme} = useContext(AdminContext)
   return (
-    <div className={`relative w-full min-h-screen h-auto flex ${theme?"":"bg-[#11161A]"} transition-all`}>
+    <div className={`relative w-full min-h-screen h-auto flex bg-pageMode transition-all`}>
       <div className='max-w-[60px] hover:max-w-[320px] transition-all w-full overflow-auto fixed z-[2]'>
         <Sidebar/>
       </div>
@@ -31,6 +32,7 @@ const AdminPanel = () => {
           <Route path='users' element={<UsersDashboard/>}/>
           <Route path='authors' element={<AuthorsDashboard/>}/>
           <Route path='statistic' element={<StatisticPage/>}/>
+          <Route path='categories' element={<CategoriesPage/>}/>
         </Routes>
       </div>
     </div>

@@ -126,6 +126,18 @@ const Sidebar = () => {
           </svg>
           <p>Advertising</p>
         </div>
+        <NavLink to={"/admin/categories"} className={(navData)=>(navData.isActive?` ${theme?'navlinkElementDarkAir':'navlinkElementLightAir'} font-medium`:" ")}>
+        <div className={`w-full h-[56px] flex px-[18px] gap-[20px] items-center cursor-pointer ${theme?'sideBarElementDark':'sideBarElementlight'} transition-all`}>
+          <svg viewBox="0 0 32 32"  width="24" height="24"  xmlns="http://www.w3.org/2000/svg">
+          <path d="m6.76 6 .45.89.55 1.11h4.24v5h-8v-7zm.62-2h-4.38a1 1 0 0 0 -1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7a1 1 0 0 0 -1-1h-4l-.72-1.45a1 1 0 0 0 -.9-.55z" fill='#494E5B'/>
+          <path d="m22.76 6 .45.89.55 1.11h4.24v5h-8v-7zm.62-2h-4.38a1 1 0 0 0 -1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7a1 1 0 0 0 -1-1h-4l-.72-1.45a1 1 0 0 0 -.9-.55z" fill='#494E5B'/>
+          <path d="m6.76 19 .45.89.55 1.11h4.24v5h-8v-7zm.62-2h-4.38a1 1 0 0 0 -1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7a1 1 0 0 0 -1-1h-4l-.72-1.45a1 1 0 0 0 -.9-.55z" fill='#494E5B'/>
+          <path d="m22.76 19 .45.89.55 1.11h4.24v5h-8v-7zm.62-2h-4.38a1 1 0 0 0 -1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7a1 1 0 0 0 -1-1h-4l-.72-1.45a1 1 0 0 0 -.9-.55z" fill='#494E5B'/>
+          {/* <path d="m0 0h32v32h-32z" fill="none"/> */}
+          </svg>
+          <p>Categories</p>
+        </div>
+        </NavLink>
       </div>
       <Link to={"/"}>
       <div className={`w-[320px] h-[56px] flex px-[18px] gap-[20px] items-center cursor-pointer ${theme?'sideBarElementDark':'sideBarElementLight'} transition-all absolute bottom-0`}>
