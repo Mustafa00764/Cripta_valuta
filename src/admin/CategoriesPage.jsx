@@ -47,7 +47,8 @@ const CategoriesPage = () => {
     }
   };
 
-  const handleSubmite = async () => {
+  const handleSubmite = async (event) => {
+    event.preventDefault();
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -149,7 +150,7 @@ const CategoriesPage = () => {
         <div className={`text-[24px] mt-4 font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
           <p>New Category</p>
         </div>
-        <form>
+        <form onSubmit={handleSubmite}>
           <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all mt-[5px] `}>
           </div>
           {/* Poster */}
