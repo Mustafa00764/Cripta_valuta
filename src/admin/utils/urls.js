@@ -1,0 +1,1 @@
+export const addArticlsPost = 'https://legitcommunity.uz'

@@ -301,7 +301,8 @@ const AddArticlePage = () => {
     try {
       const canvas = previewCanvasRef.current;
       const croppedImageUrl = await getCroppedImg(poster, croppedAreaPixels, canvas);
-      setCroppedImage(croppedImageUrl);
+      const url = URL.createObjectURL(croppedImageUrl);
+      setCroppedImage(url);
     } catch (error) {
       console.error('Error cropping image:', error);
     }
