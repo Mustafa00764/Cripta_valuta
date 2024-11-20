@@ -9,6 +9,8 @@ import { AuthContext } from '../context/AuthContext';
 const EditProfilePage = () => {
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg');
   const [photo, setPhoto] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [textLength, setTextLength] = useState(0);
   const [about, setAbout] = useState('');
