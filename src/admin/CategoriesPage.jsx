@@ -183,10 +183,10 @@ const CategoriesPage = () => {
           </div>
           <div className=' relative'>
             {
-              categories.map(v=>{
+              categories.map((v,index)=>{
                 return (
                   <>
-                  <CCard key={v.id} id={v.id} name={v.name}  icon={v.icon} description={v.description} />
+                  <CCard key={v.id} id={index+1} name={v.name}  icon={v.icon} description={v.description} />
                   </>
                 )
               })
