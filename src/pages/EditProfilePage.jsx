@@ -1,45 +1,47 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import LC_logo from '../assets/images/LC_logo.jpeg'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import LC_logo from '../assets/images/LC_logo.jpeg';
 import Cropper from 'react-easy-crop';
-import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import { getCroppedImg } from '../admin/cropImage';
-import { Line } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
 import api from '../components/axiosRefresh';
-import { AuthContext } from '../context/AuthContext'    
+import { AuthContext } from '../context/AuthContext';
 
 const EditProfilePage = () => {
-  const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
-  const previewCanvasRef = useRef(null);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg');
+  const [photo, setPhoto] = useState(null);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [croppedImage, setCroppedImage] = useState();
-  const [textLength, setTextLength] = useState(0)
-  const [hints, setHints] = useState('')
-  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken } = useContext(AuthContext);
-  const [photo, setPhoto] = useState(user?user.photo_url:LC_logo)
-  const [name, setName] = useState(user?user.firstName:"");
-  const [about, setAbout] = useState("");
-  const [file, setFile] = useState(null);
+  const [textLength, setTextLength] = useState(0);
+  const [about, setAbout] = useState('');
+  const [name, setName] = useState('');
+  const { user, setUser } = useContext(AuthContext);
+
+  const previewCanvasRef = useRef(null);
+
+  useEffect(() => {
+    if (user) {
+      setPhoto(user.photo_url || LC_logo);
+      setName(user.firstName || '');
+      setAbout(user.about || '');
+      setPosterPhoto(user.profileHeader || 'https://cdn-edge.kwork.ru/files/cover/header11.jpg');
+    }
+  }, [user]);
 
   const handleImageUpload = async (e, setImage) => {
-    const file = e.target.files[0];    
+    const file = e.target.files[0];
     if (file && /\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
       const reader = new FileReader();
       reader.onload = () => {
         setImage(reader.result);
       };
       reader.readAsDataURL(file);
-  }}
+    }
+  };
 
-  const updatePreview = async (photo, croppedAreaPixels) => {
+  const updatePreview = async () => {
     try {
       const canvas = previewCanvasRef.current;
       const croppedImageUrl = await getCroppedImg(photo, croppedAreaPixels, canvas);
-      setCroppedImage(croppedImageUrl);
-      console.log(croppedAreaPixels);
+      setPhoto(croppedImageUrl);
     } catch (error) {
       console.error('Error cropping image:', error);
     }
@@ -47,166 +49,85 @@ const EditProfilePage = () => {
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
-    updatePreview(photo, croppedAreaPixels);
-    console.log(croppedArea);
+    updatePreview();
   }, [photo]);
 
-  const lengthCheck = (e) => {
-    let l = e.target.value
-    setAbout(l)
-    let length = 0
-    for (let i = 0; i < l.length; i++) {
-      let element = l[i];
-      element === " "?'':length++
-    }
-    if (l === '') {
-      length = 0
-      setTextLength(length)
-    }else{
-      setTextLength(length)
-    }
-  }
-
-  const hint = (el,vis) => {
-    const hints = document.querySelector(".hints")
-    if (el === 'name' && vis === 'over') {
-      setHints('It will be visible to users, increases their trust in you.')
-      hints.style.display = 'flex'
-      hints.style.top = '20px'
-    }else if (el === 'username' && vis === 'over') {
-      setHints('This is your Telegram username, if you want to change it, change it in Telegram.')
-      hints.style.display = 'flex'
-      hints.style.top = '20px'
-    }else if (el === 'photo' && vis === 'over') {
-      setHints("High-quality personal photography strengthens readers' trust. You can also use other images. <br> Format: jpg, jpeg, png, webp.")
-      hints.style.display = 'flex'
-      hints.style.top = '150px'
-    }else if (el === 'about you' && vis === 'over') {
-      setHints("Tell people about yourself: how did you start your journey, what inspires you and what are your goals. Share stories of success and difficulties, because your experience can inspire others to new achievements!")
-      hints.style.display = 'flex'
-      hints.style.top = '372px'
-    }else if (el === 'profile header' && vis === 'over') {
-      setHints("The image at the top of your public profile page. This helps you stand out from the competition and form your own brand. <br> Formats: jpg, jpeg, png, webp.")
-      hints.style.display = 'flex'
-      hints.style.top = '568px'
-    }else {
-      hints.style.display = ''
-    }
-    
-  }
-
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (user && photo == user.photo_url && posterPhoto == user.profileHeader && name == user.firstName && about == user.about) {
-      alert("Сначала измените что-нибудь!");
+    if (
+      user &&
+      photo === user.photo_url &&
+      posterPhoto === user.profileHeader &&
+      name === user.firstName &&
+      about === user.about
+    ) {
+      alert('Сначала измените что-нибудь!');
       return;
     }
-  
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-    const userId = localStorage.getItem('userId');
 
-    if (!accessToken || !refreshToken) {
-      alert("Вы не авторизованы!");
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      alert('Вы не авторизованы!');
       return;
     }
-  
+
     try {
-      // Создаем canvas для обрезки изображения
-      const canvas = document.createElement("canvas");
-      const croppedBlob = await getCroppedImg(photo, croppedAreaPixels, canvas);
-  
-      if (!croppedBlob) {
-        throw new Error("Ошибка при обрезке изображения.");
-      }
-  
-      // Преобразуем Blob в File
-      const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
-  
-      // Проверяем, является ли posterPhoto строкой (URL)
+      // Обрезка фото
+      const croppedBlob = await getCroppedImg(photo, croppedAreaPixels, previewCanvasRef.current);
+      const croppedFile = new File([croppedBlob], 'cropped-image.jpg', { type: 'image/jpeg' });
+
+      // Обработка заголовочного изображения
       let posterFile = posterPhoto;
-      if (typeof posterPhoto === "string") {
+      if (typeof posterPhoto === 'string') {
         const response = await fetch(posterPhoto);
-        if (!response.ok) {
-          throw new Error("Ошибка загрузки posterPhoto.");
-        }
         const posterBlob = await response.blob();
-        posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
+        posterFile = new File([posterBlob], 'poster-image.jpg', { type: 'image/jpeg' });
       }
-  
-      // Создаем FormData
-      const formData1 = new FormData();
-      const formData2 = new FormData();
 
-      formData1.append("file", croppedFile);
-      formData2.append("file", posterFile);
-  
-      // Отправляем данные на /upload
-      const uploadResponse1 = await api.post("/upload", formData1, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log(uploadResponse1.data);
-      const uploadResponse2 = await api.post("/upload", formData2, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log(uploadResponse2.data);
+      // Загрузка изображений
+      const uploadImage = async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
 
-      const image1Path = "https://legitcommunity.uz"+uploadResponse1.data;
-      const image2Path = "https://legitcommunity.uz"+uploadResponse2.data;
+        const uploadResponse = await api.post('/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
 
-      if (!image1Path || !image2Path) {
-        throw new Error("Ошибка загрузки изображений на сервер.");
-      }
-  
-      // Обновление профиля пользователя
-      const userData = {
+        return `https://legitcommunity.uz${uploadResponse.data}`;
+      };
+
+      const image1Path = await uploadImage(croppedFile);
+      const image2Path = await uploadImage(posterFile);
+
+      // Обновление данных профиля
+      const updatedUser = {
         firstName: name,
         about,
         lastName: user.lastName,
         username: user.username,
         isSubscribed: user.isSubscribed,
-        photo_url: image1Path == user.photo_url?user.photo_url:image1Path,
+        photo_url: image1Path,
         profileHeader: image2Path,
       };
-  
-      const userResponse = await api.put(`/users/${userId}`, userData, {
+
+      const userResponse = await api.put(`/users/${user.id}`, updatedUser, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
         },
       });
-  
-      console.log("Профиль успешно обновлен:", userResponse.data);
-      alert("Профиль обновлен!");
+
+      setUser(userResponse.data);
+      alert('Профиль успешно обновлен!');
     } catch (error) {
-      if (error.response) {
-        console.error("Ответ сервера:", error.response.data); // Сообщение об ошибке от сервера
-      } else {
-        console.error("Ошибка:", error.message);
-      }
+      console.error('Ошибка при обновлении профиля:', error.response || error.message);
     }
   };
-
-  useEffect(()=>{
-    const users = async () =>{
-      if (user) {
-        if(user.profileHeader != undefined){
-          setPosterPhoto(user.profileHeader)
-          setAbout(user.about)
-        }
-      }
-      console.log(user);
-    }
-    users()
-  },[user])
   
   return (
     <div className='w-full'>
