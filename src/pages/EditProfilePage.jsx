@@ -173,7 +173,7 @@ const EditProfilePage = () => {
         lastName: user.lastName,
         username: user.username,
         isSubscribed: user.isSubscribed,
-        photo_url: image1Path,
+        photo_url: image1Path == user.photo_url?user.photo_url:image1Path,
         profileHeader: image2Path,
       };
   
