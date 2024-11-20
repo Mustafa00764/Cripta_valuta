@@ -135,9 +135,10 @@ const CategoriesPage = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
+      handleRestore()
+      handleRemove()
       console.log("Категория успешно добавлена:", response.data);
       alert("The category has been added successfully!");
-      handleRestore()
     } catch (error) {
 
       console.log(error);
