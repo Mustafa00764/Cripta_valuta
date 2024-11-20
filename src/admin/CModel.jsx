@@ -6,7 +6,7 @@ const CModel = ({name, icon, description, id}) => {
   const [namee, setName] = useState(name);
   const [descriptione, setDescription] = useState(description);
   const [poster, setPoster] = useState(icon)
-  const {setCategories,setMain,setImage,setPostered,handleRestore,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
+  const {setCategories,setMain,setImage,setPostered,theme,handleRestore,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
 
 
   const handleImageUpload = async (event) => {
