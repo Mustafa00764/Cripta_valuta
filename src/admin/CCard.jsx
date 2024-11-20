@@ -15,7 +15,7 @@ const CCard = ({name, icon, description, id}) => {
     </div>
     <div className='w-[150px] items-center gap-4 flex justify-center h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 object-center object-cover' src={icon} alt="" />
+        <img className='border-0 w-full h-full object-center object-cover' src={icon} alt="" />
       </div>
     </div>
     <div className='w-[300px]'>
