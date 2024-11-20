@@ -21,8 +21,8 @@ const CCard = ({name,icon,description}) => {
     <div className='w-[300px]'>
       <p>{name}</p>
     </div>
-    <div className=' flex-auto flex justify-center h-[24px]  relative overflow-hidden'>
-        <p className='w-[250px] whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{headings}</p>
+    <div className=' flex-auto flex justify-center h-[24px] relative overflow-hidden'>
+        <p className='w-full whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{headings}</p>
       </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>
       <div className='options_edit transition-all'>
