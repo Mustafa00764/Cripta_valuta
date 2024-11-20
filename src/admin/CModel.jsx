@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import api from '../components/axiosRefresh.js'
+import { AdminContext } from '../context/AdminContext.jsx';
 
-const CModel = () => {
-  const [name, setName] = useState();
-  const [description, setDescription] = useState();
-  const [poster, setPoster] = useState()
+const CModel = ({name, icon, description, id}) => {
+  const [namee, setName] = useState(name);
+  const [descriptione, setDescription] = useState(description);
+  const [poster, setPoster] = useState(icon)
+  const {setCategories,setMain,setImage,setPostered,handleRestore,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
 
 
   const handleImageUpload = async (event) => {
@@ -70,16 +73,15 @@ const CModel = () => {
         icon: image1Path,
       };
 
-      const response = await api.post('/categories', categoryData, {
+      const response = await api.put('/categories', categoryData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       })
       handleRestore()
-      handleRemove()
-      console.log("Категория успешно добавлена:", response.data);
-      alert("The category has been added successfully!");
+      console.log("Категория успешно обновлен:", response.data);
+      alert("The category has been successfully updated!");
     } catch (error) {
 
       console.log(error);
@@ -91,14 +93,14 @@ const CModel = () => {
   return (
     <div>
       <div>
-        <div className={`text-[24px] mt-4 font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
+        <div className={`text-[24px] mt-4 font-bold text-textMode transition-all`}>
           <p>Edit Category</p>
         </div>
         <form onSubmit={handleSubmite}>
-          <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all mt-[5px] `}>
+          <div className={`text-textMode transition-all mt-[5px] `}>
           </div>
           {/* Poster */}
-          <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] flex items-end transition-all`}>
+          <div className={`text-textMode mt-[15px] flex items-end transition-all`}>
             <div>
             <label htmlFor="poster" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Poster <span className='text-[#FF8F00] text-[14px] '>(1:1)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <label htmlFor="poster" style={{backgroundImage: poster ? `url(${poster})` : `url(${theme?white_pattern:pattern})`}} className={` w-[288px] cursor-pointer h-[288px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-full border border-[#262E34]`}>
@@ -112,25 +114,25 @@ const CModel = () => {
             </label>
             </div>
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="name" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Categories Name <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"
               maxLength="100"
-              value={name}
+              value={namee}
               id='name'
               placeholder='Enter asset name'
               onChange={(e) => setName(e.target.value)}
               required
-              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="description" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Description <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
           <textarea
               type="text"
               minLength="100"
-              value={description}
+              value={descriptione}
               id='description'
               placeholder='Enter asset description'
               onChange={(e) => setDescription(e.target.value)}
