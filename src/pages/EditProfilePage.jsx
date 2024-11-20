@@ -5,6 +5,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { getCroppedImg } from '../admin/cropImage';
 import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const EditProfilePage = () => {
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg');
