@@ -5,9 +5,9 @@ import pattern from "../assets/images/pattern.png"
 import white_pattern from "../assets/images/white_pattern.png"
 const CModel = () => {
   const {setCategory,category,model,setModel} = useContext(AdminContext)
-  const [namee, setName] = useState(category.name);
-  const [descriptione, setDescription] = useState(category.description);
-  const [postere, setPostere] = useState(category.icon)
+  const [namee, setName] = useState();
+  const [descriptione, setDescription] = useState();
+  const [postere, setPostere] = useState()
   const {setCategories,setMain,setImage,setPostered,theme,handleRestore,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
 
 
@@ -90,7 +90,9 @@ const CModel = () => {
     }
   }
   useEffect(()=>{
-
+    setName(category.name)
+    setDescription(category.description)
+    setPostere(category.icon)
   },[category,model,namee,descriptione,postere])
 
   return (
