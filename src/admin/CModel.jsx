@@ -151,7 +151,7 @@ const CModel = () => {
               className={`w-full outline-none border min-h-[150px] border-[#262E34] p-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             ></textarea>
           </div>
-          <div className='w-full justify-between items-center'>
+          <div className='w-full flex justify-between items-center'>
           <button type='submit' className="mt-4 px-4 py-2 bg-blue-500 text-white" >
             PUSH
           </button>
