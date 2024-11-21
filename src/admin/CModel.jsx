@@ -100,7 +100,7 @@ const CModel = () => {
   },[category,model,])
 
   return (
-    <div className={model?'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]':'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
+    <div className={model?'w-full h-full absolute top-0 left-0 flex rounded-[15px] justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]':'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
       <div className='max-w-[1024px] w-full h-auto p-6 bg-bgMode '>
         <div className={`text-[24px] mt-4 font-bold text-textMode transition-all`}>
           <p>Edit Category</p>
@@ -151,9 +151,12 @@ const CModel = () => {
               className={`w-full outline-none border min-h-[150px] border-[#262E34] p-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             ></textarea>
           </div>
-          <div>
+          <div className='w-full justify-between items-center'>
           <button type='submit' className="mt-4 px-4 py-2 bg-blue-500 text-white" >
             PUSH
+          </button>
+          <button type='submit' className="mt-4 px-4 py-2 bg-blue-500 text-white" >
+            Cancel
           </button>
         </div>
         </form>
