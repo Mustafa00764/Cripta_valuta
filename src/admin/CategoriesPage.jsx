@@ -158,7 +158,7 @@ const CategoriesPage = () => {
               <p>options</p>
             </div>
           </div>
-          <div className=' relative'>
+          <div className=''>
             {
               categories.map((v,index)=>{
                 return (
