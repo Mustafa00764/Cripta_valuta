@@ -92,7 +92,7 @@ const CModel = () => {
   }
   useEffect(()=>{
 
-  },[category,model])
+  },[category,model,namee,descriptione,postere])
 
   return (
     <div className={model?'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]':'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
