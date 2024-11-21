@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import api from '../components/axiosRefresh.js'
 import { AdminContext } from '../context/AdminContext.jsx';
-
+import pattern from "../assets/images/pattern.png"
+import white_pattern from "../assets/images/white_pattern.png"
 const CModel = () => {
   const {setCategory,category,model,setModel} = useContext(AdminContext)
   const [namee, setName] = useState(category.name);
