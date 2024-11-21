@@ -103,7 +103,7 @@ const CModel = () => {
         <form onSubmit={handleSubmite}>
           <div className={`text-textMode transition-all mt-[5px] `}>
           </div>
-          {/* Poster */}
+          {/* Postere */}
           <div className={`text-textMode mt-[15px] flex items-end transition-all`}>
             <div>
             <label htmlFor="postere" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Poster <span className='text-[#FF8F00] text-[14px] '>(1:1)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
