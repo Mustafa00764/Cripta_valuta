@@ -7,7 +7,7 @@ const CModel = () => {
   const {setCategory,category,model,setModel} = useContext(AdminContext)
   const [namee, setName] = useState(category.name);
   const [descriptione, setDescription] = useState(category.description);
-  const [poster, setPoster] = useState(category.icon)
+  const [postere, setPostere] = useState(category.icon)
   const {setCategories,setMain,setImage,setPostered,theme,handleRestore,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
 
 
@@ -17,7 +17,7 @@ const CModel = () => {
       const reader = new FileReader();
       reader.onload = () => {
         console.log('Image loaded:', reader.result);  // Убедитесь, что изображение загружено
-        setPoster(reader.result);
+        setPostere(reader.result);
       };
       reader.readAsDataURL(file);      
     } else {
@@ -107,7 +107,7 @@ const CModel = () => {
           <div className={`text-textMode mt-[15px] flex items-end transition-all`}>
             <div>
             <label htmlFor="poster" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Poster <span className='text-[#FF8F00] text-[14px] '>(1:1)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
-            <label htmlFor="poster" style={{backgroundImage: poster ? `url(${poster})` : `url(${theme?white_pattern:pattern})`}} className={` w-[288px] cursor-pointer h-[288px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-full border border-[#262E34]`}>
+            <label htmlFor="poster" style={{backgroundImage: postere ? `url(${postere})` : `url(${theme?white_pattern:pattern})`}} className={` w-[288px] cursor-pointer h-[288px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-full border border-[#262E34]`}>
               <input type="file" id='poster' accept='image/*' required onChange={handleImageUpload} name='poster' className=' w-0 h-0'/>
               <svg className={poster?"hidden":""} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M45.8334 14.0625C46.6963 14.0625 47.3959 13.3629 47.3959 12.5C47.3959 11.6371 46.6963 10.9375 45.8334 10.9375V14.0625ZM29.1667 10.9375C28.3038 10.9375 27.6042 11.6371 27.6042 12.5C27.6042 13.3629 28.3038 14.0625 29.1667 14.0625V10.9375ZM39.0625 4.16666C39.0625 3.30372 38.3629 2.60416 37.5 2.60416C36.6371 2.60416 35.9375 3.30372 35.9375 4.16666H39.0625ZM35.9375 20.8333C35.9375 21.6962 36.6371 22.3958 37.5 22.3958C38.3629 22.3958 39.0625 21.6962 39.0625 20.8333H35.9375ZM45.8334 10.9375H37.5V14.0625H45.8334V10.9375ZM37.5 10.9375H29.1667V14.0625H37.5V10.9375ZM35.9375 4.16666V12.5H39.0625V4.16666H35.9375ZM35.9375 12.5V20.8333H39.0625V12.5H35.9375Z" fill={theme?"#0C1013":"#FFFFFF"}/>
