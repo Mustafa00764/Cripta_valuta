@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import api from '../components/axiosRefresh.js'
 import { AdminContext } from '../context/AdminContext.jsx';
 
-const CModel = ({name, icon, description, id}) => {
-  const [namee, setName] = useState(name);
-  const [descriptione, setDescription] = useState(description);
-  const [poster, setPoster] = useState(icon)
+const CModel = () => {
+  const {setCategory,category,model,setModel} = useContext(AdminContext)
+  const [namee, setName] = useState(category.name);
+  const [descriptione, setDescription] = useState(category.description);
+  const [poster, setPoster] = useState(category.icon)
   const {setCategories,setMain,setImage,setPostered,theme,handleRestore,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
 
 
@@ -68,12 +69,12 @@ const CModel = ({name, icon, description, id}) => {
       }
 
       const categoryData = {
-        name: name,
-        description: description,
+        name: namee,
+        description: descriptione,
         icon: image1Path,
       };
 
-      const response = await api.put('/categories', categoryData, {
+      const response = await api.put(`/categories/${category.id}`, categoryData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -88,10 +89,12 @@ const CModel = ({name, icon, description, id}) => {
 
     }
   }
+  useEffect(()=>{
 
+  },[category,model])
 
   return (
-    <div className=''>
+    <div className={model?'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]':'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
       <div className='max-w-[1024px] w-full h-auto p-6 bg-bgMode '>
         <div className={`text-[24px] mt-4 font-bold text-textMode transition-all`}>
           <p>Edit Category</p>

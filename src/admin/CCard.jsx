@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CModel from './CModel';
+import { AdminContext } from '../context/AdminContext';
 
-const CCard = ({name, icon, description, num, id}) => {
+const CCard = ({name, icon, description, num, v}) => {
   const order = ["cover", "headings"];
   const [cover, setCover] = useState("")
-  const [modal, setModal] = useState(false)
-
+  const {setCategory,category,setModel,model} = useContext(AdminContext)
   useEffect(()=>{
     console.log(cover);
   },[])
+
+  const modele = () => {
+    setModel(!model)
+    setCategory(v)
+  }
   return (
     <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
@@ -26,7 +31,7 @@ const CCard = ({name, icon, description, num, id}) => {
       <p className=' max-w-[450px] whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{description}</p>
     </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>
-      <div className='options_edit transition-all cursor-pointer' onClick={()=>setModal(!modal)}>
+      <div className='options_edit transition-all cursor-pointer' onClick={()=>modele()}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M11.8868 0.636889C11.9304 0.593236 11.9821 0.558602 12.039 0.534971C12.096 0.51134 12.157 0.499176 12.2187 0.499176C12.2803 0.499176 12.3414 0.51134 12.3983 0.534971C12.4553 0.558602 12.507 0.593236 12.5506 0.636889L15.3631 3.44939C15.4067 3.49293 15.4413 3.54466 15.465 3.60161C15.4886 3.65856 15.5008 3.71961 15.5008 3.78126C15.5008 3.84292 15.4886 3.90397 15.465 3.96092C15.4413 4.01787 15.4067 4.0696 15.3631 4.11314L5.98806 13.4881C5.94308 13.5328 5.8895 13.5679 5.83056 13.5913L1.14307 15.4663C1.05788 15.5004 0.964561 15.5087 0.874677 15.4903C0.784793 15.4718 0.702297 15.4274 0.637416 15.3625C0.572535 15.2977 0.528122 15.2152 0.509684 15.1253C0.491246 15.0354 0.499593 14.9421 0.53369 14.8569L2.40869 10.1694C2.43206 10.1105 2.46714 10.0569 2.51182 10.0119L11.8868 0.636889ZM11.0065 2.84376L13.1562 4.99345L14.3684 3.78126L12.2187 1.63158L11.0065 2.84376ZM12.4934 5.65626L10.3437 3.50658L4.24994 9.60032V9.87501H4.71869C4.84301 9.87501 4.96224 9.9244 5.05015 10.0123C5.13805 10.1002 5.18744 10.2194 5.18744 10.3438V10.8125H5.65619C5.78051 10.8125 5.89974 10.8619 5.98765 10.9498C6.07555 11.0377 6.12494 11.1569 6.12494 11.2813V11.75H6.39963L12.4934 5.65626ZM3.34244 10.5078L3.24307 10.6072L1.81057 14.1894L5.39275 12.7569L5.49213 12.6575C5.40271 12.6241 5.32562 12.5642 5.27117 12.4858C5.21672 12.4074 5.18751 12.3142 5.18744 12.2188V11.75H4.71869C4.59437 11.75 4.47514 11.7006 4.38723 11.6127C4.29933 11.5248 4.24994 11.4056 4.24994 11.2813V10.8125H3.78119C3.68573 10.8124 3.59257 10.7832 3.51417 10.7288C3.43576 10.6743 3.37585 10.5972 3.34244 10.5078Z" fill="#494E5B"/>
         </svg>
@@ -44,9 +49,7 @@ const CCard = ({name, icon, description, num, id}) => {
         </svg>
       </div>
     </div>
-    <div className={modal?' z-[25] justify-center items-center top-0 left-0 opacity-[1] transition-all absolute w-[100vw] h-screen flex':' opacity-0 transition-all top-0 left-0 -z-10 absolute w-[100vw] justify-center items-center h-screen flex'} >
-      <CModel name={name} icon={icon} description={description} id={id} />
-    </div>
+
   </div>
   )
 }

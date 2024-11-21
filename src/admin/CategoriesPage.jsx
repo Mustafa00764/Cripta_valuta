@@ -33,6 +33,7 @@ const CategoriesPage = () => {
   const [name, setName] = useState(titled);
   const [description, setDescription] = useState(subtitled);
   const [poster, setPoster] = useState(postered)
+  const {setCategory,category} = useContext(AdminContext)
 
 
 
@@ -125,7 +126,7 @@ const CategoriesPage = () => {
 
   useEffect(()=>{
     handleRestore()
-  },[categories])
+  },[categories,category])
 
   return (
     <div className='w-full h-auto'>
@@ -163,7 +164,7 @@ const CategoriesPage = () => {
               categories.map((v,index)=>{
                 return (
                   <>
-                  <CCard key={v.id} id={v.id} num={index+1} name={v.name}  icon={v.icon} description={v.description} />
+                  <CCard key={v.id} v={v} num={index+1} name={v.name}  icon={v.icon} description={v.description} />
                   </>
                 )
               })
@@ -224,6 +225,7 @@ const CategoriesPage = () => {
         </div>
         </form>
       </div>
+      <CModel/>
     </div>
   )
 }
