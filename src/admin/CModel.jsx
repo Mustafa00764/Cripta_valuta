@@ -72,13 +72,10 @@ const CModel = () => {
         console.log("not");
         
       }
-
-  
-
       const categoryData = {
         name: namee,
         description: descriptione,
-        icon: image1Path,
+        icon: postere != category.icon?image1Path:postere,
       };
 
       const response = await api.put(`/categories/${category.id}`, categoryData, {
