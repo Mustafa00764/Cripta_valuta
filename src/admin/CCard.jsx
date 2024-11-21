@@ -44,8 +44,8 @@ const CCard = ({name, icon, description, num, id}) => {
         </svg>
       </div>
     </div>
-    <div className={modal?' z-[25] top-0 left-0 opacity-[1] transition-all absolute w-[100vw] h-screen flex':' opacity-0 transition-all top-0 left-0 -z-10 absolute w-[100vw] h-screen flex'} onClick={()=>setModal(false)}>
-      <CModel name={name} icon={icon} description={description} id={id} onClick={()=>setModal(true)}/>
+    <div className={modal?' z-[25] justify-center items-center top-0 left-0 opacity-[1] transition-all absolute w-[100vw] h-screen flex':' opacity-0 transition-all top-0 left-0 -z-10 absolute w-[100vw] justify-center items-center h-screen flex'} >
+      <CModel name={name} icon={icon} description={description} id={id} />
     </div>
   </div>
   )
