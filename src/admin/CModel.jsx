@@ -37,36 +37,43 @@ const CModel = () => {
     }
     try {
 
-      let posterFile = postere;
-      if (typeof postere === "string") {
-        const response = await fetch(postere);
-        if (!response.ok) {
-          throw new Error("Ошибка загрузки posterPhoto.");
+      if (postere !== category.icon) {
+        let posterFile = postere;
+        if (typeof postere === "string") {
+          const response = await fetch(postere);
+          if (!response.ok) {
+            throw new Error("Ошибка загрузки posterPhoto.");
+          }
+          const posterBlob = await response.blob();
+          posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
         }
-        const posterBlob = await response.blob();
-        posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
-      }
+    
+        // Создаем FormData
+        const formData1 = new FormData();
   
-      // Создаем FormData
-      const formData1 = new FormData();
-
-      formData1.append("file", posterFile);
+        formData1.append("file", posterFile);
+    
+        // Отправляем данные на /upload
+        const uploadResponse1 = await api.post("/upload", formData1, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
   
-      // Отправляем данные на /upload
-      const uploadResponse1 = await api.post("/upload", formData1, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      console.log(uploadResponse1.data);
-
-      const image1Path = "https://legitcommunity.uz"+uploadResponse1.data;
-
-      if (!image1Path) {
-        throw new Error("Ошибка загрузки изображений на сервер.");
+        console.log(uploadResponse1.data);
+  
+        const image1Path = "https://legitcommunity.uz"+uploadResponse1.data;
+  
+        if (!image1Path) {
+          throw new Error("Ошибка загрузки изображений на сервер.");
+        }
+      }else{
+        console.log("not");
+        
       }
+
+  
 
       const categoryData = {
         name: namee,
