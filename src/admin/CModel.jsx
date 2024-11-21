@@ -35,12 +35,11 @@ const CModel = () => {
       alert("Вы не авторизованы!");
       return;
     }
-
     try {
 
-      let posterFile = poster;
-      if (typeof poster === "string") {
-        const response = await fetch(poster);
+      let posterFile = postere;
+      if (typeof postere === "string") {
+        const response = await fetch(postere);
         if (!response.ok) {
           throw new Error("Ошибка загрузки posterPhoto.");
         }
@@ -125,6 +124,7 @@ const CModel = () => {
               maxLength="100"
               value={namee}
               id='name'
+              defaultValue={namee}
               placeholder='Enter asset name'
               onChange={(e) => setName(e.target.value)}
               required
@@ -138,6 +138,7 @@ const CModel = () => {
               minLength="100"
               value={descriptione}
               id='description'
+              defaultValue={descriptione}
               placeholder='Enter asset description'
               onChange={(e) => setDescription(e.target.value)}
               required
