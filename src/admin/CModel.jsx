@@ -100,8 +100,8 @@ const CModel = () => {
   },[category,model,])
 
   return (
-    <div className={model?'w-full h-full absolute top-0 left-0 flex rounded-[15px] justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]':'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
-      <div className='max-w-[1024px] w-full h-auto p-6 bg-bgMode '>
+    <div className={model?'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]':'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
+      <div className='max-w-[1024px] w-full h-auto p-6 bg-bgMode rounded-[15px]  '>
         <div className={`text-[24px] mt-4 font-bold text-textMode transition-all`}>
           <p>Edit Category</p>
         </div>
