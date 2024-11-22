@@ -430,7 +430,7 @@ const AddArticlePage = () => {
       const articleData = {
         title: title,
         subtitle: subtitle,
-        content: updatedHTML,
+        content: `${updatedHTML}`,
         conclusion: conclusion,
         pubDate: publishDate,
         authorId: userId,
