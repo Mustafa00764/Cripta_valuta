@@ -10,6 +10,7 @@ export const AdminContext = createContext();
 const AdminProvider = ({ children }) => {
   const [theme, setTheme] = useState(false)
   const [model, setModel] = useState(false)
+  const [deleteModel, setDeleteModel] = useState(false)
   const [sort, setSort] = useState(10)
   const [image, setImage] = useState(null)
   const [postered, setPostered] = useState(null)
@@ -96,7 +97,7 @@ const AdminProvider = ({ children }) => {
   },[])
 
   return (
-    <AdminContext.Provider value={{theme,model,setModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
+    <AdminContext.Provider value={{theme,model,setModel,deleteModel,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
       {children}
     </AdminContext.Provider>
   )
