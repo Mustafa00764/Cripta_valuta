@@ -45,10 +45,10 @@ const DModel = () => {
         </div>
         <p className='text-[32px] leading-[48px] font-semibold text-center'>Вы уверены, что хотите удалить эту категорию?</p>
         <div className='w-full flex justify-center gap-6 items-center'>
-          <button className='mt-4 px-4 py-2 bg-red-500 text-white' onClick={()=>handleSubmite()}>
+          <button className='mt-4 max-w-[250px] w-full h-[50px] text-[24px] rounded-[8px] bg-red-500 text-white' onClick={()=>handleSubmite()}>
             Delete
           </button>
-          <button className='mt-4 px-4 py-2 bg-blue-500 text-white' onClick={()=>setDeleteModel(false)}>
+          <button className='mt-4 max-w-[250px] w-full text-[24px] h-[50px] rounded-[8px] bg-blue-500 text-white' onClick={()=>setDeleteModel(false)}>
             Cancel
           </button>
         </div>
