@@ -24,6 +24,7 @@ const DModel = () => {
         }
       })
       handleRestore()
+      setDeleteModel(false)
       console.log("Категория успешно удалена:", response.data);
       alert("The category has been successfully deleted!");
     } catch (error) {
