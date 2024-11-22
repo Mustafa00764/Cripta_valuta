@@ -437,7 +437,7 @@ const AddArticlePage = () => {
         status: "Draft",
         mediaUrls:[],
         tags: tags,
-        categories: category
+        categories: [category]
       }
 
       const response = await api.post(`/articles`, articleData, {
