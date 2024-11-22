@@ -19,6 +19,7 @@ import 'draft-js/dist/Draft.css';
 import DemoCard from './DemoCard.jsx';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ArticleDemo from './ArticleDemo.jsx';
+import api from '../components/axiosRefresh';
 const ImageComponent = ({ block, blockProps }) => {
   const { src } = blockProps;
 
@@ -132,6 +133,7 @@ const AddArticlePage = () => {
   const [tags, setTags] = useState([]);
   const [input, setInput] = useState("");
   const [category, setCategory] = useState("");
+  const [imgUrl, setImgUrl] = useState([])
 
   // Добавление тега по нажатию клавиши Enter
   const handleAddTag = (e) => {
@@ -218,7 +220,8 @@ const AddArticlePage = () => {
         // Вставляем атомный блок изображения в редактор
         const newEditorState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ');
         setEditorState(newEditorState);
-  
+
+        setImagesList([...imagesList,reader.result])
         console.log(event.target.result); // Выводим загруженное изображение в консоль
         
       };
@@ -351,42 +354,103 @@ const AddArticlePage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
     const day = String(today.getDate()).padStart(2, '0');
     setMinDate(`${year}-${month}-${day}`);
-    console.log(categories);
     
   },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,categories,getContentAsHTML()])
 
-  const sendToBackend = async () => {
+  const sendToBackend = async (event) => { // отправка данных в базу данных 
+    event.preventDefault();
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    const userId = localStorage.getItem("userId");
+    if (!accessToken || !refreshToken) {
+      alert("Вы не авторизованы!");
+      return;
+    }
+
     const htmlContent = getContentAsHTML(); // Получаем HTML-контент из редактора
-    console.log(htmlContent);
-    
-    const data = {
-      title: title,
-      subtitle: subtitle,
-      content: [
-        {
-          type:"image",
-          url: croppedImage,
-        },
-        {
-          type:"text",
-          value: htmlContent,
-          fontSize: "16px",
-        }
-      ],
-      images: imagesList,
-      authorId: 1,
-      publishDate: pubDate,
-      status: 'Draft', 
-      views: 0,
-      tags: [], 
-      categories: [category],
-    };
-  
+
     try {
-      const response = await axios.post('http://154.53.45.100:8080/articles', data); // Отправляем данные на сервер
-      console.log('Response:', response.data); // Обрабатываем ответ
+      const canvas = document.createElement("canvas");
+      const croppedBlob = await getCroppedImg(poster, croppedAreaPixels, canvas);
+      if (!croppedBlob) {
+        throw new Error("Ошибка при обрезке изображения.");
+      }
+
+      const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
+      const formData2 = new FormData();
+
+      formData2.append("file", croppedFile);
+      const uploadResponse2 = await api.post("/upload", formData2, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log("https://legitcommunity.uz"+uploadResponse2.data);
+
+      for (let i = 0; i < imagesList.length; i++) {
+        let posterFile = imagesList[i];
+        if (typeof imagesList[i] === "string") {
+          const response = await fetch(imagesList[i]);
+          if (!response.ok) {
+           throw new Error("Ошибка загрузки posterPhoto.");
+          }
+          const posterBlob = await response.blob();
+          posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
+        }
+
+        const formData1 = new FormData();
+        formData1.append("file", posterFile);
+
+        const uploadResponse1 = await api.post("/upload", formData1, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log("https://legitcommunity.uz"+uploadResponse1.data);
+        setImgUrl([...imgUrl,"https://legitcommunity.uz"+uploadResponse1.data])
+      }
+
+      const image2Path = "https://legitcommunity.uz"+uploadResponse2.data;
+      if (!image2Path) {
+        throw new Error("Ошибка загрузки изображений на сервер.");
+      }
+
+      const updatedHTML = htmlContent.replace(/<img[^>]*src="([^"]*)"[^>]*>/g, (match, src, index) => {
+        const newSrc = [
+          ...imgUrl
+        ][index];
+        return match.replace(src, newSrc);
+      });
+
+      console.log(updatedHTML);
+      
+      const articleData = {
+        title: title,
+        subtitle: subtitle,
+        content: updatedHTML,
+        conclusion: conclusion,
+        pubDate: publishDate,
+        authorId: userId,
+        status: "Draft",
+        mediaUrls:[],
+        tags: tags,
+        categories: category
+      }
+
+      const response = await api.post(`/articles`, articleData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      console.log("Статья была успешно добавлена:", response.data);
+      alert("The article has been added successfully!");
     } catch (error) {
-      console.error('Error:', error); // Обрабатываем ошибки
+      console.log(error);
     }
   };
 
@@ -397,7 +461,7 @@ const AddArticlePage = () => {
         <div className={`text-[24px] font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
           <p>New Article</p>
         </div>
-        <form >
+        <form onSubmit={sendToBackend}>
           <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all mt-[5px] `}>
           <div>
           <label htmlFor="category" className='pl-[15px] flex gap-[5px] items-center'>Category <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
@@ -648,7 +712,7 @@ const AddArticlePage = () => {
         </form>
         <div className='mt-[15px]'>
         <label htmlFor="subtitle" className='pl-[15px] text-textMode flex gap-[5px] mb-[10px] items-center'>Preview <span className='text-[#FF8F00] text-[14px] '>(click and watch demo)</span></label>
-          <DemoCard pubDate={publishDate} title={title} subtitle={subtitle} categories={selectedCategory} poster={croppedImage} main={getContentAsHTML()}/>
+          <DemoCard pubDate={publishDate} title={title} subtitle={subtitle} categories={category} poster={croppedImage} main={getContentAsHTML()}/>
         </div>
         <div>
         </div>
