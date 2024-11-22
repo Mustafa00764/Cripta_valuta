@@ -107,7 +107,7 @@ const combinedDecorator = new CompositeDecorator([
 
 
 const AddArticlePage = () => {
-  const {setCategories,setMain,setImage,setPostered,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categorie,pubDate,titled,subtitled} = useContext(AdminContext)
+  const {setCategories,setMain,setImage,setSelectedCategory,selectedCategory,setPostered,conclusione,setConclusione,postered,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled} = useContext(AdminContext)
   const [minDate, setMinDate] = useState('');
   const [title, setTitle] = useState(titled);
   const [subtitle, setSubtitle] = useState(subtitled);
@@ -120,8 +120,6 @@ const AddArticlePage = () => {
   const [croppedImage, setCroppedImage] = useState(image);
   const previewCanvasRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(categorie);
-  const categories = ['Empty', 'Technology', 'Business', 'Entertainment'];
 
   const contentState = stateFromHTML(main);
   const editorStates = EditorState.createWithContent(contentState, combinedDecorator);
@@ -133,6 +131,7 @@ const AddArticlePage = () => {
   const [publishDate, setPublishDate] = useState(pubDate.split("-").reverse().join("-"));
   const [tags, setTags] = useState([]);
   const [input, setInput] = useState("");
+  const [category, setCategory] = useState("");
 
   // Добавление тега по нажатию клавиши Enter
   const handleAddTag = (e) => {
@@ -149,7 +148,7 @@ const AddArticlePage = () => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    setCategory(category);
     setIsOpen(false);
   };
 
@@ -339,11 +338,11 @@ const AddArticlePage = () => {
   } 
 
   useEffect(()=>{
-    setCategories(selectedCategory)
     setImage(croppedImage)
     setPubDate(publishDate)
     setSubtitled(subtitle)
     setTitled(title)
+    setSelectedCategory(category)
     setConclusione(conclusion)
     setPostered(poster)
     setMain(getContentAsHTML());
@@ -352,7 +351,6 @@ const AddArticlePage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
     const day = String(today.getDate()).padStart(2, '0');
     setMinDate(`${year}-${month}-${day}`);
-
   },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,getContentAsHTML()])
 
   const sendToBackend = async () => {
@@ -379,7 +377,7 @@ const AddArticlePage = () => {
       status: 'Draft', 
       views: 0,
       tags: [], 
-      categories: [categorie],
+      categories: [category],
     };
   
     try {
@@ -418,12 +416,12 @@ const AddArticlePage = () => {
                   {categories.map((category) => (
                     <li
                       key={category}
-                      onClick={() => handleCategoryClick(category)}
+                      onClick={() => handleCategoryClick(category.name)}
                       className={`cursor-pointer select-none h-[50px]  flex items-center px-[15px] ${
                       selectedCategory === category ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
                       } ${theme?'hover:bg-sideBarTextLight':'hover:bg-[#151B1F]'}`}
                     >
-                      <span className="block truncate">{category}</span>
+                      <span className="block truncate">{category.name}</span>
                     </li>
                   ))}
                 </ul>

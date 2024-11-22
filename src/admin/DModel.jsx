@@ -33,7 +33,6 @@ const DModel = () => {
   }
 
   useEffect(()=>{
-    console.log(category.id);
     
   },[category,deleteModel])
 
