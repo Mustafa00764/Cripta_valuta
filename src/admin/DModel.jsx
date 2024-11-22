@@ -14,7 +14,7 @@ const DModel = () => {
       alert("Вы не авторизованы!");
       return;
     }
-    
+
     try {
       const CID = category.id
       const response = await api.delete(`/categories/${CID}`,{
@@ -30,7 +30,7 @@ const DModel = () => {
 
   return (
     <div className={deleteModel?'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]':'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
-      <div className='max-w-[1024px] w-full h-auto p-6 bg-bgMode rounded-[15px] '>
+      <div className='max-w-[767px] w-full flex flex-col gap-6 h-auto p-6 bg-bgMode rounded-[15px] '>
         <p className='text-[32px] leading-[48px] font-semibold text-center'>Вы уверены, что хотите удалить эту категорию?</p>
         <div className='w-full flex justify-between items-center'>
           <button className='mt-4 px-4 py-2 bg-red-500 text-white' onClick={()=>handleSubmite()}>
