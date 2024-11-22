@@ -23,6 +23,9 @@ const DModel = () => {
           Authorization: `Bearer ${accessToken}`,
         }
       })
+      handleRestore()
+      console.log("Категория успешно удалена:", response.data);
+      alert("The category has been successfully deleted!");
     } catch (error) {
       console.log(error);
     }
