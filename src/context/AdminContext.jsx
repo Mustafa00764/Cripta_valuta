@@ -94,6 +94,7 @@ const AdminProvider = ({ children }) => {
   }
 
   useEffect(()=>{
+    handleRestore()
     toggleTheme()
   },[])
 
