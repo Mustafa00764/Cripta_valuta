@@ -407,7 +407,7 @@ const AddArticlePage = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className={`w-[300px] mt-[5px] gap-[15px] relative h-[50px] flex items-center border border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
               >
-                <span className="block truncate">{selectedCategory}</span>
+                <span className="block truncate">{category}</span>
                 <span className="absolute inset-y-0 right-[15px] flex items-center  pointer-events-none">
                 <img src={chevronDown} alt="chevrodDown"  className=' cursor-pointer'/>
                 </span>
@@ -417,10 +417,10 @@ const AddArticlePage = () => {
                 <ul className={`absolute w-[300px] z-[1] mt-1 ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
                   {categories.map((category) => (
                     <li
-                      key={category}
+                      key={category.id}
                       onClick={() => handleCategoryClick(category.name)}
                       className={`cursor-pointer select-none h-[50px]  flex items-center px-[15px] ${
-                      selectedCategory === category ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
+                      selectedCategory === category.name ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
                       } ${theme?'hover:bg-sideBarTextLight':'hover:bg-[#151B1F]'}`}
                     >
                       <span className="block truncate">{category.name}</span>
