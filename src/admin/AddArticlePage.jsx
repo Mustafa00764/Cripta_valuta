@@ -351,7 +351,7 @@ const AddArticlePage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
     const day = String(today.getDate()).padStart(2, '0');
     setMinDate(`${year}-${month}-${day}`);
-  },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,getContentAsHTML()])
+  },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,categories,getContentAsHTML()])
 
   const sendToBackend = async () => {
     const htmlContent = getContentAsHTML(); // Получаем HTML-контент из редактора
