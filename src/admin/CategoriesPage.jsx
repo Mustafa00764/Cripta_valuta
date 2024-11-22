@@ -23,6 +23,7 @@ import ADCard from './ADCard.jsx';
 import CCard from './CCard.jsx';
 import api from '../components/axiosRefresh.js'
 import CModel from './CModel.jsx';
+import DModel from './DModel.jsx';
 
 
 const CategoriesPage = () => {
@@ -226,6 +227,7 @@ const CategoriesPage = () => {
         </form>
       </div>
       <CModel/>
+      <DModel/>
     </div>
   )
 }
