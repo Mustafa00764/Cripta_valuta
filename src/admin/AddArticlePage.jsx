@@ -415,15 +415,15 @@ const AddArticlePage = () => {
 
               {isOpen && (
                 <ul className={`absolute w-[300px] z-[1] mt-1 ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
-                  {categories.map((category) => (
+                  {categories.map((v) => (
                     <li
-                      key={category.id}
-                      onClick={() => handleCategoryClick(category.name)}
+                      key={v.id}
+                      onClick={() => handleCategoryClick(v.name)}
                       className={`cursor-pointer select-none h-[50px]  flex items-center px-[15px] ${
-                      selectedCategory === category.name ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
+                      category === v.name ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
                       } ${theme?'hover:bg-sideBarTextLight':'hover:bg-[#151B1F]'}`}
                     >
-                      <span className="block truncate">{category.name}</span>
+                      <span className="block truncate">{v.name}</span>
                     </li>
                   ))}
                 </ul>
