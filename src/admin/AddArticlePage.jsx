@@ -403,12 +403,8 @@ const AddArticlePage = () => {
         const formData1 = new FormData();
         formData1.append("file", posterFile);
 
-        const uploadResponse1 = await api.post("/upload", formData1, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const uploadResponse1 = await api.post("/upload", formData1);
+
         console.log("https://legitcommunity.uz"+uploadResponse1.data);
         setImgUrl([...imgUrl,"https://legitcommunity.uz"+uploadResponse1.data])
       }
@@ -444,11 +440,7 @@ const AddArticlePage = () => {
         categories: [category]
       }
 
-      const response = await api.post(`/articles`, articleData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await api.post(`/articles`, articleData);
 
       console.log("Статья была успешно добавлена:", response.data);
       alert("The article has been added successfully!");
