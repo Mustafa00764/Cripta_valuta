@@ -413,16 +413,11 @@ const AddArticlePage = () => {
       if (!image2Path) {
         throw new Error("Ошибка загрузки изображений на сервер.");
       }
-
-      let imgIndex = 0; // Инициализируем индекс для отслеживания
+      
+      const imgIterator = imgUrl[Symbol.iterator](); // Создаем итератор
       const updatedHTML = htmlContent.replace(/<img[^>]*src="([^"]*)"[^>]*>/g, (match, src) => {
-        if (imgIndex < imgUrl.length) {
-          const newSrc = imgUrl[imgIndex]; // Берем текущий элемент из imgUrl
-          imgIndex++; // Увеличиваем индекс
-          return match.replace(src, newSrc); // Заменяем src на newSrc
-        }
-        // Если изображений в imgUrl меньше, чем в htmlContent, оставляем оригинальный src
-        // return match;
+        const { value: newSrc, done } = imgIterator.next(); // Получаем следующий элемент
+        return !done ? match.replace(src, newSrc) : match; // Заменяем, если не конец итерации
       });
 
       console.log(updatedHTML);
