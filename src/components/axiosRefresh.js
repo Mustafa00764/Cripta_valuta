@@ -33,7 +33,7 @@ api.interceptors.response.use(
         }
 
         // Отправляем запрос на обновление accessToken с refreshToken
-        const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { token: refreshToken });
+        const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
         const newAccessToken = response.data.accessToken;
 
         // Сохраняем новый accessToken в localStorage
