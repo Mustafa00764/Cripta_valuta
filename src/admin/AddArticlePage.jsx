@@ -455,7 +455,7 @@ const AddArticlePage = () => {
         status: "Draft",
         mediaUrls: updatedImgUrls,
         tags,
-        categories: [cid],
+        categories: [cid,cid,cid],
       };
   
       // Отправка статьи на сервер
