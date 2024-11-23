@@ -451,7 +451,7 @@ const AddArticlePage = () => {
         content: `${updatedHTML}`,
         conclusion,
         pubDate: publishDate,
-        authorId: userId,
+        authorId: Number(userId),
         status: "Draft",
         mediaUrls: updatedImgUrls,
         tags,
