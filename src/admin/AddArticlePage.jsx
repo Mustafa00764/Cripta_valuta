@@ -366,6 +366,16 @@ const AddArticlePage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
     const day = String(today.getDate()).padStart(2, '0');
     setMinDate(`${year}-${month}-${day}`);
+    const accessToken = localStorage.getItem("accessToken");
+    const dd = {
+      name:"Bitcoin",
+      discription: "",
+      articleId: 1
+    }
+
+    const uploadImageResponse = api.post("/tags", dd);
+    console.log(uploadImageResponse.data);
+    
     
   },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,categories,getContentAsHTML()])
 
