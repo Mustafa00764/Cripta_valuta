@@ -284,20 +284,27 @@ const AddArticlePage = () => {
   }, [poster]);
 
   const handleImageUpload = async (event) => {
-    const file = event.target.files[0];    
+    const file = event.target.files[0];
+    
     if (file && /\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
       const reader = new FileReader();
+  
       reader.onload = () => {
-        console.log('Image loaded:', reader.result);  // Убедитесь, что изображение загружено
-        setPoster(reader.result);
+        console.log("Image loaded:", reader.result); // Убедитесь, что изображение загружено
+        setPoster(reader.result); // Устанавливаем результат в poster
       };
-      reader.readAsDataURL(file);
-      console.log(reader.readAsDataURL(file));
-      
+  
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+      };
+  
+      reader.readAsDataURL(file); // Читаем файл как DataURL
+  
     } else {
-      alert('Please upload a valid image (JPG, PNG, GIF, WebP).');
+      alert("Please upload a valid image (JPG, PNG, GIF, WebP).");
     }
   };
+  
 
   const updatePreview = async (poster, croppedAreaPixels) => {
     try {
