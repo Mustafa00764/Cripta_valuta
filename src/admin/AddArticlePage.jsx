@@ -208,8 +208,8 @@ const AddArticlePage = () => {
     // Пробегаемся по каждому файлу
     Array.from(files).forEach((file) => {
       // Для каждого файла создаем новый FileReader
-      const reader = new FileReader(); 
-      
+      const reader = new FileReader();
+  
       reader.onload = (event) => {
         const contentState = editorState.getCurrentContent();
   
@@ -220,17 +220,19 @@ const AddArticlePage = () => {
         // Вставляем атомный блок изображения в редактор
         const newEditorState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ');
         setEditorState(newEditorState);
-
-        setImagesList([...imagesList,reader.result])
-        console.log(event.target.result); // Выводим загруженное изображение в консоль
-        
+  
+        // Добавляем изображение в список
+        setImagesList([...imagesList, event.target.result]);
+  
+        // Выводим загруженное изображение в консоль
+        console.log(event.target.result);
       };
-      reader.readAsDataURL(file);
-      console.log(reader.readAsDataURL(file));
   
       // Чтение файла как Data URL
+      reader.readAsDataURL(file);
     });
   };
+  
 
   // Удаление изображения
   const removeImage = (blockKey) => {
