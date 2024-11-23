@@ -435,14 +435,13 @@ const AddArticlePage = () => {
         pubDate: publishDate,
         authorId: userId,
         status: "Draft",
-        mediaUrls:[],
+        mediaUrls: imgUrl,
         tags: tags,
         categories: [category]
       }
 
       const response = await api.post(`/articles`, articleData, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
