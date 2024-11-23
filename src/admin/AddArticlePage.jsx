@@ -455,15 +455,11 @@ const AddArticlePage = () => {
         status: "Draft",
         mediaUrls: updatedImgUrls,
         tags,
-        categories: [cid,cid,cid],
+        categories: [cid],
       };
   
       // Отправка статьи на сервер
-      const response = await api.post("/articles", articleData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await api.post("/articles", articleData);
   
       console.log("Статья успешно добавлена:", response.data);
       alert("The article has been added successfully!");
