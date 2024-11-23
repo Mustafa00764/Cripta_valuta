@@ -454,7 +454,7 @@ const AddArticlePage = () => {
         authorId: Number(userId),
         status: "Draft",
         mediaUrls: updatedImgUrls,
-        tags:[],
+        tags,
         categories: [cid],
       };
   
