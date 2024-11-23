@@ -418,11 +418,15 @@ const AddArticlePage = () => {
         throw new Error("Ошибка загрузки изображений на сервер.");
       }
 
-      const updatedHTML = htmlContent.replace(/<img[^>]*src="([^"]*)"[^>]*>/g, (match, src, index) => {
-        const newSrc = [
-          ...imgUrl
-        ][index];
-        return match.replace(src, newSrc);
+      let imgIndex = 0; // Инициализируем индекс для отслеживания
+      const updatedHTML = htmlContent.replace(/<img[^>]*src="([^"]*)"[^>]*>/g, (match, src) => {
+        if (imgIndex < imgUrl.length) {
+          const newSrc = imgUrl[imgIndex]; // Берем текущий элемент из imgUrl
+          imgIndex++; // Увеличиваем индекс
+          return match.replace(src, newSrc); // Заменяем src на newSrc
+        }
+        // Если изображений в imgUrl меньше, чем в htmlContent, оставляем оригинальный src
+        return match;
       });
 
       console.log(updatedHTML);
