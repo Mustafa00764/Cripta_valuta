@@ -357,92 +357,110 @@ const AddArticlePage = () => {
     
   },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,categories,getContentAsHTML()])
 
-  const sendToBackend = async (event) => { // отправка данных в базу данных 
+  const sendToBackend = async (event) => {
     event.preventDefault();
-
+  
+    // Проверяем авторизацию
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
     const userId = localStorage.getItem("userId");
+  
     if (!accessToken || !refreshToken) {
       alert("Вы не авторизованы!");
       return;
     }
-
-    const htmlContent = getContentAsHTML(); // Получаем HTML-контент из редактора
-
+  
+    // Получаем HTML-контент из редактора
+    const htmlContent = getContentAsHTML();
+  
     try {
+      // Обрезка основного изображения (poster)
       const canvas = document.createElement("canvas");
       const croppedBlob = await getCroppedImg(poster, croppedAreaPixels, canvas);
       if (!croppedBlob) {
         throw new Error("Ошибка при обрезке изображения.");
       }
-
+  
       const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
-      const formData2 = new FormData();
-
-      formData2.append("file", croppedFile);
-      const uploadResponse2 = await api.post("/upload", formData2, {
+      const formDataPoster = new FormData();
+      formDataPoster.append("file", croppedFile);
+  
+      const uploadPosterResponse = await api.post("/upload", formDataPoster, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("https://legitcommunity.uz"+uploadResponse2.data);
-
-      for (let i = 0; i < imagesList.length; i++) {
-        let posterFile = imagesList[i];
-        if (typeof imagesList[i] === "string") {
-          const response = await fetch(imagesList[i]);
-          if (!response.ok) {
-           throw new Error("Ошибка загрузки posterPhoto.");
-          }
-          const posterBlob = await response.blob();
-          posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
+  
+      const posterUrl = "https://legitcommunity.uz" + uploadPosterResponse.data;
+      console.log("Poster uploaded:", posterUrl);
+  
+      // Загрузка остальных изображений
+      const updatedImgUrls = [];
+      for (let image of imagesList) {
+        let imageFile = image;
+  
+        // Если элемент — строка (URL), загружаем его как blob
+        if (typeof image === "string") {
+          const response = await fetch(image);
+          if (!response.ok) throw new Error("Ошибка загрузки изображения.");
+          const blob = await response.blob();
+          imageFile = new File([blob], "uploaded-image.jpg", { type: blob.type });
         }
-
-        const formData1 = new FormData();
-        formData1.append("file", posterFile);
-
-        const uploadResponse1 = await api.post("/upload", formData1);
-
-        console.log("https://legitcommunity.uz"+uploadResponse1.data);
-        setImgUrl([...imgUrl,"https://legitcommunity.uz"+uploadResponse1.data])
+  
+        const formDataImage = new FormData();
+        formDataImage.append("file", imageFile);
+  
+        const uploadImageResponse = await api.post("/upload", formDataImage, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+  
+        const uploadedUrl = "https://legitcommunity.uz" + uploadImageResponse.data;
+        updatedImgUrls.push(uploadedUrl);
+        console.log("Image uploaded:", uploadedUrl);
       }
-
-      const image2Path = "https://legitcommunity.uz"+uploadResponse2.data;
-      if (!image2Path) {
-        throw new Error("Ошибка загрузки изображений на сервер.");
-      }
-
-      const imgIterator = imgUrl[Symbol.iterator](); // Создаем итератор
+  
+      // Обновление HTML-контента с новыми ссылками на изображения
+      const imgIterator = updatedImgUrls[Symbol.iterator]();
       const updatedHTML = htmlContent.replace(/<img[^>]*src="([^"]*)"[^>]*>/g, (match, src) => {
-        const { value: newSrc, done } = imgIterator.next(); // Получаем следующий элемент
-        return !done ? match.replace(src, newSrc) : match; // Заменяем, если не конец итерации
+        const { value: newSrc, done } = imgIterator.next();
+        return !done ? match.replace(src, newSrc) : match;
       });
-
-      console.log(updatedHTML);
-      
+  
+      console.log("Updated HTML content:", updatedHTML);
+  
+      // Подготовка данных для отправки статьи
       const articleData = {
-        title: title,
-        subtitle: subtitle,
+        title,
+        subtitle,
         content: updatedHTML,
-        conclusion: conclusion,
+        conclusion,
         pubDate: publishDate,
         authorId: userId,
         status: "Draft",
-        mediaUrls: imgUrl,
-        tags: tags,
-        categories: [category]
-      }
-
-      const response = await api.post(`/articles`, articleData);
-
-      console.log("Статья была успешно добавлена:", response.data);
+        mediaUrls: updatedImgUrls,
+        tags,
+        categories: [category],
+      };
+  
+      // Отправка статьи на сервер
+      const response = await api.post("/articles", articleData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+  
+      console.log("Статья успешно добавлена:", response.data);
       alert("The article has been added successfully!");
     } catch (error) {
-      console.log(error);
+      console.error("Ошибка при отправке данных:", error);
+      alert(`Ошибка: ${error.message}`);
     }
   };
+  
 
   return (
     <div className='w-full h-auto'>
