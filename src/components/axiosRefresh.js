@@ -48,7 +48,7 @@ api.interceptors.response.use(
         // Очистка токенов и перенаправление на страницу входа при ошибке
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/login'; // или показать уведомление, а затем перенаправить
+        // window.location.href = '/login'; // или показать уведомление, а затем перенаправить
       }
     }
 

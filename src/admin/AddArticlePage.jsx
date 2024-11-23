@@ -422,7 +422,7 @@ const AddArticlePage = () => {
           return match.replace(src, newSrc); // Заменяем src на newSrc
         }
         // Если изображений в imgUrl меньше, чем в htmlContent, оставляем оригинальный src
-        return match;
+        // return match;
       });
 
       console.log(updatedHTML);
