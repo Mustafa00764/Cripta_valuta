@@ -373,7 +373,12 @@ const AddArticlePage = () => {
       articleId: 1
     }
 
-    const uploadImageResponse = api.post("/tags", dd);
+    const uploadImageResponse = api.post("/tags", dd,{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     console.log(uploadImageResponse.data);
     
     
@@ -469,7 +474,12 @@ const AddArticlePage = () => {
       };
   
       // Отправка статьи на сервер
-      const response = await api.post("/articles", articleData);
+      const response = await api.post("/articles", articleData,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
   
       console.log("Статья успешно добавлена:", response.data);
       alert("The article has been added successfully!");
