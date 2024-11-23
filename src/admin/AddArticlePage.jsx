@@ -134,6 +134,8 @@ const AddArticlePage = () => {
   const [input, setInput] = useState("");
   const [category, setCategory] = useState("");
   const [imgUrl, setImgUrl] = useState([])
+  const [cid, setCid] = useState()
+
 
   // Добавление тега по нажатию клавиши Enter
   const handleAddTag = (e) => {
@@ -149,8 +151,9 @@ const AddArticlePage = () => {
   const handleRemoveTag = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category,id) => {
     setCategory(category);
+    setCid(id)
     setIsOpen(false);
   };
 
@@ -452,7 +455,7 @@ const AddArticlePage = () => {
         status: "Draft",
         mediaUrls: updatedImgUrls,
         tags,
-        categories: [category],
+        categories: [cid],
       };
   
       // Отправка статьи на сервер
@@ -499,7 +502,7 @@ const AddArticlePage = () => {
                   {categories.map((v) => (
                     <li
                       key={v.id}
-                      onClick={() => handleCategoryClick(v.name)}
+                      onClick={() => handleCategoryClick(v.name,v.id)}
                       className={`cursor-pointer select-none h-[50px]  flex items-center px-[15px] ${
                       category === v.name ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
                       } ${theme?'hover:bg-sideBarTextLight':'hover:bg-[#151B1F]'}`}
