@@ -369,7 +369,7 @@ const AddArticlePage = () => {
     const accessToken = localStorage.getItem("accessToken");
     const dd = {
       name:"Bitcoin",
-      discription: "Bitcoin",
+      description: "Bitcoin",
       articleId: 1
     }
 
