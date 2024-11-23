@@ -413,7 +413,7 @@ const AddArticlePage = () => {
       if (!image2Path) {
         throw new Error("Ошибка загрузки изображений на сервер.");
       }
-      
+
       const imgIterator = imgUrl[Symbol.iterator](); // Создаем итератор
       const updatedHTML = htmlContent.replace(/<img[^>]*src="([^"]*)"[^>]*>/g, (match, src) => {
         const { value: newSrc, done } = imgIterator.next(); // Получаем следующий элемент
@@ -425,7 +425,7 @@ const AddArticlePage = () => {
       const articleData = {
         title: title,
         subtitle: subtitle,
-        content: `${updatedHTML}`,
+        content: updatedHTML,
         conclusion: conclusion,
         pubDate: publishDate,
         authorId: userId,
