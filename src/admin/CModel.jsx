@@ -155,7 +155,7 @@ const CModel = () => {
           <button type='submit' className="mt-4 max-w-[250px] w-full text-[24px] h-[50px] rounded-[8px] bg-blue-500 text-white" >
             PUSH
           </button>
-          <div form="" className="mt-4 max-w-[250px] w-full text-[24px] h-[50px] rounded-[8px] bg-blue-500 text-white" onClick={()=>setModel(false)}>
+          <div className="mt-4 max-w-[250px] w-full text-[24px] h-[50px] rounded-[8px] bg-blue-500 text-white" onClick={()=>setModel(false)}>
             Cancel
           </div>
         </div>
