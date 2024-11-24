@@ -12,7 +12,7 @@ const Sidebar = () => {
 
 
   useEffect(()=>{
-    
+
   },[user])
   return (
     <div className={`max-w-[60px] hover:max-w-[320px] overflow-hidden w-full h-screen flex flex-col justify-between ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} relative py-2`}>
@@ -34,9 +34,9 @@ const Sidebar = () => {
         </div>
         <div className={`w-full h-[56px] flex px-[14px] gap-[15px] items-center cursor-pointer transition-all`}>
           <div className='w-[32px] h-[32px] rounded-full bg-[#494E5B]'>
-            <img src={user?user.photo_url:""} alt="" />
+            <img src={user?user.photo_url:""} alt="" className=' rounded-full'/>
           </div>
-          <p>{user?user.name:""}</p>
+          <p>{user?user.firstName:""}</p>
         </div>
         <NavLink to={"/admin/dashboard"} className={(navData)=>(navData.isActive?` ${theme?'navlinkElementDark':'navlinkElementLight'} font-medium`:" ")}>
         <div className={`w-full ${theme?'sideBarElementDark':'sideBarElementLight'} transition-all h-[56px] flex px-[20px] gap-[20px] items-center cursor-pointer`}>
