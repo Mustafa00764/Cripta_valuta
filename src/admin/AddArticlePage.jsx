@@ -375,7 +375,7 @@ const AddArticlePage = () => {
     // Проверяем авторизацию
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = localStorage.getItem("userId");
+    const userId = Number(localStorage.getItem("userId"));
   
     if (!accessToken || !refreshToken) {
       alert("Вы не авторизованы!");
@@ -448,10 +448,10 @@ const AddArticlePage = () => {
       const articleData = {
         title,
         subtitle,
-        content: `${updatedHTML}`,
+        content: updatedHTML,
         conclusion,
         pubDate: publishDate,
-        authorId: Number(userId),
+        authorId: userId,
         status: "Draft",
         mediaUrls: updatedImgUrls,
         tags,
