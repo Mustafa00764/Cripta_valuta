@@ -14,12 +14,13 @@ const AdminDashboard = () => {
   const [username,setUserName] = useState('')
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(categorie);
-  const categories = ['Empty', 'Technology', 'Business', 'Entertainment'];
+  const categories = ['USER', 'MODERATOR', 'ADMIN'];
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setIsOpen(false);
   };
+  
   return (
     <div className='w-full'>
       <PanelHeader title={'Admins'}/>
