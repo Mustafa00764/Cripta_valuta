@@ -79,11 +79,14 @@ const AdminProvider = ({ children }) => {
     }
 
     try {
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
       
       const response = await api.get("/categories",{
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         },
       })
       setCategories(response.data)

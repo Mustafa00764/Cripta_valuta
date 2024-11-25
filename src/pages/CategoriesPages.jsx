@@ -10,7 +10,7 @@ const CategoriesPages = () => {
 
   return (
     <div>
-      <p>{categoryName}</p>
+
     </div>
   )
 }
