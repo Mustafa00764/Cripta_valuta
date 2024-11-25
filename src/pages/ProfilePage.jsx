@@ -11,7 +11,7 @@ const ProfilePage = () => {
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
   const [status, setStatus] = useState("Loading...");
   useEffect(()=>{
-    const ws = new WebSocket("wss://yourserver.com");
+    const ws = new WebSocket("wss://https://legitcommunity.uz");
     const userId = Number(localStorage.getItem("userId"))
     ws.onopen = () => {
       console.log("WebSocket connected");
