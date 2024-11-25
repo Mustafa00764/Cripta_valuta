@@ -458,9 +458,15 @@ const AddArticlePage = () => {
         tags,
         categories: [cid],
       };
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
   
       // Отправка статьи на сервер
-      const response = await api.post("/articles", articleData);
+      const response = await api.post("/articles", articleData,{
+        headers: {
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      });
   
       console.log("Статья успешно добавлена:", response.data);
       alert("The article has been added successfully!");
