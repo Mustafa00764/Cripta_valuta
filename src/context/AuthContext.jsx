@@ -89,6 +89,7 @@ const AuthProvider = ({children}) => {
       setIsAuthenticated(true);
       // Логика для получения данных о пользователе
     }
+    handleUsersList
   }, []);
 
 
