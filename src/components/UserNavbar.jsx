@@ -5,13 +5,15 @@ import VK from "../assets/svg/Vk_icon.svg"
 import YouTube from "../assets/svg/youtube-icon.svg"
 import search_icon from "../assets/svg/fe_search.svg"
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AdminContext } from '../context/AdminContext'
 
 const UserNavbar = () => {
   const [hashtags,setHashtags] = useState(false)
   const [navData,setNavData] = useState(false)
   const [search,setSearch] = useState(false)
   const [searchValues,setSearchValues] = useState('')
+  const {categories,categoryName,setCategoryName,handleRestore} = useContext(AdminContext)
 
   let location = useLocation()
   const getHeshtag = (hash) => {
@@ -26,6 +28,10 @@ const UserNavbar = () => {
     }
 
   }
+
+  useEffect(()=>{
+    handleRestore()
+  },[categories])
 
 
   return (
@@ -56,7 +62,26 @@ const UserNavbar = () => {
             </a>
           </div>
           <div className='flex relative items-center gap-[70px] xl:gap-10 leading-6 h-full'>
-            <NavLink to={"/bitcoin"} className={(navData) => (navData.isActive ? "text-[#7399FF] border-spacing-2 fill-[#7399FF] border-[#7399FF] border-t-2 h-full flex items-center pb-[2px] stroke-[#7399FF]" : 'h-full flex items-center')} onMouseOver={()=>getHeshtag(true)} onMouseOut={()=>getHeshtag(false)} >
+            {
+              categories.map(item => {
+                return(
+                  <NavLink to={`/${item.name}`} className={(navData) => (navData.isActive ? "text-[#7399FF] border-spacing-2 border-[#7399FF] border-t-2 h-full flex items-center pb-[2px] stroke-[#7399FF]" : 'h-full flex items-center hover:text-[#7399FF] transition-all')}>
+                  <p>{item.name}</p>                                                                                             
+                  </NavLink>
+                )
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default UserNavbar
+
+
+            {/* <NavLink to={"/bitcoin"} className={(navData) => (navData.isActive ? "text-[#7399FF] border-spacing-2 fill-[#7399FF] border-[#7399FF] border-t-2 h-full flex items-center pb-[2px] stroke-[#7399FF]" : 'h-full flex items-center')} onMouseOver={()=>getHeshtag(true)} onMouseOut={()=>getHeshtag(false)} >
             <div className={hashtags?'flex items-center gap-1 text-[#7399FF] hover:text-[#7399FF] transition-all ':'flex items-center gap-1'} >
               <p>Bitcoin</p>
               <div className={hashtags?'rotate-180 transition-all':'rotate-0 transition-all'}>
@@ -113,12 +138,4 @@ const UserNavbar = () => {
             <NavLink to={"/it"} className={(navData) => (navData.isActive ? "text-[#7399FF] h-full flex " : 'h-full flex')}>
             <p className='hover:text-[#7399FF] transition-all'>Business</p>
             </NavLink>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default UserNavbar
+            </div> */}

@@ -28,10 +28,13 @@ import ProfilePage from '../pages/ProfilePage'
 import EditProfilePage from '../pages/EditProfilePage'
 import NotFoundPage from '../pages/NotFoundPage'
 import AirdropCustom from '../pages/AirdropCustom'
+import { AdminContext } from '../context/AdminContext'
+import CategoriesPages from '../pages/CategoriesPages'
 const UserLayout = () => {
   const {menu, setMenu} = useContext(MenuContext)
   const [hidden, setHidden] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const {categories,categoryName,setCategoryName,handleRestore} = useContext(AdminContext)
 
   const handleScrolls = () => {
     setScrollPosition(window.scrollY);
@@ -57,6 +60,10 @@ const UserLayout = () => {
     };
   }, [scrollPosition]);
 
+  useEffect(()=>{
+    handleRestore()
+  },[categories])
+
   return (
     <div className={'relative'}>
       <UserMenu hidden={hidden}/>
@@ -77,7 +84,14 @@ const UserLayout = () => {
           <Route path='/search' element={<SearchPage />}/>
           <Route path='/article/:id' element={<ArticleInfo/>}/>
           <Route path='/airdrop/:id' element={<AirdropCustom/>}/>
-          <Route path='/bitcoin' element={<BitcoinPage/>}/>
+          {
+            categories.map(item=>{
+              return(
+                <Route path={`/${item.name}`} element={<CategoriesPages/>}/>
+              )
+            })
+          }
+          {/* <Route path='/bitcoin' element={<BitcoinPage/>}/>
           <Route path='/blockchain' element={<BlockchainPage/>}/>
           <Route path='/nft' element={<NFTPage/>}/>
           <Route path='/defi' element={<DeFiPage/>}/>
@@ -87,7 +101,7 @@ const UserLayout = () => {
           <Route path='/altcoin' element={<AltcoinsPage/>}/>
           <Route path='/meme-coin' element={<Meme_coinsPage/>}/>
           <Route path='/utility-token' element={<UtilityTokensPage/>}/>
-          <Route path='/defi-2024' element={<HDeFiPage/>}/>
+          <Route path='/defi-2024' element={<HDeFiPage/>}/> */}
           <Route path='/a' element={<AdminPanel/>}/>
           <Route path='/airdrop' element={<AirdropPage/>}/>
           <Route path='/profile' element={<ProfilePage/>}/>

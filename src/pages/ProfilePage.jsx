@@ -43,16 +43,7 @@ const ProfilePage = () => {
     socket.on('disconnect', () => {
       console.log('WebSocket disconnected');
     });
-    const users = async () =>{
-      if (user) {
-        if(user.profileHeader != undefined){
-          setPosterPhoto(user.profileHeader)
-          setAbout(user.about)
-        }
-      }
-      console.log(user);
-    }
-    users()
+
 
     // Очистка WebSocket при размонтировании компонента
     return () => {
