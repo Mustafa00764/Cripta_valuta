@@ -62,7 +62,7 @@ const UserLayout = () => {
 
   useEffect(()=>{
     handleRestore()
-  },[categories])
+  },[])
 
   return (
     <div className={'relative'}>
