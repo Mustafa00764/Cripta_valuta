@@ -6,7 +6,8 @@ const CategoriesPages = () => {
 
   useEffect(()=>{
     handleRestore()
-  },[categories])
+    
+  },[])
 
   return (
     <div>
