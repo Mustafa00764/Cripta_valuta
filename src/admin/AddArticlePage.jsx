@@ -460,12 +460,7 @@ const AddArticlePage = () => {
       };
   
       // Отправка статьи на сервер
-      const response = await api.post("/articles", articleData,{
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await api.post("/articles", articleData);
   
       console.log("Статья успешно добавлена:", response.data);
       alert("The article has been added successfully!");
