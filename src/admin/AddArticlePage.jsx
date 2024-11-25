@@ -366,7 +366,7 @@ const AddArticlePage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
     const day = String(today.getDate()).padStart(2, '0');
     setMinDate(`${year}-${month}-${day}`);
-    setCategory(categories[0]);
+    // setCategory(categories[0]);
     
   },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,categories,getContentAsHTML()])
 
