@@ -5,7 +5,7 @@ import VK from "../assets/svg/Vk_icon.svg"
 import YouTube from "../assets/svg/youtube-icon.svg"
 import search_icon from "../assets/svg/fe_search.svg"
 import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AdminContext } from '../context/AdminContext'
 
 const UserNavbar = () => {
