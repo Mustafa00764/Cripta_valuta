@@ -22,7 +22,7 @@ const ProfilePage = () => {
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.userId === userId) {
-        setStatus(data.isOnline ? "🟢 Online" : "🔴 Offline");
+        setStatus(data.isOnline ? "Online" : "Offline");
       }
     };
 
