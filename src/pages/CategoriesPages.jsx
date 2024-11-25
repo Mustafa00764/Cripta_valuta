@@ -1,5 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../context/AdminContext'
+import { Link } from 'react-router-dom'
+import arrowLeft from "../assets/svg/arrow_left_blue.svg";
+import CryptoChart from '../components/CryptoChart';
+import AdvertisimentCard from '../components/AdvertisimentCard';
+import PagesCard from '../components/PagesCard';
+import refresh from "../assets/svg/refresh.svg";
 
 const CategoriesPages = () => {
   const {categories,categoryName,setCategoryName,handleRestore} = useContext(AdminContext)
