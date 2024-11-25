@@ -3,34 +3,41 @@ import ArticleCard from "../components/ArticleCard";
 import AirdropCard from "../components/AirdropCard";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-
+import { io } from 'socket.io-client';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
   const {user, setUser} = useContext(AuthContext)
   const [about, setAbout] = useState(user?user.about:"");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
-  const [status, setStatus] = useState("Loading...");
+  const [status, setStatus] = useState('offline'); // Статус пользователя
+  const [lastOnline, setLastOnline] = useState(null); 
   useEffect(()=>{
-    const ws = new WebSocket("wss://https://legitcommunity.uz");
     const userId = Number(localStorage.getItem("userId"))
-    ws.onopen = () => {
-      console.log("WebSocket connected");
-      // Сообщаем серверу, что хотим получать обновления для конкретного пользователя
-      ws.send(JSON.stringify({ action: "subscribe", userId }));
-    };
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
+    const socket = io('https://legitcommunity.uz/status', {
+      query: { userId }, // Передаем userId в качестве параметра
+    });
+
+    // Подключение
+    socket.on('connect', () => {
+      console.log('WebSocket connected');
+    });
+
+    // Обновление статуса
+    socket.on('status-update', (data) => {
+      console.log('Status update received:', data);
       if (data.userId === userId) {
-        setStatus(data.isOnline ? "Online" : "Offline");
+        setStatus(data.status);
+        if (data.status === 'offline') {
+          setLastOnline(data.lastOnline);
+        }
       }
-    };
+    });
 
-    ws.onerror = (error) => console.error("WebSocket error:", error);
-
-    ws.onclose = () => console.log("WebSocket disconnected");
-
-    // Отписываемся от обновлений при размонтировании компонента
+    // Обработка отключения
+    socket.on('disconnect', () => {
+      console.log('WebSocket disconnected');
+    });
     const users = async () =>{
       if (user) {
         if(user.profileHeader != undefined){
@@ -41,7 +48,12 @@ const ProfilePage = () => {
       console.log(user);
     }
     users()
-    return () => ws.close();
+
+    // Очистка WebSocket при размонтировании компонента
+    return () => {
+      socket.disconnect();
+    };
+
   },[user])
 
   return ( 
