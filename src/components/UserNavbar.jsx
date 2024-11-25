@@ -31,7 +31,7 @@ const UserNavbar = () => {
 
   useEffect(()=>{
     handleRestore()
-  },[categories])
+  },[])
 
 
   return (

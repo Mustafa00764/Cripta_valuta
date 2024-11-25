@@ -127,7 +127,7 @@ const CategoriesPage = () => {
 
   useEffect(()=>{
     handleRestore()
-  },[categories,category])
+  },[category])
 
   return (
     <div className='w-full h-auto'>

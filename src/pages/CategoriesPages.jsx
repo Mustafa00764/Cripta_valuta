@@ -6,7 +6,6 @@ const CategoriesPages = () => {
 
   useEffect(()=>{
     handleRestore()
-    
   },[])
 
   return (

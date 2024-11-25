@@ -368,7 +368,7 @@ const AddArticlePage = () => {
     setMinDate(`${year}-${month}-${day}`);
     // setCategory(categories[0]);
     
-  },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,categories,getContentAsHTML()])
+  },[selectedCategory,croppedImage,poster,publishDate,subtitle,title,conclusion, main,setMain,getContentAsHTML()])
 
   const sendToBackend = async (event) => {
     event.preventDefault();
