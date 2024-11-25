@@ -13,9 +13,14 @@ const ProfilePage = () => {
   const [lastOnline, setLastOnline] = useState(null); 
   useEffect(()=>{
     const userId = Number(localStorage.getItem("userId"))
-
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
     const socket = io('https://legitcommunity.uz/status', {
-      query: { userId }, // Передаем userId в качестве параметра
+      query: { userId },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      } // Передаем userId в качестве параметра
     });
 
     // Подключение
