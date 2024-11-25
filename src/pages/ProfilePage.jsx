@@ -9,8 +9,28 @@ const ProfilePage = () => {
   const {user, setUser} = useContext(AuthContext)
   const [about, setAbout] = useState(user?user.about:"");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
-  
+  const [status, setStatus] = useState("Loading...");
   useEffect(()=>{
+    const ws = new WebSocket("wss://yourserver.com");
+    const userId = Number(localStorage.getItem("userId"))
+    ws.onopen = () => {
+      console.log("WebSocket connected");
+      // Сообщаем серверу, что хотим получать обновления для конкретного пользователя
+      ws.send(JSON.stringify({ action: "subscribe", userId }));
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.userId === userId) {
+        setStatus(data.isOnline ? "🟢 Online" : "🔴 Offline");
+      }
+    };
+
+    ws.onerror = (error) => console.error("WebSocket error:", error);
+
+    ws.onclose = () => console.log("WebSocket disconnected");
+
+    // Отписываемся от обновлений при размонтировании компонента
     const users = async () =>{
       if (user) {
         if(user.profileHeader != undefined){
@@ -21,6 +41,7 @@ const ProfilePage = () => {
       console.log(user);
     }
     users()
+    return () => ws.close();
   },[user])
 
   return ( 
@@ -73,7 +94,7 @@ const ProfilePage = () => {
                 </div>
                 <div className='flex items-center gap-2 '>
                   <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                  <p>{user?user.status:""}</p>
+                  <p>{status}</p>
                 </div>
               </div>
             </div>
