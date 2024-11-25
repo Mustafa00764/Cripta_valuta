@@ -456,7 +456,7 @@ const AddArticlePage = () => {
         status: "Draft",
         mediaUrls: updatedImgUrls,
         tags,
-        categories: [cid],
+        categories: [category],
       };
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = responses.data.accessToken;
