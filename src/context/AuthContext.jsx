@@ -68,18 +68,18 @@ const AuthProvider = ({children}) => {
     }
   };
 
-  const handleUsersList = async () => {
-    const accessToken = localStorage.getItem('accessToken');  
-    const refreshToken = localStorage.getItem('refreshToken');
-    try {
+  // const handleUsersList = async () => {
+  //   const accessToken = localStorage.getItem('accessToken');  
+  //   const refreshToken = localStorage.getItem('refreshToken');
+  //   try {
 
-      const response = await api.get("/users")
-      console.log(response.data);
+  //     const response = await api.get("/users")
+  //     console.log(response.data);
       
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   // Восстановление сессии при загрузке компонента
   useEffect(() => {
