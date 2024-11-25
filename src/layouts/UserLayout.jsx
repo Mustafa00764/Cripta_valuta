@@ -87,7 +87,7 @@ const UserLayout = () => {
           {
             categories.map(item=>{
               return(
-                <Route path={`/${item.name}`} element={<CategoriesPages/>}/>
+                <Route path={`/${item.name.toLowerCase()}`} element={<CategoriesPages/>}/>
               )
             })
           }

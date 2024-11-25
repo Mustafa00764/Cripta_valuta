@@ -65,7 +65,7 @@ const UserNavbar = () => {
             {
               categories.map(item => {
                 return(
-                  <NavLink to={`/${item.name}`} className={(navData) => (navData.isActive ? "text-[#7399FF] border-spacing-2 border-[#7399FF] border-t-2 h-full flex items-center pb-[2px] stroke-[#7399FF]" : 'h-full flex items-center hover:text-[#7399FF] transition-all')}>
+                  <NavLink to={`/${item.name.toLowerCase()}`} className={(navData) => (navData.isActive ? "text-[#7399FF] border-spacing-2 border-[#7399FF] border-t-2 h-full flex items-center pb-[2px] stroke-[#7399FF]" : 'h-full flex items-center hover:text-[#7399FF] transition-all')}>
                   <p>{item.name}</p>                                                                                             
                   </NavLink>
                 )
