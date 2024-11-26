@@ -74,7 +74,6 @@ const AdminProvider = ({ children }) => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     if (!accessToken || !refreshToken) {
-      alert("Вы не авторизованы!");
       return;
     }
 

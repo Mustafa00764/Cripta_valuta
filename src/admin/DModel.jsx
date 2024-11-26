@@ -11,7 +11,6 @@ const DModel = () => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     if (!accessToken || !refreshToken) {
-      alert("Вы не авторизованы!");
       return;
     }
 

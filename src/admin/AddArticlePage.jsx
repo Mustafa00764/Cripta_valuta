@@ -379,7 +379,6 @@ const AddArticlePage = () => {
     const userId = Number(localStorage.getItem("userId"));
   
     if (!accessToken || !refreshToken) {
-      alert("Вы не авторизованы!");
       return;
     }
   

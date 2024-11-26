@@ -109,7 +109,6 @@ const EditProfilePage = () => {
     const userId = localStorage.getItem('userId');
 
     if (!accessToken || !refreshToken) {
-      alert("Вы не авторизованы!");
       return;
     }
   
