@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import PanelHeader from './PanelHeader'
 import { AdminContext } from '../context/AdminContext'
 import blockedUsers from '../assets/svg/blocked_users.svg'
-import users from '../assets/svg/people.svg'
+import userss from '../assets/svg/people.svg'
 import UDCard from './UDCard'
 import api from '../components/axiosRefresh'
 import axios from 'axios'
@@ -48,9 +48,9 @@ const UsersDashboard = () => {
       <div className='px-[60px] mt-[6px]'>
         <div className='h-[78px] py-[14px] gap-4 flex max-w-full'>
           <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
-            <img src={users} alt="article"/>
+            <img src={userss} alt="article"/>
             <p>USERS</p>
-            <p>5</p>
+            <p>{users.length}</p>
           </div>
           <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
             <img src={blockedUsers} alt="article"/>
@@ -97,7 +97,12 @@ const UsersDashboard = () => {
             </div>
           </div>
           <div className=' relative'>
-            <UDCard status={"user"}/>
+            {
+              users.map((item,index)=>{
+                return <UDCard userInfo={item} key={item.id} index={index}/>
+              })
+            }
+            {/* <UDCard status={"user"}/> */}
           </div>
         </div>
       </div>

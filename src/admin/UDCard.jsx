@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 
-const UDCard = ({status}) => {
+const UDCard = ({userInfo,index}) => {
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
-      <p>{1}</p>
+      <p>{index}</p>
     </div>
     <div className='w-[150px] items-center gap-4 flex justify-center h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 ' src="" alt="" />
+        <img className='border-0 rounded-full'  src={userInfo.photo_url} alt="" />
       </div>
-      <p>maxim</p>
+      <p>{userInfo.firstName}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{"maxim64"}</p>
+      <p>{userInfo.username}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{"online"}</p>
+      <p>{userInfo.status}</p>
     </div>
     <div className='w-[150px] flex justify-center h-[24px]  relative overflow-hidden'>
-      <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{status}</p>
+      <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{userInfo.role.toLowerCase()}</p>
     </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>
       <div className='options_search transition-all'>
