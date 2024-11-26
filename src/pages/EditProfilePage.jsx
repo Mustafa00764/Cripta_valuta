@@ -115,8 +115,6 @@ const EditProfilePage = () => {
   
     try {
       // Создаем canvas для обрезки изображения
-      const image1Path = ""
-      if (photo !== user.photo_url) {
         const canvas = document.createElement("canvas");
         const croppedBlob = await getCroppedImg(photo, croppedAreaPixels, canvas);
         
@@ -135,11 +133,10 @@ const EditProfilePage = () => {
           },
         });
         console.log(uploadResponse1.data);
-        image1Path = "https://legitcommunity.uz"+uploadResponse1.data;
+        const image1Path = "https://legitcommunity.uz"+uploadResponse1.data;
         if (!image1Path) {
           throw new Error("Ошибка загрузки изображений на сервер.");
         }
-      }
   
   
       // Проверяем, является ли posterPhoto строкой (URL)
@@ -180,7 +177,7 @@ const EditProfilePage = () => {
         lastName: user.lastName,
         username: user.username,
         isSubscribed: user.isSubscribed,
-        photo_url: photo==user.photo_url?photo:image1Path,
+        photo_url: photo === user.photo_url?photo:image1Path,
         profileHeader: image2Path,
       };
   
