@@ -9,6 +9,8 @@ export const AuthContext = createContext();
 const AuthProvider = ({children}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [status, setStatus] = useState('offline'); // Статус пользователя
+  const [lastOnline, setLastOnline] = useState(null); 
 
   const handleLogin = (userData) => {
     localStorage.setItem('accessToken', userData.accessToken);
@@ -89,12 +91,51 @@ const AuthProvider = ({children}) => {
       setIsAuthenticated(true);
       // Логика для получения данных о пользователе
     }
+    const userId = Number(localStorage.getItem("userId"))
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    setAbout(user?user.about:"");
+
+    const socket = io('https://legitcommunity.uz/status', {
+      query: { userId },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      } // Передаем userId в качестве параметра
+    });
+
+    // Подключение
+    socket.on('connect', () => {
+      console.log('WebSocket connected');
+    });
+
+    // Обновление статуса
+    socket.on('status-update', (data) => {
+      console.log('Status update received:', data);
+      if (data.userId === userId) {
+        setStatus(data.status);
+        if (data.status === 'offline') {
+          setLastOnline(data.lastOnline);
+        }
+      }
+    });
+
+    // Обработка отключения
+    socket.on('disconnect', () => {
+      console.log('WebSocket disconnected');
+    });
+
+
+    // Очистка WebSocket при размонтировании компонента
+    return () => {
+      socket.disconnect();
+    };
     // handleUsersList()
-  }, []);
+  }, [user]);
 
 
   return (
-    <AuthContext.Provider value={{user,refreshAccessToken,restoreSession, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
+    <AuthContext.Provider value={{user,refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
       {children}
     </AuthContext.Provider>
   )

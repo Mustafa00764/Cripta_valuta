@@ -6,52 +6,11 @@ import { AuthContext } from '../context/AuthContext';
 import { io } from 'socket.io-client';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
-  const {user, setUser} = useContext(AuthContext)
+  const {user, setUser,setLastOnline,setStatus,lastOnline,status} = useContext(AuthContext)
   const [about, setAbout] = useState(user?user.about:"");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
-  const [status, setStatus] = useState('offline'); // Статус пользователя
-  const [lastOnline, setLastOnline] = useState(null); 
+
   useEffect(()=>{
-    const userId = Number(localStorage.getItem("userId"))
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-    setAbout(user?user.about:"");
-
-    const socket = io('https://legitcommunity.uz/status', {
-      query: { userId },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      } // Передаем userId в качестве параметра
-    });
-
-    // Подключение
-    socket.on('connect', () => {
-      console.log('WebSocket connected');
-    });
-
-    // Обновление статуса
-    socket.on('status-update', (data) => {
-      console.log('Status update received:', data);
-      if (data.userId === userId) {
-        setStatus(data.status);
-        if (data.status === 'offline') {
-          setLastOnline(data.lastOnline);
-        }
-      }
-    });
-
-    // Обработка отключения
-    socket.on('disconnect', () => {
-      console.log('WebSocket disconnected');
-    });
-
-
-    // Очистка WebSocket при размонтировании компонента
-    return () => {
-      socket.disconnect();
-    };
-
 
   },[user])
 
@@ -105,7 +64,7 @@ const ProfilePage = () => {
                 </div>
                 <div className='flex items-center gap-2 '>
                   <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                  <p>{status}</p>
+                  <p>{status} {status == "offline"?lastOnline:""}</p>
                 </div>
               </div>
             </div>
