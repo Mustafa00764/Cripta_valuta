@@ -15,6 +15,8 @@ const ProfilePage = () => {
     const userId = Number(localStorage.getItem("userId"))
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
+    setAbout(user?user.about:"");
+
     const socket = io('https://legitcommunity.uz/status', {
       query: { userId },
       headers: {
@@ -49,6 +51,7 @@ const ProfilePage = () => {
     return () => {
       socket.disconnect();
     };
+
 
   },[user])
 
