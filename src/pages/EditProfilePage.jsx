@@ -18,7 +18,7 @@ const EditProfilePage = () => {
   const [croppedImage, setCroppedImage] = useState();
   const [textLength, setTextLength] = useState(0)
   const [hints, setHints] = useState('')
-  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken } = useContext(AuthContext);
+  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken,restoreSession } = useContext(AuthContext);
   const [photo, setPhoto] = useState(user?user.photo_url:LC_logo)
   const [name, setName] = useState(user?user.firstName:"");
   const [about, setAbout] = useState("");
@@ -183,7 +183,8 @@ const EditProfilePage = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-  
+
+      restoreSession()
       console.log("Профиль успешно обновлен:", userResponse.data);
       alert("Профиль обновлен!");
     } catch (error) {
