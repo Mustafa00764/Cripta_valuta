@@ -2,6 +2,7 @@ import React from 'react'
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../components/axiosRefresh"
+import { io } from 'socket.io-client';
 
 export const AuthContext = createContext();
 
