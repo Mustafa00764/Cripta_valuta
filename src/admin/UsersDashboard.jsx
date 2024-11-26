@@ -1,12 +1,47 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PanelHeader from './PanelHeader'
 import { AdminContext } from '../context/AdminContext'
 import blockedUsers from '../assets/svg/blocked_users.svg'
 import users from '../assets/svg/people.svg'
 import UDCard from './UDCard'
+import api from '../components/axiosRefresh'
+import axios from 'axios'
 const UsersDashboard = () => {
   const {theme} = useContext(AdminContext)
   const [username,setUserName] = useState('')
+  const [users,setUsers] = useState([])
+
+
+  const handleUsersList = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    const userId = localStorage.getItem('userId');
+    try {
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+      
+
+      const responseUsers = await api.get("/users",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      })
+
+      console.log(responseUsers);
+      setUsers(responseUsers.data)
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    handleUsersList()
+  },[])
+
+
   return (
     <div className='w-full'>
       <PanelHeader title={'Users'}/>
