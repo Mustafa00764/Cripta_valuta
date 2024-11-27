@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PanelHeader from './PanelHeader'
 import article from '../assets/svg/article.svg'
 import { AdminContext } from '../context/AdminContext'
@@ -66,6 +66,10 @@ const DashboardPage = () => {
       
     }
   }
+
+  useEffect(()=>{
+    handleArticlesList()
+  },[])
   return (
     <div className='w-full'>
       <PanelHeader title={'Main'}/>
