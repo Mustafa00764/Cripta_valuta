@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import api from '../components/axiosRefresh';
 
 const UDCard = ({userInfo,index}) => {
+
+  const handleUserBan = async () => {
+    const userData = {
+
+    };
+
+    // const userResponse = await api.put(`/users/${userInfo.id}`, userData, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    // });
+  }
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>

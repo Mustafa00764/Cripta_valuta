@@ -23,7 +23,7 @@ const DCard = ({item,index}) => {
         <p>{index}</p>
       </div>
       <div className='w-[200px] items-center flex justify-center h-full'>
-        <img className='w-[50%] h-[90%] ' src={item.mediaUrls[0]} alt="" />
+        <img className='w-[50%] h-[90%] ' src={""} alt="" />
       </div>
       <div className='w-[200px]'>
         <p>{item.authorId}</p>
