@@ -6,6 +6,7 @@ import top_10 from '../assets/svg/medal.svg'
 import DCard from './DCard'
 import Pagination from './Pagination'
 import Sort from './Sort'
+import axios from 'axios'
 import api from '../components/axiosRefresh'
 
 const DashboardPage = () => {
