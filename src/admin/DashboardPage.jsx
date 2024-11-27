@@ -55,7 +55,8 @@ const DashboardPage = () => {
 
       const responseArticle = await api.get("/articles",{
         headers: {
-          Authorization: `Bearer ${newAccessToken}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       console.log(responseArticle.data);
