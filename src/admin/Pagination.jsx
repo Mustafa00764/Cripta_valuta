@@ -19,7 +19,7 @@ const Pagination = ({ totalPages }) => {
           <button
             key={i}
             className={`w-[50px] h-[50px] ${
-              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
             }`}
             onClick={() => handlePageClick(i)}
           >
@@ -36,7 +36,7 @@ const Pagination = ({ totalPages }) => {
             <button
               key={i}
               className={`w-[50px] h-[50px] ${
-                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
               }`}
               onClick={() => handlePageClick(i)}
             >
@@ -52,7 +52,7 @@ const Pagination = ({ totalPages }) => {
         <button
           key={1}
           className={`w-[50px] h-[50px] ${
-            currentPage === 1 ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+            currentPage === 1 ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
           }`}
           onClick={() => handlePageClick(1)}
         >
@@ -69,7 +69,7 @@ const Pagination = ({ totalPages }) => {
             <button
               key={i}
               className={`w-[50px] h-[50px] ${
-                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
               }`}
               onClick={() => handlePageClick(i)}
             >
@@ -90,7 +90,7 @@ const Pagination = ({ totalPages }) => {
             <button
               key={i}
               className={`w-[50px] h-[50px] ${
-                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
               }`}
               onClick={() => handlePageClick(i)}
             >
@@ -126,7 +126,7 @@ const Pagination = ({ totalPages }) => {
             <button
               key={i}
               className={`w-[50px] h-[50px] ${
-                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+                currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
               }`}
               onClick={() => handlePageClick(i)}
             >
@@ -143,7 +143,7 @@ const Pagination = ({ totalPages }) => {
             <button
               key={totalPages}
               className={`w-[50px] h-[50px] ${
-                currentPage === totalPages ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+                currentPage === totalPages ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
               }`}
               onClick={() => handlePageClick(totalPages)}
             >
@@ -158,7 +158,7 @@ const Pagination = ({ totalPages }) => {
           <button
             key={i}
             className={`w-[50px] h-[50px] ${
-              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
             }`}
             onClick={() => handlePageClick(i)}
           >
@@ -174,7 +174,7 @@ const Pagination = ({ totalPages }) => {
           <button
             key={i}
             className={`w-[50px] h-[50px] ${
-              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
             }`}
             onClick={() => handlePageClick(i)}
           >
@@ -188,7 +188,7 @@ const Pagination = ({ totalPages }) => {
           <button
             key={i}
             className={`w-[50px] h-[50px] ${
-              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
+              currentPage === i ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
             }`}
             onClick={() => handlePageClick(i)}
           >
