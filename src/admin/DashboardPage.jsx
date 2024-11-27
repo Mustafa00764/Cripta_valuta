@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import PanelHeader from './PanelHeader'
 import article from '../assets/svg/article.svg'
 import { AdminContext } from '../context/AdminContext'
@@ -6,9 +6,11 @@ import top_10 from '../assets/svg/medal.svg'
 import DCard from './DCard'
 import Pagination from './Pagination'
 import Sort from './Sort'
+import api from '../components/axiosRefresh'
 
 const DashboardPage = () => {
   const {theme} = useContext(AdminContext)
+  const [articles,setArticles] = useState([])
 
   const categorys = [
     {
@@ -41,143 +43,29 @@ const DashboardPage = () => {
     },
   ]
 
-  const articles = [
-    {
-      "id": 1,
-      "content":[
-        {
-          "type":"cover",
-          "content":"https://www.crypto-news-flash.com/wp-content/uploads/2024/08/DALL%C2%B7E-2024-08-28-18.17.39-An-illustration-depicting-the-recent-Bitcoin-crash-showing-Bitcoins-price-plummeting-to-59000-with-potential-future-directions-towards-50000-or--1200x686.webp"
+  const handleArticlesList = async () => {
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    try {
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+
+      const responseArticle = await api.get("/articles",{
+        headers: {
+          Authorization: `Bearer ${newAccessToken}`,
         },
-        {
-          "type":"headings",
-          "content":"Биткоин-офшоры и конец майнингу: как поменяется мир криптовалют в 2022 году"
-        },
-        {
-          "type":"text",
-          "content":"Новый исторический максимум биткоина, запрет майнинга в огромном Китае, форсящие курс твиты Маска про Dogecoin — последний год был для рынка криптовалют настоящим потрясением. Отдельные цифровые монеты выросли за год в несколько раз и так же стремительно подешевели в январе 2022-го. Что ждет криптовалютный рынок дальше? Финтолк объясняет."
-        },
-        {
-          "type":"title",
-          "content":"Что сбылось по прогнозу’2021"
-        },
-        {
-          "type":"text",
-          "content":"В начале прошлого года Финтолк составил свой прогноз перспектив крипторынка на 2021 год. Хотя предугадать что-либо в мире криптовалют непростая задача, почти все прогнозы наших экспертов сбылись. Предположение о том, что институциональные инвесторы продолжат вкладываться в первую криптовалюту биткоин, сбылись. Кто-то делал вложения напрямую (например, Илон Маск). Кто-то предпочитал вкладываться во фьючерсы (например, компания Blackrock). Некоторые, вроде Fidelity Investments, покупали акции майнингового бизнеса. Так что вовлеченность инвесторов-китов однозначно росла. Предсказание экспертов о том, что к рыночной капитализации Bitcoin прибавится сразу 600 млрд долларов, в целом оказалось верным. BTC действительно вышел на новый исторический максимум стоимости. На пике его капитализация превышала триллион долларов. Тем не менее однозначно закрепиться на новом уровне криптоактиву не удалось, и сейчас капитализация BTC составляет около 700 млрд долларов."
-        }
-      ],
-      "isActive": true,
-      "publishDate": "2024-09-22 - 08:26:09",
-      "createdAt": "2024-09-22T08:26:09.068Z",
-      "updatedAt": "2024-09-22T16:24:35.695Z",
-      "status": "Draft",
-      "views": 1,
-      "tags": ["Blockchain","Altcoin","NFT","Gaming"],
-      "categories": ["Bitcoin","NFT"],
-      "author": {
-        "photo_url": "https://neweralive.na/wp-content/uploads/2024/06/lloyd-sikeba.jpg",
-        "username": "Max00764",
-        "name": "Maksim"
-      },
-      "avgRating": 5,
-      "ratings": [
-        {
-          "rating": 4,
-          "userId": 2
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "content":[
-        {
-          "type":"cover",
-          "content":"https://www.crypto-news-flash.com/wp-content/uploads/2024/08/DALL%C2%B7E-2024-08-28-18.17.39-An-illustration-depicting-the-recent-Bitcoin-crash-showing-Bitcoins-price-plummeting-to-59000-with-potential-future-directions-towards-50000-or--1200x686.webp"
-        },
-        {
-          "type":"headings",
-          "content":"Рухнувшая биржа FTX выплатит клиентам миллиарды. Кто и сколько получит"
-        },
-        {
-          "type":"text",
-          "content":"29 сентября курс токена обанкротившейся биржи FTX (FTT) вырос почти на 60% из-за распространяемых в социальной сети X слухов о выплате $16 млрд в адрес кредиторов бывшей криптобиржи. В моменте курс FTT достигал почти $3, днем 30 сентября котировки опустились в диапазон около $2."
-        },
-        {
-          "type":"title",
-          "content":"Планы по выплатам"
-        },
-        {
-          "type":"text",
-          "content":"Согласно плану банкротства, 98% клиентов FTX, претензии которых составили менее $50 тыс., получат выплаты эквивалентом стоимости их криптовалют по ценам на момент подачи заявления, сообщил The Block. Так, например, имея 1 BTC на балансе до закрытия, клиент получит эквивалент около $16 тыс., хотя сегодня цена одной монеты главной криптовалюты составляет около $65 тыс. Котировки Solana на тот момент находились около $17, а на конец сентября ее курс составляет около $160."
-        }
-      ],
-      "isActive": true,
-      "publishDate": "2024-09-22 - 08:26:09",
-      "createdAt": "2024-09-22T08:26:09.068Z",
-      "updatedAt": "2024-09-22T16:24:35.695Z",
-      "status": "Draft",
-      "views": 1,
-      "tags": ["Blockchain","Altcoin","Games","Gaming"],
-      "categories": ["P2E","DeFi"],
-      "author": {
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Andrzej_Person_Kancelaria_Senatu.jpg",
-        "username": "Max00764",
-        "name": "Andrey"
-      },
-      "avgRating": 5,
-      "ratings": [
-        {
-          "rating": 3,
-          "userId": 2
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "content":[
-        {
-          "type":"cover",
-          "content":"https://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/8/68/347278651719688.jpeg"
-        },
-        {
-          "type":"headings",
-          "content":"Криптостартапы собрали $2,6 млрд в третьем квартале. Топ-10 инвестраундов"
-        },
-        {
-          "type":"text",
-          "content":"«РБК-Крипто» не дает инвестиционных советов, материал опубликован исключительно в ознакомительных целях. Криптовалюта — это волатильный актив, который может привести к финансовым убыткам."
-        },
-        {
-          "type":"title",
-          "content":"Топ-10 крупнейших инвестиционных раундов"
-        },
-        {
-          "type":"text",
-          "content":"Celestia — модульный блокчейн, предоставляющий возможность создавать собственные блокчейны на базе Celestia. Проект привлек $100 млн финансирования от инвесторов во главе с Bain Capital Crypto, при участии 1kx, Placeholder, Robot Ventures. С 2021 года это четвертый инвестиционный раунд — общая сумма собранных средств превысила $152 млн."
-        }
-      ],
-      "isActive": true,
-      "publishDate": "2024-09-22 - 08:26:09",
-      "createdAt": "2024-09-22T08:26:09.068Z",
-      "updatedAt": "2024-09-22T16:24:35.695Z",
-      "status": "Draft",
-      "views": 1,
-      "tags": ["Blockchain","Altcoin","Games","NFT","Gaming"],
-      "categories": ["Blockchain","Bitcoin"],
-      "author": {
-        "photo_url": "https://images.ladbible.com/resize?type=webp&quality=70&width=3840&fit=contain&gravity=auto&url=https://images.ladbiblegroup.com/v3/assets/bltb5d92757ac1ee045/bltc86e7943bcc0e006/6569cbef0b642304079a348b/AI-creates-what-the-average-person.png%3Fcrop%3D590%2C590%2Cx0%2Cy0",
-        "username": "Max00764",
-        "name": "Oleg"
-      },
-      "avgRating": 5,
-      "ratings": [
-        {
-          "rating": 5,
-          "userId": 2
-        }
-      ]
+      })
+      console.log(responseArticle.data);
+      
+      setArticles(responseArticle.data)
+      
+    } catch (error) {
+      console.log(error);
+      
     }
-  ]
+  }
   return (
     <div className='w-full'>
       <PanelHeader title={'Main'}/>
@@ -269,9 +157,9 @@ const DashboardPage = () => {
           </div>
           <div className=' relative'>
             {
-              articles.map((item)=>{
+              articles.map((item,index)=>{
                 return (
-                  <DCard key={item.id} item={item}/>
+                  <DCard key={item.id} item={item} index={index+1}/>
                 )
               })
             }

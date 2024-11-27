@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import eye from '../assets/svg/eyes.svg'
 import star from '../assets/svg/Star.svg'
 
-const DCard = ({item}) => {
+const DCard = ({item,index}) => {
   const order = ["cover", "headings"];
   const pubData = item.publishDate
   const [cover, setCover] = useState()
   const [headings, setHeadings] = useState()
 
   useEffect(()=>{
-    item.content.forEach(item=>{
-      item.type == "cover"?setCover(item.content):""
-      item.type == "headings"?setHeadings(item.content):""
-    })
+    // item.content.forEach(item=>{
+    //   item.type == "cover"?setCover(item.content):""
+    //   item.type == "headings"?setHeadings(item.content):""
+    // })
     console.log(cover);
     
   },[])
@@ -20,13 +20,13 @@ const DCard = ({item}) => {
   return (
     <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
       <div className='w-[100px]'>
-        <p>{item.id}</p>
+        <p>{index}</p>
       </div>
       <div className='w-[200px] items-center flex justify-center h-full'>
-        <img className='w-[50%] h-[90%] ' src={cover} alt="" />
+        <img className='w-[50%] h-[90%] ' src={item.mediaUrls[0]} alt="" />
       </div>
       <div className='w-[200px]'>
-        <p>{item.author.name}</p>
+        <p>{item.authorId}</p>
       </div>
       <div className='w-[150px]'>
         <p>{pubData.slice(0,10)}</p>
@@ -40,11 +40,11 @@ const DCard = ({item}) => {
       </div>
       <div className='w-[150px] flex justify-center items-center gap-1'>
         <img src={eye} alt="eye" />
-        <p>{item.views}</p>
+        <p>{}</p>
       </div>
       <div className='w-[100px] flex justify-center items-center gap-1'>
         <img src={star} alt="star" />
-        <p>{item.avgRating}</p>
+        <p>{}</p>
       </div>
       <div className='flex w-[200px] justify-center items-center gap-4 '>
         <div className='options_search transition-all'>

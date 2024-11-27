@@ -450,10 +450,10 @@ const AddArticlePage = () => {
         subtitle,
         content: updatedHTML,
         conclusion,
-        pubDate: publishDate,
+        publishDate: publishDate,
         authorId  : userId,
         status: "Draft",
-        mediaUrls: updatedImgUrls,
+        mediaUrls: posterUrl,
         tags,
         categories: [],
       };
