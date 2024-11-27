@@ -130,6 +130,7 @@ const AddArticlePage = () => {
   const [fontSize, setFontSize] = useState(16);
   const [imagesList, setImagesList] = useState([]);
   const [publishDate, setPublishDate] = useState(pubDate.split("-").reverse().join("-"));
+  const [date, setDate] = useState('');
   const [tags, setTags] = useState([]);
   const [input, setInput] = useState("");
   const [category, setCategory] = useState("");
@@ -350,6 +351,7 @@ const AddArticlePage = () => {
   const newDate = (e) => {
     const date = e.target.value
     setPublishDate(date.split("-").reverse().join("-"))
+    setDate(new Date(date).toISOString())
   } 
 
   useEffect(()=>{
@@ -450,7 +452,7 @@ const AddArticlePage = () => {
         subtitle,
         content: updatedHTML,
         conclusion,
-        publishDate: publishDate.toISOString(),
+        publishDate: date,
         authorId  : userId,
         status: "Draft",
         mediaUrls: [posterUrl],
