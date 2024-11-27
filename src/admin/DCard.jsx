@@ -29,7 +29,7 @@ const DCard = ({item,index}) => {
         <p>{item.authorId}</p>
       </div>
       <div className='w-[150px]'>
-        <p>{pubData.slice(0,10)}</p>
+        <p>{pubData}</p>
       </div>
       <div className='w-[300px] flex justify-center h-[24px]  relative overflow-hidden'>
         <p className='w-[250px] whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{headings}</p>
