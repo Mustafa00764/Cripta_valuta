@@ -4,16 +4,32 @@ import api from '../components/axiosRefresh';
 const UDCard = ({userInfo,index}) => {
 
   const handleUserBan = async () => {
-    const userData = {
 
-    };
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    const userId = Number(localStorage.getItem("userId"));
+    try {
 
-    // const userResponse = await api.put(`/users/${userInfo.id}`, userData, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // });
+      const userData = {
+
+      };
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+      const userResponse = await api.put(`/users/${userId}`, userData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      });
+
+      console.log(userResponse.data);
+      
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+
   }
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
