@@ -455,6 +455,7 @@ const AddArticlePage = () => {
         publishDate: date,
         authorId  : userId,
         status: "Draft",
+        poster: posterUrl,
         mediaUrls: [posterUrl],
         tags,
         categories: [cid],
