@@ -51,7 +51,7 @@ const UDCard = ({userInfo,index}) => {
       <p>{userInfo.username}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{userInfo.id == status.userId ?status.status: "" }</p>
+      <p>{userInfo.status} {status}</p>
     </div>
     <div className='w-[150px] flex justify-center h-[24px]  relative overflow-hidden'>
       <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{userInfo.role.toLowerCase()}</p>
