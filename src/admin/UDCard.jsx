@@ -39,7 +39,7 @@ const UDCard = ({userInfo,index}) => {
   useEffect(()=>{
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = userInfo.id
+    const userId = Number(localStorage.getItem("userId"))
 
     // Проверяем наличие токена
     if (!accessToken || !userId) {
