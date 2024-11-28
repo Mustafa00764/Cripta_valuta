@@ -8,6 +8,7 @@ import Pagination from './Pagination'
 import Sort from './Sort'
 import axios from 'axios'
 import api from '../components/axiosRefresh'
+import DAModel from './DAModel'
 
 const DashboardPage = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
@@ -142,6 +143,7 @@ const DashboardPage = () => {
           <Sort/>
         </div>
       </div>
+      <DAModel handleArticlesList={handleArticlesList}/>
     </div>
   )
 }
