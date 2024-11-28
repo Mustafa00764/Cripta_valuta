@@ -26,7 +26,7 @@ const ArticleCard = ({item}) => {
         </Link>
         </div>
         <div className='w-full flex flex-col justify-between'>
-        <Link to={`/article/1`}>
+        <Link to={`/article/${item.id}`}>
           <div className='px-4 max-w-full w-full relative pt-6 pb-4'>
             <p className='font-semibold w-full  text-[24px] leading-[32px] xl:text-[22px] xl:h-[84px] lg:h-[72px] md:h-[48px]  xl:leading-7 lg:text-[20px] lg:leading-6 md:text-[16px] md:leading-4 lm:text-[20px] lm:h-[72px] lm:leading-6 line-clamp-3 text-left h-[96px] overflow-hidden text-ellipsis'>{item.title}</p>
           </div>

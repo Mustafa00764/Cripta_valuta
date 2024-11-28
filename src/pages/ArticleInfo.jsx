@@ -13,14 +13,14 @@ import quote from "../assets/svg/et_quote.svg";
 import hashtag from "../assets/svg/hashtag.svg";
 import refresh from "../assets/svg/refresh.svg";
 import ArticleCard from "../components/ArticleCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import StarRating from '../components/StarRating';
 import { MenuContext } from "../context/MenuContext";
 import AdvertisimentCard from "../components/AdvertisimentCard";
 const ArticleInfo = () => {
   const navigate = useNavigate();
   const [userRating, setUserRating] = useState(0);
-
+  const {params} = useParams()
 
   const goBack = () => {
     navigate(-1);
@@ -33,6 +33,8 @@ const ArticleInfo = () => {
 
   useEffect(()=>{
     window.scrollTo(0,0)
+    console.log("rrr" + params);
+    
   },[])
 
   return (
