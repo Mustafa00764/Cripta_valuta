@@ -126,7 +126,7 @@ const DashboardPage = () => {
             <input type="text" placeholder='Search' className='h-full font-light w-full outline-none bg-inherit pr-[15px]'/>
           </div>
         </div>
-        <div className='max-w-[1600px] mt-5 text-sideBarTextLight w-full min-h-[550px] bg-elementMode rounded-b-[12px] relative h-auto  '>
+        <div className='max-w-[1600px] mt-5 text-sideBarTextLight w-full min-h-[550px] bg-bgMode rounded-b-[12px] relative h-auto  '>
           <div className=' h-[50px] flex items-center text-center bg-[#151B1F] rounded-t-[12px]'>
             <div className='w-[100px]'>
               <p>#</p>
