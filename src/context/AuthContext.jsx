@@ -119,13 +119,6 @@ const AuthProvider = ({children}) => {
     // Обработка обновления статуса
     socket.on('status-update', (data) => {
       console.log('Status update received:', data);
-
-      if (data.userId === userId) {
-        setStatus(data.status);
-        if (data.status === 'offline') {
-          setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
-        }
-      }
     });
 
     // Обработка отключения
