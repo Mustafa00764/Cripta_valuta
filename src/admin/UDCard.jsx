@@ -35,7 +35,7 @@ const UDCard = ({userInfo,index}) => {
   }
   useEffect(()=>{
 
-  },[userInfo,status,user])
+  },[userInfo,status])
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
@@ -51,7 +51,7 @@ const UDCard = ({userInfo,index}) => {
       <p>{userInfo.username}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{userInfo.status}</p>
+      <p>{userInfo.status }</p>
     </div>
     <div className='w-[150px] flex justify-center h-[24px]  relative overflow-hidden'>
       <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{userInfo.role.toLowerCase()}</p>

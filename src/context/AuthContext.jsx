@@ -10,7 +10,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({children}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [status, setStatus] = useState('offline'); // Статус пользователя
+  const [status, setStatus] = useState(null); // Статус пользователя
   const [lastOnline, setLastOnline] = useState(null); 
 
   const handleLogin = (userData) => {
@@ -121,7 +121,7 @@ const AuthProvider = ({children}) => {
       console.log('Status update received:', data);
 
       if (data.userId === userId) {
-        setStatus(data.status);
+        setStatus(data);
         if (data.status === 'offline') {
           setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
         }
@@ -138,7 +138,7 @@ const AuthProvider = ({children}) => {
       socket.disconnect();
       console.log('WebSocket connection closed.');
     };
-  }, [setStatus,status,user]);
+  }, [setStatus,status]);
 
 
   return (
