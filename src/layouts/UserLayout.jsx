@@ -5,7 +5,7 @@ import UserNavbar from '../components/UserNavbar'
 import Footer from '../components/Footer'
 import { MenuContext } from '../context/MenuContext'
 import MarqueeCard from '../components/MarqueeCard'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Router, Routes } from 'react-router-dom'
 import ArticleInfo from '../pages/ArticleInfo'
 import SearchPage from '../pages/SearchPage'
 import Social from '../components/Social'
@@ -67,6 +67,7 @@ const UserLayout = () => {
       </div>
       <div className={`pt-[136px] transition-all relative lg:pt-[100px] md:pt-[80px] ms:pt-[64px]`}>
         <Social/>
+        <Router>
         <Routes>
           <Route path='/' element={<HomePage />}/>
           <Route path='/search' element={<SearchPage />}/>
@@ -96,6 +97,7 @@ const UserLayout = () => {
           <Route path='/settings/profile' element={<EditProfilePage/>}/>
           <Route path='/*' element={<NotFoundPage/>}/>
         </Routes>
+        </Router>
       </div>
       <div>
         <Footer />

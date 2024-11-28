@@ -17,14 +17,42 @@ import { useNavigate, useParams } from "react-router-dom";
 import StarRating from '../components/StarRating';
 import { MenuContext } from "../context/MenuContext";
 import AdvertisimentCard from "../components/AdvertisimentCard";
+import api from "../components/axiosRefresh";
+import axios from "axios";
 const ArticleInfo = () => {
   const navigate = useNavigate();
   const [userRating, setUserRating] = useState(0);
-  const {params} = useParams()
+  const {id} = useParams()
+  const [article,setArticle] = useState({})
 
   const goBack = () => {
     navigate(-1);
   };
+
+  const handleArticlesList = async () => {
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    try {
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+
+      const responseArticle = await api.get(`/articles/${id}`,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      })
+      console.log(responseArticle.data);
+      
+      setArticle(responseArticle.data)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
   const handleRatingChange = (rating) => {
     setUserRating(rating);
@@ -33,7 +61,8 @@ const ArticleInfo = () => {
 
   useEffect(()=>{
     window.scrollTo(0,0)
-    console.log("rrr" + params);
+    console.log("rrr" + id);
+    handleArticlesList()
     
   },[])
 
@@ -53,7 +82,7 @@ const ArticleInfo = () => {
           <div className=" relative ">
             <div
               className="h-[408px] ms:h-[344px] w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"
-              style={{ backgroundImage: `url(${articleImg})` }}
+              style={{ backgroundImage: `url(${article.poster})` }}
             >
               <div className=" backdrop-blur-2xl w-full h-[101%] bg-blurMode"></div>
             </div>
@@ -61,10 +90,10 @@ const ArticleInfo = () => {
               <div>
                 <div
                   className="w-[629px] xm:w-full sm:h-[312px] ms:h-[232px] h-[416px] p-8 ms:p-4 bg-cover bg-center flex items-end"
-                  style={{ backgroundImage: `url(${articleImg})` }}
+                  style={{ backgroundImage: `url(${article.poster})` }}
                 >
                   <button className="py-1 px-6 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
-                    Bitcoin
+                    {""}
                   </button>
                 </div>
                 <div className="hidden flex-col gap-2  xm:flex mt-[32px]">
