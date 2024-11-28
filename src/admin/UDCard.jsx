@@ -3,7 +3,7 @@ import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext';
 
 const UDCard = ({userInfo,index}) => {
-  const {status} = useContext(AuthContext)
+  const {status,user} = useContext(AuthContext)
 
   const handleUserBan = async () => {
 
@@ -33,7 +33,9 @@ const UDCard = ({userInfo,index}) => {
     }
 
   }
-  useEffect(()=>{},[userInfo,status])
+  useEffect(()=>{
+
+  },[userInfo,status,user])
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
