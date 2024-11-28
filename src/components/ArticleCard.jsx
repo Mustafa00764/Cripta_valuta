@@ -22,7 +22,7 @@ const ArticleCard = ({item,author,photo_url,name,createdAt,id,poster,subtitle,ca
           </div>
         </Link>
         <Link to={"/bitcoin"}>
-          <button className=' bottom-4 right-4 absolute h-8 hidden md:block rounded-full bg-[#F4F7FF] py-1 px-4 gap-2 text-[#779CFF] text-[14px] leading-4 font-semibold'>{categories[0]}</button>
+          <button className=' bottom-4 right-4 absolute h-8 hidden md:block rounded-full bg-[#F4F7FF] py-1 px-4 gap-2 text-[#779CFF] text-[14px] leading-4 font-semibold'>{categories}</button>
         </Link>
         </div>
         <div className='w-full flex flex-col justify-between'>
@@ -33,7 +33,7 @@ const ArticleCard = ({item,author,photo_url,name,createdAt,id,poster,subtitle,ca
         </Link>
         <div className='p-4 flex justify-end  md:p-2 items-center'>
           <Link to={"/bitcoin"}>
-            <button className=' h-8 rounded-full border-[1px] md:hidden border-[#779CFF] py-1 px-6 gap-2 text-[#779CFF] text-[14px] leading-6 font-medium hover:bg-[#779CFF] hover:text-[#fff] transition-all'>{categories[0]}</button>
+            <button className=' h-8 rounded-full border-[1px] md:hidden border-[#779CFF] py-1 px-6 gap-2 text-[#779CFF] text-[14px] leading-6 font-medium hover:bg-[#779CFF] hover:text-[#fff] transition-all'>{categories}</button>
           </Link>
         </div>
         </div>
