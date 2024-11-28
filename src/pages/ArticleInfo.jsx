@@ -121,9 +121,17 @@ const ArticleInfo = () => {
                   className="w-[629px] xm:w-full sm:h-[312px] ms:h-[232px] h-[416px] p-8 ms:p-4 bg-cover bg-center flex items-end"
                   style={{ backgroundImage: `url(${article.poster})` }}
                 >
-                  <button className="py-1 px-6 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
-                    {article.categories.map(v=>(v))}
-                  </button>
+                  {
+                    article.categories.map(v=>{
+                      return(
+                        <button className="py-1 px-6 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
+                         {v}
+                       </button> 
+
+                      )
+                    })
+                  }
+
                 </div>
                 <div className="hidden flex-col gap-2  xm:flex mt-[32px]">
                   <p className="text-[14px] leading-6">Поделиться:</p>
@@ -270,7 +278,7 @@ const ArticleInfo = () => {
           {
             articles.map((item)=>{
               return(
-                <ArticleCard item={item} author={item.author} id={item.id} subtitle={item.subtitle} title={item.title} poster={item.poster} categories={item.categories[0]} createdAt={item.createdAt} photo_url={item.author.photo_url} name={item.author.name}/>
+                <ArticleCard key={item.id} item={item} author={item.author} id={item.id} subtitle={item.subtitle} title={item.title} poster={item.poster} categories={item.categories[0]} createdAt={item.createdAt} photo_url={item.author.photo_url} name={item.author.name}/>
               )
             })
           }
