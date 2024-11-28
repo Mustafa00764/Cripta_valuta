@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext';
 
-const UDCard = ({userInfo,index}) => {
-  const {status} = useContext(AuthContext)
+const UDCard = ({userInfo,index, status}) => {
+  // const {status} = useContext(AuthContext)
 
   const handleUserBan = async () => {
 

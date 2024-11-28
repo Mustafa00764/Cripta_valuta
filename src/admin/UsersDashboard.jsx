@@ -6,9 +6,12 @@ import userss from '../assets/svg/people.svg'
 import UDCard from './UDCard'
 import api from '../components/axiosRefresh'
 import axios from 'axios'
+import { AuthContext } from '../context/AuthContext'
 const UsersDashboard = () => {
   const {theme} = useContext(AdminContext)
   const [username,setUserName] = useState('')
+  const {status} = useContext(AuthContext)
+
   const [users,setUsers] = useState([])
 
 
@@ -39,7 +42,7 @@ const UsersDashboard = () => {
 
   useEffect(()=>{
     handleUsersList()
-  },[])
+  },[status])
 
 
   return (
@@ -99,7 +102,7 @@ const UsersDashboard = () => {
           <div className=' relative'>
             {
               users.map((item,index)=>{
-                return <UDCard userInfo={item} key={item.id} index={index+1}/>
+                return <UDCard userInfo={item} key={item.id} status={item.id == status.userId ? status.status : item.status} index={index+1}/>
               })
             }
             {/* <UDCard status={"user"}/> */}
