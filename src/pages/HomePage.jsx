@@ -56,7 +56,7 @@ const HomePage = () => {
           {
             articles.map((item)=>{
               return(
-                <ArticleCard item={item}/>
+                <ArticleCard item={item} author={item.author}/>
               )
             })
           }

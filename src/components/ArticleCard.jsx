@@ -2,13 +2,13 @@ import React, { useContext } from 'react'
 import img from '../assets/images/articleImage.png'
 import { Link } from 'react-router-dom'
 import { AdminContext } from '../context/AdminContext';
-const ArticleCard = ({item}) => {
+const ArticleCard = ({item,author}) => {
   return (
       <div className='articleCard  max-w-[432px] xl:max-w-[100%] h-[499px] xl:h-auto w-full bg-bgMode rounded-[15px] text-textMode hover:scale-[1.02] hover:text-[#779CFF] hover:transition-all hover:duration-[400] cursor-pointer transition-all duration-[400] hover:shadow-3xl relative'>
         <div className='flex items-center justify-between p-4 text-[14px] md:text-[12px] text-textMode'>
           <div className='flex gap-2 items-center'>
-            <img className='w-[20px] h-[20px] rounded-[50%] overflow-hidden object-cover' src={""} alt={""} />
-            <p>Автор: {item.author.name}</p>
+            <img className='w-[20px] h-[20px] rounded-[50%] overflow-hidden object-cover' src={author.photo_url} alt={""} />
+            <p>Автор: {author.name}</p>
           </div>
           <p>{item.createdAt}</p>
         </div>
