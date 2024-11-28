@@ -24,12 +24,39 @@ const ArticleInfo = () => {
   const [userRating, setUserRating] = useState(0);
   const {id} = useParams()
   const [article,setArticle] = useState({})
+  const [articles,setArticles] = useState([])
 
   const goBack = () => {
     navigate(-1);
   };
 
+
   const handleArticlesList = async () => {
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    try {
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+
+      const responseArticle = await api.get("/articles",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      })
+      console.log(responseArticle.data);
+      
+      setArticles(responseArticle.data)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+  const handleArticles = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -62,7 +89,9 @@ const ArticleInfo = () => {
   useEffect(()=>{
     window.scrollTo(0,0)
     console.log("rrr" + id);
+    handleArticles()
     handleArticlesList()
+
     
   },[])
 
@@ -93,7 +122,7 @@ const ArticleInfo = () => {
                   style={{ backgroundImage: `url(${article.poster})` }}
                 >
                   <button className="py-1 px-6 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
-                    {""}
+                    {article.categories[0]}
                   </button>
                 </div>
                 <div className="hidden flex-col gap-2  xm:flex mt-[32px]">
@@ -126,20 +155,19 @@ const ArticleInfo = () => {
                 <div className="flex flex-col xm:flex-col-reverse gap-4">
                   <div className="flex flex-wrap w-full gap-3 items-center justify-between mx:text-[12px] ms:text-[10px] text-[14px] leading-6">
                     <div className="flex items-center gap-2">
-                      <img src={person} alt="person" />
-                      <p>Автор: Иван Иванов</p>
+                      <img src={article.author.photo_url} alt="person" />
+                      <p>Автор: {article.author.name}</p>
                     </div>
                     <div>
-                      <p>1432 просмотров</p>
+                      <p>{article.views} просмотров</p>
                     </div>
                     <div>
-                      <p>10 июня 2022 в 12:25</p>
+                      <p>{article.createdAt}</p>
                     </div>
                   </div>
                   <div>
                     <p className="text-[36px] font-semibold leading-[48px] mx:text-[22px] ms:text-[18px] mx:leading-[28px] ms:leading-[24px] sm:text-[28px] sm:leading-[36px] xm:text-[36px] xm:leading-[48px] 2xl:text-[32px] 2xl:leading-[40px]">
-                      Биткоин-офшоры и конец майнингу: как поменяется мир
-                      криптовалют в 2022 году
+                      {article.title}
                     </p>
                   </div>
                   <div className="hidden md:flex h-[24px] relative">
@@ -190,136 +218,11 @@ const ArticleInfo = () => {
             <div className="w-[65%] lg:w-full mx:text-[14px]">
               <div>
                 <p className=" leading-6 pr-5 font-normal">
-                  Новый исторический максимум биткоина, запрет майнинга в
-                  огромном Китае, форсящие курс твиты Маска про Dogecoin —
-                  последний год был для рынка криптовалют настоящим потрясением.
-                  Отдельные цифровые монеты выросли за год в несколько раз и так
-                  же стремительно подешевели в январе 2022-го. Что ждет
-                  криптовалютный рынок дальше? Финтолк объясняет.
+                  {article.subtitle}
                 </p>
               </div>
-              <div className="mt-[56px] w-full">
-                <img src={img1} alt="img1" className=" object-cover ms:w-full"/>
-              </div>
-              <div className="mt-[56px] mx:mt-[40px]">
-                <h2 className="font-semibold text-[24px] mx:text-[18px] leading-8">
-                  Что сбылось по прогнозу’2021
-                </h2>
-                <p className=" leading-6 pr-5 mt-8 mx:mt-[24px] flex flex-col gap-8 sm:gap-6 mx:gap-4 font-normal">
-                  <span>
-                    В начале прошлого года Финтолк составил свой прогноз
-                    перспектив крипторынка на 2021 год. Хотя предугадать
-                    что-либо в мире криптовалют непростая задача, почти все
-                    прогнозы наших экспертов сбылись.
-                  </span>
-                  <span>
-                    Предположение о том, что институциональные инвесторы
-                    продолжат вкладываться в первую криптовалюту биткоин,
-                    сбылись. Кто-то делал вложения напрямую (например, Илон
-                    Маск). Кто-то предпочитал вкладываться во фьючерсы
-                    (например, компания Blackrock). Некоторые, вроде Fidelity
-                    Investments, покупали акции майнингового бизнеса. Так что
-                    вовлеченность инвесторов-китов однозначно росла.
-                  </span>
-                  <span>
-                    Предсказание экспертов о том, что к рыночной капитализации
-                    Bitcoin прибавится сразу 600 млрд долларов, в целом
-                    оказалось верным. BTC действительно вышел на новый
-                    исторический максимум стоимости. На пике его капитализация
-                    превышала триллион долларов. Тем не менее однозначно
-                    закрепиться на новом уровне криптоактиву не удалось, и
-                    сейчас капитализация BTC составляет около 700 млрд долларов.
-                  </span>
-                </p>
-              </div>
-              <div className="mt-[48px] w-full">
-                <img src={img2} alt="img2" className=" object-cover ms:w-full"/>
-              </div>
-              <div className="mt-[56px]">
-                <p className="flex flex-col gap-8 leading-6 font-normal">
-                  <span>
-                    В США и Канаде появились первые биржевые фонды, ETF на
-                    биткоин. Как и предполагалось, смена руководства SEC сыграла
-                    свою роль в этом процессе. В ноябре 2021 года на
-                    Нью-Йоркской бирже стал торговаться ETF, базирующийся на
-                    биткоин-фьючерсах, — ProShares Bitcoin Strategy ETF.
-                  </span>
-                  <span>
-                    Технология децентрализованных финансов (DeFi) получила
-                    широкое распространение. Конечно, кто-то может возразить,
-                    что в СМИ практически не было новой информации о DeFi, а
-                    весь хайп собрали внезапно выстрелившие NFT-токены. Однако
-                    цифры говорят об обратном. Согласно статистике сервиса
-                    CoinGecko, капитализация децентрализованных финансовых
-                    сервисов выросла более чем в семь раз: с 20 до 150 млрд
-                    долларов. При этом увеличилась и их доля в криптоиндустрии в
-                    целом: с 2,8 % до 6,5%.
-                  </span>
-                  <span>
-                    Вышло новое оборудование для майнинга. В январе 2021 года
-                    свет увидел новый аппарат для добычи Bitcoin — Canaan Avalon
-                    Miner 1246, а через полгода ASIC для майнинга Ethereum —
-                    Innosilicon A11 Pro. Более того, Innosilicon анонсировала
-                    выпуск GPU-решений для рынка. Но что нас ждет в новом, 2022
-                    году?
-                  </span>
-                </p>
-              </div>
-              <div className="mt-[56px] mx:mt-[40px]">
-                <h2 className="font-semibold text-[24px] mx:text-[18px] leading-8">
-                  Что сбылось по прогнозу’2021
-                </h2>
-                <p className="leading-6 mt-[40px] mx:mt-[24px] font-normal">
-                  Компания Bitmain, флагман по производству оборудования для
-                  майнинга, в июле 2022 года представит новый ASIC для добычи
-                  Bitcoin — Antminer S19 XP. По правде говоря, узнали о нем еще
-                  в 2021-м. Однако компания решила повременить с релизом, чтобы
-                  распродать свою предыдущую модель — Antminer S19j Pro. При
-                  производстве Antminer S19 XP впервые использовался
-                  пятинанометровый техпроцесс. Благодаря ему возрастет
-                  производительность и снижается энергопотребление устройства.
-                  Стоимость такой машинки на официальном сайте составляет 11 620
-                  долларов.
-                </p>
-              </div>
-              <div className="w-full h-[336px] bg-gradient-to-b relative from-pageMode to-transparent mt-[104px] ">
-                <div className=" absolute top-[-50px] left-[-52px] lg:left-[calc(50%-52px)]">
-                  <img src={quote} alt="quote" />
-                </div>
-                <div className=" w-full h-full lm:h-auto flex justify-center items-center lm:px-[24px] lm:py-[56px] px-[56px] py-[88px]">
-                  <p className="text-[24px] lm:text-[18px] lm:leading-6 leading-8 font-medium ">
-                    Крипторынок уже пару месяцев сигнализирует о приходе периода
-                    высокой волатильности. Взлеты и падения, практически
-                    непрогнозируемые, будут сменяться длительными неделями
-                    ожидания хоть каких-то изменений.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-[104px] lg:mt-[88px] md:mt-[64px] sm:mt-[48px] mx:mt-[40px]">
-                <p className="leading-6">
-                  Основные игроки рынка видеокарт AMD и Nvidia собираются
-                  представить новые модели графических адаптеров. Однако они
-                  будут рассчитаны скорей на массового потребителя, а не на
-                  майнеров (по крайней мере, так заявляют производители). AMD
-                  уже успели выпустить модель Radeon RX 6500 XT с «искусственным
-                  ограничением» по шине в 64 bit. Что означает более низкую
-                  цену. Nvidia подготовила обновление своей линейки Ampere. Одно
-                  из главных событий — выход бюджетной GeForce RTX 3050. Для
-                  профессиональных майнеров будет интересна и линейка Ada
-                  Lovelace. Пока что ее запуск отложили в связи с тем, что цены
-                  на видеокарты заоблачные и у производителя есть сомнения по
-                  поводу достаточности спроса.
-                </p>
-              </div>
-              <div className="mt-[56px] w-full">
-                <iframe
-                  width="426"
-                  height="240"
-                  className="rounded-[5px] ms:w-full "
-                  src="https://www.youtube.com/embed/3fqj8qiZVhw"
-                  title="My REALISTIC Price Target For Solana (&amp; Other Altcoins...)"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
+              <div className="w-full mt-8 text-wrap break-all">
+              <div className="main" dangerouslySetInnerHTML={{ __html: article.content }} />
               </div>
               <div className="mt-[56px]">
                 <p className="leading-6 pr-5 font-normal">
@@ -333,26 +236,16 @@ const ArticleInfo = () => {
                 </p>
               </div>
               <div className="mt-[88px] w-full border border-pageMode gap-2 flex flex-wrap rounded-[15px] p-4">
-                <button className="flex gap-2 items-center bg-pageMode px-6 py-2 rounded-[10px] text-[#80A3FF] font-medium leading-6">
-                  <img src={hashtag} alt="hashtag" />
-                  Blockchain
-                </button>
-                <button className="flex gap-2 items-center bg-pageMode px-6 py-2 rounded-[10px] text-[#80A3FF] font-medium leading-6">
-                  <img src={hashtag} alt="hashtag" />
-                  Altcoin
-                </button>
-                <button className="flex gap-2 items-center bg-pageMode px-6 py-2 rounded-[10px] text-[#80A3FF] font-medium leading-6">
-                  <img src={hashtag} alt="hashtag" />
-                  Games
-                </button>
-                <button className="flex gap-2 items-center bg-pageMode px-6 py-2 rounded-[10px] text-[#80A3FF] font-medium leading-6">
-                  <img src={hashtag} alt="hashtag" />
-                  NFT
-                </button>
-                <button className="flex gap-2 items-center bg-pageMode px-6 py-2 rounded-[10px] text-[#80A3FF] font-medium leading-6">
-                  <img src={hashtag} alt="hashtag" />
-                  Gaming
-                </button>
+                {
+                  article.tags.map((v)=>{
+                    return(
+                      <button className="flex gap-2 items-center bg-pageMode px-6 py-2 rounded-[10px] text-[#80A3FF] font-medium leading-6">
+                        <img src={hashtag} alt="hashtag" />
+                        {v}
+                      </button>
+                    )
+                  })
+                }
               </div>
             </div>
             <div className="w-[32.5%] lg:hidden border relative border-pageMode py-[64px] xl:py-[48px] xl:px-9  xm:py-8 xm:px-6 px-[48px] rounded-[10px] flex flex-col gap-8">
@@ -374,12 +267,13 @@ const ArticleInfo = () => {
             </p>
           </div>
           <div className="mt-8 grid grid-cols-3 gap-8 xm:grid-cols-2 lm:grid-cols-1 xm:gap-6">
-            <ArticleCard />
-            <ArticleCard />
-            <ArticleCard />
-            <ArticleCard />
-            <ArticleCard />
-            <ArticleCard />
+          {
+            articles.map((item)=>{
+              return(
+                <ArticleCard item={item} author={item.author} id={item.id} subtitle={item.subtitle} title={item.title} poster={item.poster} categories={item.categories[0]} createdAt={item.createdAt} photo_url={item.author.photo_url} name={item.author.name}/>
+              )
+            })
+          }
           </div>
           <div className="w-full flex justify-center mt-[56px] mb-[88px] md:mb-[60px] sm:mb-[40px] md:mt-[45px] sm:mt-[40px]">
             <div className="flex gap-2 items-center cursor-pointer">
