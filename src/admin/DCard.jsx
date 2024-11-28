@@ -4,7 +4,7 @@ import star from '../assets/svg/Star.svg'
 
 const DCard = ({item,index}) => {
   const order = ["cover", "headings"];
-  const pubData = item.publishDate
+  const pubData = item.createdAt
   const [cover, setCover] = useState()
   const [headings, setHeadings] = useState()
 
@@ -23,16 +23,19 @@ const DCard = ({item,index}) => {
         <p>{index}</p>
       </div>
       <div className='w-[200px] items-center flex justify-center h-full'>
-        <img className='w-[50%] h-[90%] ' src={""} alt="" />
+        <img className='w-[50%] h-[90%] ' src={item.poster} alt="" />
       </div>
-      <div className='w-[200px]'>
-        <p>{item.authorId}</p>
+      <div className='w-[200px] items-center gap-4 flex justify-start h-full'>
+      <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
+        <img className='border-0 rounded-full'  src={item.auhtor.photo_url} alt="" />
+      </div>
+      <p>{item.auhtor.name}</p>
       </div>
       <div className='w-[150px]'>
         <p>{pubData}</p>
       </div>
       <div className='w-[300px] flex justify-center h-[24px]  relative overflow-hidden'>
-        <p className='w-[250px] whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{headings}</p>
+        <p className='w-[250px] whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{item.title}</p>
       </div>
       <div className='w-[200px]'>
         <img src="" alt="" />
@@ -40,7 +43,7 @@ const DCard = ({item,index}) => {
       </div>
       <div className='w-[150px] flex justify-center items-center gap-1'>
         <img src={eye} alt="eye" />
-        <p>{}</p>
+        <p>{item.views}</p>
       </div>
       <div className='w-[100px] flex justify-center items-center gap-1'>
         <img src={star} alt="star" />
