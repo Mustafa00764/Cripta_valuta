@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../context/AdminContext'
 import api from '../components/axiosRefresh.js'
+import axios from 'axios'
 
 const DAModel = ({handleArticlesList}) => {
   const {deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle} = useContext(AdminContext)
@@ -17,10 +18,14 @@ const DAModel = ({handleArticlesList}) => {
 
     try {
       const CID = article.id
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+
       const response = await api.delete(`/articles/${CID}`,{
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         }
       })
       setDeleteModel(false)
