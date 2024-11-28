@@ -121,16 +121,9 @@ const ArticleInfo = () => {
                   className="w-[629px] xm:w-full sm:h-[312px] ms:h-[232px] h-[416px] p-8 ms:p-4 bg-cover bg-center flex items-end"
                   style={{ backgroundImage: `url(${article.poster})` }}
                 >
-                  {
-                    article.categories.map(v=>{
-                      return(
-                        <button className="py-1 px-6 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
-                         {v}
-                       </button> 
-
-                      )
-                    })
-                  }
+                  <button className="py-1 px-6 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
+                    {article.categories}
+                  </button> 
 
                 </div>
                 <div className="hidden flex-col gap-2  xm:flex mt-[32px]">
