@@ -92,7 +92,7 @@ const AuthProvider = ({children}) => {
       setIsAuthenticated(true);
       // Логика для получения данных о пользователе
     }
-    const userId = Number(localStorage.getItem("userId"))
+    const userId = user.id
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
