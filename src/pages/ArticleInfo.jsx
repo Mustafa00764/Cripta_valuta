@@ -122,7 +122,7 @@ const ArticleInfo = () => {
                   style={{ backgroundImage: `url(${article.poster})` }}
                 >
                   <button className="py-1 px-6 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
-                    {article.categories[0]}
+                    {article.categories.map(v=>(v))}
                   </button>
                 </div>
                 <div className="hidden flex-col gap-2  xm:flex mt-[32px]">
