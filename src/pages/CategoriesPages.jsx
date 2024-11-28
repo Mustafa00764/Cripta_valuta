@@ -6,12 +6,42 @@ import CryptoChart from '../components/CryptoChart';
 import AdvertisimentCard from '../components/AdvertisimentCard';
 import PagesCard from '../components/PagesCard';
 import refresh from "../assets/svg/refresh.svg";
+import axios from 'axios';
+import api from '../components/axiosRefresh';
 
 const CategoriesPages = () => {
   const {categories,categoryName,setCategoryName,handleRestore} = useContext(AdminContext)
 
+  const [articles,setArticles] = useState([])
+
+  const handleArticlesList = async () => {
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    try {
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+
+      const responseArticle = await api.get("/articles",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      })
+      console.log(responseArticle.data);
+      
+      setArticles(responseArticle.data)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   useEffect(()=>{
     handleRestore()
+    handleArticlesList()
   },[])
 
   return (
@@ -36,18 +66,13 @@ const CategoriesPages = () => {
               </div>
               <div className='flex gap-8 mt-[56px] lg:flex-col xm:gap-4 md:mt-[45px] sm:mt-[40px]'>
                 <div className='w-[74.41%] h-auto flex flex-col gap-4 lg:w-full md:grid md:grid-cols-2 sm:grid-cols-1'>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
-                  <PagesCard/>
+                  {
+                    articles.map((item)=>{
+                      return(
+                        <PagesCard key={item.id} item={item} author={item.author} id={item.id} subtitle={item.subtitle} title={item.title} poster={item.poster} categories={item.categories[0]} createdAt={item.createdAt} photo_url={item.author.photo_url} name={item.author.name}/>
+                      )
+                    })
+                  }
                 </div>
                 <div className='w-[calc(25.59%-32px)] xm:w-[calc(25.59%-16px)] lg:w-full flex flex-col gap-8'>
                   <CryptoChart/>

@@ -13,37 +13,6 @@ const DashboardPage = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
   const [articles,setArticles] = useState([])
 
-  const categorys = [
-    {
-      id: 1,
-      category: "All",
-    },
-    {
-      id: 2,
-      category: "Bitcoin",
-    },
-    {
-      id: 3,
-      category: "Blockchain",
-    },
-    {
-      id: 4,
-      category: "NFT",
-    },
-    {
-      id: 5,
-      category: "DeFi",
-    },
-    {
-      id: 6,
-      category: "P2E",
-    },
-    {
-      id: 7,
-      category: "Etherium",
-    },
-  ]
-
   const handleArticlesList = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
