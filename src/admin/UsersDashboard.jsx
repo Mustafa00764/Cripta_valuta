@@ -39,9 +39,12 @@ const UsersDashboard = () => {
       console.log(error);
     }
   }
-
   useEffect(()=>{
     handleUsersList()
+
+  },[])
+
+  useEffect(()=>{
     const intervalId = setInterval(() => {
     handleUsersList()
     }, 15000);
