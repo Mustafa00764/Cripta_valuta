@@ -10,7 +10,7 @@ import axios from 'axios'
 import api from '../components/axiosRefresh'
 
 const DashboardPage = () => {
-  const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
+  const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
   const [articles,setArticles] = useState([])
 
   const categorys = [
@@ -93,21 +93,19 @@ const DashboardPage = () => {
         <div className={`w-full h-[41px] flex items-center  ${theme?'text-sideBarTextDark':'text-white'}`}>
           <p>{"ARTICLES"}/<span className='text-[#88919D]'>{'Category'}</span></p>
         </div>
-        <div className='w-full h-[50px] flex items-center'>
-          <form className='flex gap-[10px]'>
+        <div className='w-full h-[50px] flex gap-[10px] items-center'>
+            <div className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
+              <p>All</p>
+            </div>
             {
-              categorys.map((item)=>{
+              categories.map((item)=>{
                 return(
-                  <label ke y={item.id} htmlFor={item.category}>
-                    <input type="radio" name='category' id={item.category} className='hidden'/>
-                    <div className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
-                      <p>{item.category}</p>
-                    </div>
-                  </label>
+                  <div key={item.id} className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
+                    <p>{item.name}</p>
+                  </div>
                 )
               })
             }
-          </form>
         </div>
         <div className='w-full h-[50px] mt-[5px]'>
           <div className={`max-w-[520px] w-full h-full ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} items-center flex transition-all rounded-[12px] border border-[rgba(136,145,157,0.20)] overflow-hidden ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
