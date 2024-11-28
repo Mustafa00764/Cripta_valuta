@@ -67,7 +67,6 @@ const UserLayout = () => {
       </div>
       <div className={`pt-[136px] transition-all relative lg:pt-[100px] md:pt-[80px] ms:pt-[64px]`}>
         <Social/>
-        <Router>
         <Routes>
           <Route path='/' element={<HomePage />}/>
           <Route path='/search' element={<SearchPage />}/>
@@ -97,7 +96,6 @@ const UserLayout = () => {
           <Route path='/settings/profile' element={<EditProfilePage/>}/>
           <Route path='/*' element={<NotFoundPage/>}/>
         </Routes>
-        </Router>
       </div>
       <div>
         <Footer />
