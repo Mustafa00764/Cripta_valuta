@@ -47,7 +47,7 @@ const DCard = ({item,index}) => {
       </div>
       <div className='w-[100px] flex justify-center items-center gap-1'>
         <img src={star} alt="star" />
-        <p>{}</p>
+        <p>{item.avgRating}</p>
       </div>
       <div className='flex w-[200px] justify-center items-center gap-4 '>
         <div className='options_search transition-all'>
