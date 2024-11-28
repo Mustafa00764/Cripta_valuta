@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AdminContext } from '../context/AdminContext';
 
-const Pagination = ({ totalPages }) => {
+const Pagination = ({ totalPages,length }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
 
@@ -213,7 +213,7 @@ const Pagination = ({ totalPages }) => {
         Last
       </button>
       <div>
-        <p className='text-[#88919D]'>Total: <span className='text-textMode'>200</span></p>
+        <p className='text-[#88919D]'>Total: <span className='text-textMode'>{length}</span></p>
       </div>
     </div>
   );

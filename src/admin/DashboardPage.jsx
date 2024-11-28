@@ -169,7 +169,7 @@ const DashboardPage = () => {
           </div>
         </div>
         <div>
-          <Pagination totalPages={Math.ceil(articles.length / articleSort)}/>
+          <Pagination length={articles.length} totalPages={Math.ceil(articles.length / articleSort)}/>
         </div>
         <div className='flex w-full h-[78px] items-center'>
           <Sort/>
