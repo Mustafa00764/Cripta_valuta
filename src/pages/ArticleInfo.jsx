@@ -236,14 +236,14 @@ const ArticleInfo = () => {
               </div>
               <div className="mt-[88px] w-full border border-pageMode gap-2 flex flex-wrap rounded-[15px] p-4">
                 {
-                  article.tags.map((v)=>{
+                  article.tags?article.tags.map((v)=>{
                     return(
                       <button className="flex gap-2 items-center bg-pageMode px-6 py-2 rounded-[10px] text-[#80A3FF] font-medium leading-6">
                         <img src={hashtag} alt="hashtag" />
                         {v}
                       </button>
                     )
-                  })
+                  }):""
                 }
               </div>
             </div>
