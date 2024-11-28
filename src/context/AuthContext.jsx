@@ -124,6 +124,7 @@ const AuthProvider = ({children}) => {
     // Обработка отключения
     socket.on('disconnect', () => {
       console.log('WebSocket disconnected');
+      
     });
 
     // Очистка WebSocket при размонтировании

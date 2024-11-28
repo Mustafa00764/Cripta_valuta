@@ -44,7 +44,7 @@ const UsersDashboard = () => {
     handleUsersList()
     const intervalId = setInterval(() => {
     handleUsersList()
-    }, 1000);
+    }, 15000);
 
     return () => clearInterval(intervalId);
   },[])
