@@ -155,7 +155,7 @@ const ArticleInfo = () => {
                   <div className="flex flex-wrap w-full gap-3 items-center justify-between mx:text-[12px] ms:text-[10px] text-[14px] leading-6">
                     <div className="flex items-center gap-2">
                       <img src={article.author?article.author.photo_url:""} alt="person" />
-                      <p>Автор: {article?article.author.name:""}</p>
+                      <p>Автор: {article.author?article.author.name:""}</p>
                     </div>
                     <div>
                       <p>{article.views} просмотров</p>
