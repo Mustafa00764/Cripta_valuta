@@ -159,7 +159,7 @@ const DashboardPage = () => {
           <div className=' relative'>
             {
               articles.map((item,index)=>{
-                if (index<=articleSort*articlePagination && index>= (articlePagination-1)*articleSort) {
+                if (index+1<=articleSort*articlePagination && index+1>= (articlePagination-1)*articleSort) {
                   return (
                     <DCard key={item.id} item={item} index={index+1}/>
                   )
