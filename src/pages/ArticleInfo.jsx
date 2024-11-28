@@ -91,7 +91,7 @@ const ArticleInfo = () => {
     console.log("rrr" + id);
     handleArticles()
     handleArticlesList()
-  },[])
+  },[id])
 
   return (
     <div className="articleInfo">
