@@ -131,7 +131,7 @@ const AuthProvider = ({children}) => {
       socket.disconnect();
     };
     // handleUsersList()
-  }, []);
+  }, [user]);
 
 
   return (
