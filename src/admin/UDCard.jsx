@@ -68,7 +68,7 @@ const UDCard = ({userInfo,index}) => {
       if (data.userId === userId) {
         setStatus(data.status);
         if (data.status === 'offline') {
-          setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
+          // setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
         }
       }
     });
