@@ -1,38 +1,41 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React from 'react'
 import axios from "axios";
-import { io } from "socket.io-client";
-import api from "../components/axiosRefresh"; // Ваш api-экземпляр для отправки запросов
+import { createContext, useContext, useEffect, useState } from "react";
+import api from "../components/axiosRefresh"
+import { io } from 'socket.io-client';
 
 export const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+
+const AuthProvider = ({children}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [usersStatus, setUsersStatus] = useState([]); // Статусы всех пользователей
-  const [lastOnline, setLastOnline] = useState(null);
+  const [status, setStatus] = useState(null); // Статус пользователя
+  const [lastOnline, setLastOnline] = useState(null); 
 
   const handleLogin = (userData) => {
-    localStorage.setItem("accessToken", userData.accessToken);
+    localStorage.setItem('accessToken', userData.accessToken);
     setUser(userData.user);
     setIsAuthenticated(true);
   };
 
   const refreshAccessToken = async (refreshToken) => {
     try {
-      const response = await axios.post("https://legitcommunity.uz/auth/refresh-token", { refreshToken });
+      const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = response.data.accessToken;
-      localStorage.setItem("accessToken", newAccessToken);
+      localStorage.setItem('accessToken', newAccessToken);
       return newAccessToken;
     } catch (error) {
-      console.error("Ошибка обновления токена:", error);
+      console.error('Ошибка обновления токена:', error);
       return null;
     }
   };
 
+
   const restoreSession = async () => {
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-    const userId = localStorage.getItem("userId");
+    const accessToken = localStorage.getItem('accessToken');  
+    const refreshToken = localStorage.getItem('refreshToken');
+    const userId = localStorage.getItem('userId');
 
     if (accessToken && userId) {
       try {
@@ -40,9 +43,12 @@ const AuthProvider = ({ children }) => {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
+        // Успешно получили данные пользователя
         setUser(response.data);
         setIsAuthenticated(true);
+        console.log(response);
       } catch (error) {
+        // Если токен истек, пробуем обновить его с помощью refreshToken
         if (error.response && error.response.status === 401 && refreshToken) {
           const newAccessToken = await refreshAccessToken(refreshToken);
           if (newAccessToken) {
@@ -53,31 +59,51 @@ const AuthProvider = ({ children }) => {
               setUser(response.data);
               setIsAuthenticated(true);
             } catch (err) {
-              console.error("Ошибка при восстановлении данных пользователя", err);
+              console.error('Ошибка при восстановлении данных пользователя', err);
+            } finally {
+              setLoading(false);
             }
           }
         } else {
-          console.error("Ошибка при получении данных пользователя", error);
+          console.error('Ошибка при получении данных пользователя', error);
         }
       }
     }
   };
 
+  // const handleUsersList = async () => {
+  //   const accessToken = localStorage.getItem('accessToken');  
+  //   const refreshToken = localStorage.getItem('refreshToken');
+  //   try {
+
+  //     const response = await api.get("/users")
+  //     console.log(response.data);
+      
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  // Восстановление сессии при загрузке компонента
   useEffect(() => {
     restoreSession();
+    const storedToken = localStorage.getItem('accessToken');
+    if (storedToken) {
+      setIsAuthenticated(true);
+      // Логика для получения данных о пользователе
+    }
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    const userId = Number(localStorage.getItem("userId"));
 
-    const storedToken = localStorage.getItem("accessToken");
-    const storedUserId = localStorage.getItem("userId");
-    if (!storedToken || !storedUserId) {
+    // Проверяем наличие токена
+    if (!accessToken || !userId) {
       console.warn("Токен или userId отсутствуют. Подключение WebSocket отменено.");
       return;
     }
 
-    const accessToken = storedToken;
-    const userId = Number(storedUserId);
-
-    // Подключаем WebSocket для получения статусов всех пользователей
-    const socket = io("https://legitcommunity.uz/status", {
+    // Подключаем WebSocket
+    const socket = io('https://legitcommunity.uz/status', {
       query: { userId },
       extraHeaders: {
         "Content-Type": "application/json",
@@ -86,61 +112,40 @@ const AuthProvider = ({ children }) => {
     });
 
     // Событие подключения
-    socket.on("connect", () => {
-      console.log("WebSocket connected");
+    socket.on('connect', () => {
+      console.log('WebSocket connected');
     });
 
     // Обработка обновления статуса
-    socket.on("status-update", (data) => {
-      console.log("Status update received:", data);
-      
-      // Обновляем статус пользователя в массиве
-      setUsersStatus((prevUsersStatus) => {
-        const userIndex = prevUsersStatus.findIndex((user) => user.userId === data.userId);
-        if (userIndex !== -1) {
-          const updatedStatus = [...prevUsersStatus];
-          updatedStatus[userIndex] = {
-            ...updatedStatus[userIndex],
-            status: data.status,
-            lastOnline: data.status === "offline" ? data.lastOnline : null,
-          };
-          return updatedStatus;
+    socket.on('status-update', (data) => {
+      console.log('Status update received:', data);
+
+      if (data.userId === userId) {
+        setStatus(data);
+        if (data.status === 'offline') {
+          setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
         }
-        
-        // Если пользователя еще нет в списке, добавляем его
-        return [...prevUsersStatus, { userId: data.userId, status: data.status, lastOnline: data.status === "offline" ? data.lastOnline : null }];
-      });
+      }
     });
 
     // Обработка отключения
-    socket.on("disconnect", () => {
-      console.log("WebSocket disconnected");
+    socket.on('disconnect', () => {
+      console.log('WebSocket disconnected');
     });
 
     // Очистка WebSocket при размонтировании
     return () => {
       socket.disconnect();
-      console.log("WebSocket connection closed.");
+      console.log('WebSocket connection closed.');
     };
-  }, []);  // Зависимость - только при монтировании компонента
+  }, [setStatus]);
+
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        refreshAccessToken,
-        restoreSession,
-        setLastOnline,
-        usersStatus, // Теперь передаем состояние всех пользователей
-        setUser,
-        setIsAuthenticated,
-        isAuthenticated,
-        handleLogin,
-      }}
-    >
+    <AuthContext.Provider value={{user,refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export default AuthProvider;
+export default AuthProvider
