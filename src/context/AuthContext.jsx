@@ -114,6 +114,7 @@ const AuthProvider = ({children}) => {
     // Событие подключения
     socket.on('connect', () => {
       console.log('WebSocket connected');
+      restoreSession()
     });
 
     // Обработка обновления статуса
@@ -124,7 +125,7 @@ const AuthProvider = ({children}) => {
     // Обработка отключения
     socket.on('disconnect', () => {
       console.log('WebSocket disconnected');
-      
+      restoreSession()
     });
 
     // Очистка WebSocket при размонтировании
