@@ -102,7 +102,7 @@ const UsersDashboard = () => {
           <div className=' relative'>
             {
               users.map((item,index)=>{
-                return <UDCard userInfo={item} key={item.id} status={item.id == status.userId ? status.status : item.status} index={index+1}/>
+                return <UDCard userInfo={item} key={item.id} index={index+1}/>
               })
             }
             {/* <UDCard status={"user"}/> */}
