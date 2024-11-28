@@ -27,9 +27,9 @@ const DCard = ({item,index}) => {
       </div>
       <div className='w-[200px] items-center gap-4 flex justify-start h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 rounded-full'  src={item.auhtor.photo_url} alt="" />
+        <img className='border-0 rounded-full'  src={item.author.photo_url} alt="" />
       </div>
-      <p>{item.auhtor.name}</p>
+      <p>{item.author.name}</p>
       </div>
       <div className='w-[150px]'>
         <p>{pubData}</p>
