@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext';
-import { io } from 'socket.io-client';
-import axios from "axios";
 
 const UDCard = ({userInfo,index}) => {
-  // const {status} = useContext(AuthContext)
-  const [status, setStatus] = useState(null); // Статус пользователя
+  const {usersStatus} = useContext(AuthContext)
 
   const handleUserBan = async () => {
 
@@ -36,54 +33,10 @@ const UDCard = ({userInfo,index}) => {
     }
 
   }
-  useEffect(()=>{
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-    const userId = Number(localStorage.getItem("userId"))
+  const userStatus = usersStatus.find((user) => user.userId === userInfo.id);
+  // useEffect(()=>{
 
-    // Проверяем наличие токена
-    if (!accessToken || !userId) {
-      console.warn("Токен или userId отсутствуют. Подключение WebSocket отменено.");
-      return;
-    }
-
-    // Подключаем WebSocket
-    const socket = io('https://legitcommunity.uz/status', {
-      query: { userId },
-      extraHeaders: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    // Событие подключения
-    socket.on('connect', () => {
-      console.log('WebSocket connected');
-    });
-
-    // Обработка обновления статуса
-    socket.on('status-update', (data) => {
-      console.log('Status update received:', data);
-
-      if (data.userId === userId) {
-        setStatus(data.status);
-        if (data.status === 'offline') {
-          // setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
-        }
-      }
-    });
-
-    // Обработка отключения
-    socket.on('disconnect', () => {
-      console.log('WebSocket disconnected');
-    });
-
-    // Очистка WebSocket при размонтировании
-    return () => {
-      socket.disconnect();
-      console.log('WebSocket connection closed.');
-    };
-  },[setStatus])
+  // },[usersStatus])
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
@@ -99,7 +52,7 @@ const UDCard = ({userInfo,index}) => {
       <p>{userInfo.username}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{status}</p>
+      <p>{userInfo.status } {userStatus ? userStatus.status : 'Unknown'}</p>
     </div>
     <div className='w-[150px] flex justify-center h-[24px]  relative overflow-hidden'>
       <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{userInfo.role.toLowerCase()}</p>
