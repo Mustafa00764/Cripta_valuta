@@ -18,7 +18,7 @@ const PagesCard = ({item,author,photo_url,name,createdAt,id,poster,subtitle,cate
             <div className=' w-full h-full '>
               <img className='w-full h-full object-cover rounded-[10px] md:rounded-none' src={poster} alt={img} />
             </div>
-            <Link to={`/${categories.toLowerCase()}`}>
+            <Link to={`/${categories}`}>
               <button className=' bottom-4 right-4 absolute h-8 hidden xl:block rounded-full bg-[#F4F7FF] py-1 px-4 gap-2 text-[#779CFF] text-[14px] leading-4 font-semibold'>Bitcoin</button>
             </Link>
           </div>
