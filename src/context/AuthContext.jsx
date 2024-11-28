@@ -85,7 +85,6 @@ const AuthProvider = ({children}) => {
   // }
 
   // Восстановление сессии при загрузке компонента
-  const userId = Number(localStorage.getItem("userId"))
   useEffect(() => {
     restoreSession();
     const storedToken = localStorage.getItem('accessToken');
@@ -95,32 +94,51 @@ const AuthProvider = ({children}) => {
     }
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const ws = new WebSocket('wss://legitcommunity.uz:8080'); // Подключение к WebSocket
+    const userId = Number(localStorage.getItem("userId"));
 
-    ws.onopen = () => {
-      console.log('WebSocket подключен.');
-      // Регистрируем пользователя для получения статуса
-      ws.send(JSON.stringify({ type: 'register', userId }));
-    };
+    // Проверяем наличие токена
+    if (!accessToken || !userId) {
+      console.warn("Токен или userId отсутствуют. Подключение WebSocket отменено.");
+      return;
+    }
 
-    ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
+    // Подключаем WebSocket
+    const socket = io('https://legitcommunity.uz/status', {
+      query: { userId },
+      extraHeaders: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-      if (message.type === 'statusUpdate' && message.userId === userId) {
-        // Обновляем значение переменной, если статус пользователя изменился
-        setStatus(message.isOnline?"online":"offline");
+    // Событие подключения
+    socket.on('connect', () => {
+      console.log('WebSocket connected');
+    });
+
+    // Обработка обновления статуса
+    socket.on('status-update', (data) => {
+      console.log('Status update received:', data);
+
+      if (data.userId === userId) {
+        setStatus(data.status);
+        if (data.status === 'offline') {
+          setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
+        }
       }
-    };
+    });
 
-    ws.onclose = () => {
-      console.log('WebSocket отключён.');
-    };
+    // Обработка отключения
+    socket.on('disconnect', () => {
+      console.log('WebSocket disconnected');
+    });
 
+    // Очистка WebSocket при размонтировании
     return () => {
-      ws.close(); // Закрываем соединение при размонтировании компонента
+      socket.disconnect();
+      console.log('WebSocket connection closed.');
     };
-    // handleUsersList()
-  }, [userId]);
+  }, [setStatus]);
 
 
   return (
