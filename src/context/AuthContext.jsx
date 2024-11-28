@@ -10,7 +10,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({children}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [status, setStatus] = useState("offline"); // Статус пользователя
+  const [status, setStatus] = useState("online"); // Статус пользователя
   const [lastOnline, setLastOnline] = useState(null); 
 
   const handleLogin = (userData) => {
