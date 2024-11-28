@@ -76,24 +76,19 @@ const DashboardPage = () => {
     <div className='w-full'>
       <PanelHeader title={'Main'}/>
       <div className='px-[60px] mt-[6px]'>
-        <div className='h-[78px] py-[14px]'>
-          <form className='flex gap-[25px] h-full items-center w-full'>
-            <label htmlFor="Articles">
-              <input type="radio" id='Articles' name='category' className='hidden'/>
-              <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
-                <img src={article} alt="article"/>
-                <p>ARTICLES</p>
-                <p>200</p>
-              </div>
-            </label>
-            <label htmlFor="Top-10">
-              <input type="radio" id='Top-10' name='category' className='hidden'/>
-                <div className={`gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
-                  <img src={top_10} alt="top_10" />
-                  <p>Top - 10</p>
-                </div>
-            </label>
-          </form>
+        <div className='h-[78px] py-[14px] flex gap-[25px] items-center w-full'>
+
+          <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+            <img src={article} alt="article"/>
+            <p>ARTICLES</p>
+            <p>{articles.length}</p>
+          </div>
+
+          <div className={`gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+            <img src={top_10} alt="top_10" />
+            <p>Top - 10</p>
+          </div>
+          
         </div>
         <div className={`w-full h-[41px] flex items-center  ${theme?'text-sideBarTextDark':'text-white'}`}>
           <p>{"ARTICLES"}/<span className='text-[#88919D]'>{'Category'}</span></p>
@@ -103,7 +98,7 @@ const DashboardPage = () => {
             {
               categorys.map((item)=>{
                 return(
-                  <label key={item.id} htmlFor={item.category}>
+                  <label ke y={item.id} htmlFor={item.category}>
                     <input type="radio" name='category' id={item.category} className='hidden'/>
                     <div className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
                       <p>{item.category}</p>

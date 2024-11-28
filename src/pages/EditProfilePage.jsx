@@ -10,7 +10,7 @@ import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext'    
 
 const EditProfilePage = () => {
-  const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
+  const [posterPhoto, setPosterPhoto] = useState("")
   const previewCanvasRef = useRef(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -205,6 +205,8 @@ const EditProfilePage = () => {
         if(user.profileHeader != undefined){
           setPosterPhoto(user.profileHeader)
           setAbout(user.about)
+        }else{
+          setPosterPhoto('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
         }
       }
       console.log(user);
