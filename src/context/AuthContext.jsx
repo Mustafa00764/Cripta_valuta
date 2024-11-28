@@ -121,7 +121,7 @@ const AuthProvider = ({children}) => {
       console.log('Status update received:', data);
 
       if (data.userId === userId) {
-        setStatus(data);
+        setStatus(data.status);
         if (data.status === 'offline') {
           setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
         }

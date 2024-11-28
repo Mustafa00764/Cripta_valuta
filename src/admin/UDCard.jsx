@@ -4,7 +4,6 @@ import { AuthContext } from '../context/AuthContext';
 
 const UDCard = ({userInfo,index}) => {
   const {status} = useContext(AuthContext)
-const [userStatus, setUserStatus] = useState("")
   const handleUserBan = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
@@ -35,11 +34,9 @@ const [userStatus, setUserStatus] = useState("")
   }
 
   useEffect(()=>{
-    if (status) {
-      setUserStatus(status.userId === userInfo.id?status.status:"")
-    }
 
-  },[status,userStatus])
+
+  },[])
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
@@ -55,7 +52,7 @@ const [userStatus, setUserStatus] = useState("")
       <p>{userInfo.username}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{userInfo.status} {userStatus}</p>
+      <p>{userInfo.status} </p>
     </div>
     <div className='w-[150px] flex justify-center h-[24px]  relative overflow-hidden'>
       <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{userInfo.role.toLowerCase()}</p>

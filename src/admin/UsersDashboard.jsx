@@ -42,7 +42,12 @@ const UsersDashboard = () => {
 
   useEffect(()=>{
     handleUsersList()
-  },[status,setStatus])
+    const intervalId = setInterval(() => {
+    handleUsersList()
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  },[])
 
 
   return (
