@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 
 const UDCard = ({userInfo,index}) => {
   const {status} = useContext(AuthContext)
-
+const [userStatus, setUserStatus] = useState("")
   const handleUserBan = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
@@ -34,10 +34,12 @@ const UDCard = ({userInfo,index}) => {
 
   }
 
-  const userStatus = status.userId === userInfo.id?status.status:""
   useEffect(()=>{
+    if (status) {
+      setUserStatus(status.userId === userInfo.id?status.status:"")
+    }
 
-  },[status])
+  },[status,userStatus])
   return (
   <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
