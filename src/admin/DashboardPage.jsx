@@ -10,7 +10,7 @@ import axios from 'axios'
 import api from '../components/axiosRefresh'
 
 const DashboardPage = () => {
-  const {theme} = useContext(AdminContext)
+  const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
   const [articles,setArticles] = useState([])
 
   const categorys = [
@@ -159,15 +159,17 @@ const DashboardPage = () => {
           <div className=' relative'>
             {
               articles.map((item,index)=>{
-                return (
-                  <DCard key={item.id} item={item} index={index+1}/>
-                )
+                if (index<=articleSort*articlePagination && index>= (articlePagination-1)*articleSort) {
+                  return (
+                    <DCard key={item.id} item={item} index={index+1}/>
+                  )
+                }
               })
             }
           </div>
         </div>
         <div>
-          <Pagination totalPages={15}/>
+          <Pagination totalPages={Math.ceil(articles.length / articleSort)}/>
         </div>
         <div className='flex w-full h-[78px] items-center'>
           <Sort/>

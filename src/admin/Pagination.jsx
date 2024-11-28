@@ -3,9 +3,11 @@ import { AdminContext } from '../context/AdminContext';
 
 const Pagination = ({ totalPages }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {theme} = useContext(AdminContext)
+  const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
+
   const handlePageClick = (page) => {
     setCurrentPage(page);
+    setArticlePagination(page)
   };
 
   const renderPageNumbers = () => {
