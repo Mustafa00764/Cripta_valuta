@@ -56,7 +56,7 @@ const HomePage = () => {
           {
             articles.map((item)=>{
               return(
-                <ArticleCard item={item} author={item.author} photo_url={item.author.photo_url} name={item.author.name}/>
+                <ArticleCard item={item} author={item.author} createdAt={item.createdAt} photo_url={item.author.photo_url} name={item.author.name}/>
               )
             })
           }
