@@ -10,7 +10,7 @@ import { AuthContext } from '../context/AuthContext'
 const UsersDashboard = () => {
   const {theme} = useContext(AdminContext)
   const [username,setUserName] = useState('')
-  const {status} = useContext(AuthContext)
+  const {status,setStatus} = useContext(AuthContext)
 
   const [users,setUsers] = useState([])
 
@@ -42,7 +42,7 @@ const UsersDashboard = () => {
 
   useEffect(()=>{
     handleUsersList()
-  },[status])
+  },[status,setStatus])
 
 
   return (
