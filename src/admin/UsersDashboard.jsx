@@ -66,7 +66,7 @@ const UsersDashboard = () => {
           <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
             <img src={blockedUsers} alt="article"/>
             <p>BLOCKED USERS</p>
-            <p>5</p>
+            <p>0</p>
           </div>
         </div>
         <div className='w-full h-[50px] mt-[5px]'>
