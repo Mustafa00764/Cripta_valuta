@@ -28,7 +28,7 @@ const DAModel = ({handleArticlesList}) => {
           Authorization: `Bearer ${newAccessToken}`,
         }
       })
-      setDeleteModel(false)
+      setDeleteArticleModel(false)
       handleArticlesList()
       console.log("Статья успешно удалена:", response.data);
       alert("The article has been successfully deleted!");
