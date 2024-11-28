@@ -138,7 +138,7 @@ const AuthProvider = ({children}) => {
       socket.disconnect();
       console.log('WebSocket connection closed.');
     };
-  }, [setStatus,status]);
+  }, [setStatus,status,user]);
 
 
   return (
