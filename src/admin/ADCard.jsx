@@ -27,7 +27,7 @@ const ADCard = ({item,index}) => {
       <p>{item.status}</p>
     </div>
     <div className='w-[150px] flex justify-center h-[24px]  relative overflow-hidden'>
-      <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{"admin"}</p>
+      <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{item.role.toLowerCase()}</p>
     </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>
       <div className='options_search transition-all'>

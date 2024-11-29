@@ -86,7 +86,9 @@ const AdminDashboard = () => {
           <div className=' relative'>
             {
               users.map((item,index)=>{
-                if (item.role == "admin" || item.role == "moderator") {
+                if (item.role == "ADMIN" || item.role == "MODERATOR") {
+                  <ADCard key={item.id} item={item} index={index}/>
+                }else{
                   <ADCard key={item.id} item={item} index={index}/>
                 }
               })
