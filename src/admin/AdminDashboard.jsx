@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken,restoreSession } = useContext(AuthContext);
   const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(categorie);
+  const [selectedRole, setSelectedRole] = useState("");
   const roles = ['MODERATOR', 'ADMIN'];
 
   const handleRoleClick = (role) => {
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className={`w-[300px] mt-[5px] gap-[15px] relative h-[50px] flex items-center border border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
               >
-                <span className="block truncate">{selectedCategory}</span>
+                <span className="block truncate">{setSelectedRole}</span>
                 <span className="absolute inset-y-0 right-[15px] flex items-center  pointer-events-none">
                 <img src={chevronDown} alt="chevrodDown"  className=' cursor-pointer'/>
                 </span>
