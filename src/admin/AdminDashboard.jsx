@@ -47,7 +47,7 @@ const AdminDashboard = () => {
   }
   useEffect(()=>{
     handleUsersList()
-  },[])
+  },[users])
   
   return (
     <div className='w-full'>
