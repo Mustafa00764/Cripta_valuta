@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
   const roles = ['MODERATOR', 'ADMIN'];
-  const num = 0
+  const [num,setNum] = useState(0)
 
   const handleRoleClick = (role) => {
     setSelectedRole(role);
@@ -87,8 +87,9 @@ const AdminDashboard = () => {
             {
               users.map((item)=>{
                 if (item.role == "ADMIN" || item.role == "MODERATOR") {
+                  setNum(num+1)
                   return(
-                    <ADCard key={item.id} item={item} index={num+1}/>
+                    <ADCard key={item.id} item={item} index={num}/>
                   )
                 }
               })
