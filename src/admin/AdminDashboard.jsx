@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PanelHeader from './PanelHeader'
 import article from '../assets/svg/article.svg'
 import { AdminContext } from '../context/AdminContext'
@@ -45,6 +45,9 @@ const AdminDashboard = () => {
   
     restoreSession()
   }
+  useEffect(()=>{
+
+  },[users])
   
   return (
     <div className='w-full'>
@@ -83,7 +86,7 @@ const AdminDashboard = () => {
           <div className=' relative'>
             {
               users.map((item,index)=>{
-                if (item.role === "ADMIN" || item.role === "MODERATOR") {
+                if (item.role == "ADMIN" || item.role == "MODERATOR") {
                   <ADCard key={item.id} item={item} index={index}/>
                 }
               })
