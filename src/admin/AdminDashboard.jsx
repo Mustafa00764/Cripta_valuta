@@ -11,7 +11,7 @@ import chevronDown from "../assets/svg/ChevronDown.svg"
 
 const AdminDashboard = () => {
   const {theme,categorie} = useContext(AdminContext)
-  const [username,setUserName] = useState('')
+  const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(categorie);
   const categories = ['USER', 'MODERATOR', 'ADMIN'];
@@ -95,16 +95,19 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
-          <label htmlFor="title" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Account <span className='text-[#FF8F00] text-[14px] '>(usename)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+          <label htmlFor="title" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Account <span className='text-[#FF8F00] text-[14px] '>(id)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"
               id='title'
-              placeholder='Enter admin username'
-              onChange={(e) => setUserName(e.target.value)}
+              placeholder='Enter admin id'
+              onChange={(e) => setUserId(e.target.value)}
               required
               className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
             />
           </div>
+          <button className="mt-4 px-4 py-2 bg-blue-500 text-white" type='submit'>
+            Отправить
+          </button>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import { Line } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext'    
+import axios from 'axios';
 
 const EditProfilePage = () => {
   const [posterPhoto, setPosterPhoto] = useState("")
@@ -125,10 +126,12 @@ const EditProfilePage = () => {
         const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
         const formData1 = new FormData();
         formData1.append("file", croppedFile);
+        const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+        const newAccessToken = responses.data.accessToken;
         const uploadResponse1 = await api.post("/upload", formData1, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${newAccessToken}`,
           },
         });
         console.log(uploadResponse1.data);
@@ -158,7 +161,7 @@ const EditProfilePage = () => {
       const uploadResponse2 = await api.post("/upload", formData2, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         },
       });
       console.log(uploadResponse2.data);
@@ -183,7 +186,7 @@ const EditProfilePage = () => {
       const userResponse = await api.put(`/users/${userId}`, userData, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         },
       });
 
