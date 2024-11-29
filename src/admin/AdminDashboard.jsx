@@ -87,7 +87,7 @@ const AdminDashboard = () => {
               users.map((item,index)=>{
                 if (item.role == "ADMIN" || item.role == "MODERATOR") {
                   return(
-                    <ADCard key={item.id} item={item} index={index}/>
+                    <ADCard key={item.id} item={item} index={index+1}/>
                   )
                 }
               })
