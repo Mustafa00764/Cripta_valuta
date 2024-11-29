@@ -42,8 +42,7 @@ const AdminDashboard = () => {
     });
 
     console.log(userResponse.data);
-  
-    restoreSession()
+    handleUsersList()
   }
   useEffect(()=>{
     handleUsersList()
