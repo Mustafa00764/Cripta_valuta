@@ -13,7 +13,7 @@ import api from '../components/axiosRefresh'
 import { AuthContext } from '../context/AuthContext'
 
 const AdminDashboard = () => {
-  const {theme,categorie} = useContext(AdminContext)
+  const {theme,categorie,users,setUsers} = useContext(AdminContext)
   const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken,restoreSession } = useContext(AuthContext);
   const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +81,13 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div className=' relative'>
-            <ADCard/>
+            {
+              users.map((item,index)=>{
+                if (item.role === "ADMIN" || item.role === "MODERATOR") {
+                  <ADCard key={item.id} item={item} index={index}/>
+                }
+              })
+            }
           </div>
         </div>
         <div>

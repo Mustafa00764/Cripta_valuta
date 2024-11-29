@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import eye from '../assets/svg/eyes.svg'
 import star from '../assets/svg/Star.svg'
-const ADCard = () => {
+const ADCard = ({item,index}) => {
   const order = ["cover", "headings"];
   const [cover, setCover] = useState()
   const [headings, setHeadings] = useState()
@@ -12,19 +12,19 @@ const ADCard = () => {
   return (
     <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
-      <p>{1}</p>
+      <p>{index}</p>
     </div>
     <div className='w-[150px] items-center gap-4 flex justify-center h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 ' src="" alt="" />
+        <img className='border-0 ' src={item.photo_url} alt="" />
       </div>
-      <p>max</p>
+      <p>{item.firstName}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{"max00764"}</p>
+      <p>{item.username}</p>
     </div>
     <div className='w-[300px]'>
-      <p>{"online"}</p>
+      <p>{item.status}</p>
     </div>
     <div className='w-[150px] flex justify-center h-[24px]  relative overflow-hidden'>
       <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{"admin"}</p>

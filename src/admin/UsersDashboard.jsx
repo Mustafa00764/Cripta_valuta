@@ -8,11 +8,10 @@ import api from '../components/axiosRefresh'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
 const UsersDashboard = () => {
-  const {theme} = useContext(AdminContext)
+  const {theme,users,setUsers} = useContext(AdminContext)
   const [username,setUserName] = useState('')
   const {status,setStatus} = useContext(AuthContext)
 
-  const [users,setUsers] = useState([])
 
 
   const handleUsersList = async () => {
@@ -41,7 +40,6 @@ const UsersDashboard = () => {
   }
   useEffect(()=>{
     handleUsersList()
-
   },[])
 
   useEffect(()=>{
