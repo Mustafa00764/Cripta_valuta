@@ -8,18 +8,42 @@ import Pagination from './Pagination'
 import Sort from './Sort'
 import ADCard from './ADCard'
 import chevronDown from "../assets/svg/ChevronDown.svg"
+import axios from 'axios'
+import api from '../components/axiosRefresh'
 
 const AdminDashboard = () => {
   const {theme,categorie} = useContext(AdminContext)
+  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken,restoreSession } = useContext(AuthContext);
   const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(categorie);
-  const categories = ['USER', 'MODERATOR', 'ADMIN'];
+  const [selectedRole, setSelectedRole] = useState(categorie);
+  const roles = ['MODERATOR', 'ADMIN'];
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+  const handleRoleClick = (role) => {
+    setSelectedRole(role);
     setIsOpen(false);
   };
+
+  const handleRole = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    const userId = Number(userId);
+    const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+    const newAccessToken = responses.data.accessToken;
+    const userData = {
+      role: selectedRole
+    };
+
+    const userResponse = await api.put(`/users/${userId}`, userData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${newAccessToken}`,
+      },
+    });
+
+    console.log(userResponse.data);
+  
+    restoreSession()
+  }
   
   return (
     <div className='w-full'>
@@ -79,15 +103,15 @@ const AdminDashboard = () => {
 
               {isOpen && (
                 <ul className={`absolute w-[300px] z-[1] mt-1 ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
-                  {categories.map((category) => (
+                  {roles.map((role) => (
                     <li
-                      key={category}
-                      onClick={() => handleCategoryClick(category)}
+                      key={role}
+                      onClick={() => handleRoleClick(role)}
                       className={`cursor-pointer select-none h-[50px]  flex items-center px-[15px] ${
-                      selectedCategory === category ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
+                        selectedRole === role ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
                       } ${theme?'hover:bg-sideBarTextLight':'hover:bg-[#151B1F]'}`}
                     >
-                      <span className="block truncate">{category}</span>
+                      <span className="block truncate">{role}</span>
                     </li>
                   ))}
                 </ul>
@@ -105,7 +129,7 @@ const AdminDashboard = () => {
               className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
             />
           </div>
-          <button className="mt-4 px-4 py-2 bg-blue-500 text-white" type='submit'>
+          <button className="mt-4 px-4 py-2 bg-blue-500 text-white" onClick={()=>handleRole()}>
             Отправить
           </button>
         </div>

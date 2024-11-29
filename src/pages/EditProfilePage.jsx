@@ -126,8 +126,7 @@ const EditProfilePage = () => {
         const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
         const formData1 = new FormData();
         formData1.append("file", croppedFile);
-        const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
-        const newAccessToken = responses.data.accessToken;
+
         const uploadResponse1 = await api.post("/upload", formData1, {
           headers: {
             "Content-Type": "multipart/form-data",
