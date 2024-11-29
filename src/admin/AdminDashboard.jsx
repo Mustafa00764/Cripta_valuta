@@ -65,7 +65,7 @@ const AdminDashboard = () => {
         <div className='max-w-[1200px] mt-5 text-sideBarTextLight w-full max-h-[550px] relative h-auto  '>
           <div className=' h-[50px] flex items-center text-center bg-[#151B1F] rounded-t-[12px]'>
             <div className='w-[100px]'>
-              <p>#</p>
+              <p># / id</p>
             </div>
             <div className='w-[150px]'>
               <p>name</p>
