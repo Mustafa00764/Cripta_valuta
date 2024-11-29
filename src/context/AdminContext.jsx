@@ -74,6 +74,31 @@ const AdminProvider = ({ children }) => {
     
   };
 
+  const handleUsersList = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    const userId = localStorage.getItem('userId');
+    try {
+
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
+      
+
+      const responseUsers = await api.get("/users",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      })
+
+      console.log(responseUsers);
+      setUsers(responseUsers.data)
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleRestore = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
@@ -105,10 +130,17 @@ const AdminProvider = ({ children }) => {
   useEffect(()=>{
     handleRestore()
     toggleTheme()
+    handleUsersList()
+
+    const intervalId = setInterval(() => {
+      handleUsersList()
+      }, 15000);
+  
+      return () => clearInterval(intervalId);
   },[])
 
   return (
-    <AdminContext.Provider value={{users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
+    <AdminContext.Provider value={{handleUsersList, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
       {children}
     </AdminContext.Provider>
   )

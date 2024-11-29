@@ -8,46 +8,12 @@ import api from '../components/axiosRefresh'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
 const UsersDashboard = () => {
-  const {theme,users,setUsers} = useContext(AdminContext)
+  const {theme,users,setUsers,handleUsersList} = useContext(AdminContext)
   const [username,setUserName] = useState('')
   const {status,setStatus} = useContext(AuthContext)
 
-
-
-  const handleUsersList = async () => {
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-    const userId = localStorage.getItem('userId');
-    try {
-
-      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
-      const newAccessToken = responses.data.accessToken;
-      
-
-      const responseUsers = await api.get("/users",{
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${newAccessToken}`,
-        },
-      })
-
-      console.log(responseUsers);
-      setUsers(responseUsers.data)
-      
-    } catch (error) {
-      console.log(error);
-    }
-  }
   useEffect(()=>{
     handleUsersList()
-  },[])
-
-  useEffect(()=>{
-    const intervalId = setInterval(() => {
-    handleUsersList()
-    }, 15000);
-
-    return () => clearInterval(intervalId);
   },[])
 
 

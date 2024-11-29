@@ -13,7 +13,7 @@ import api from '../components/axiosRefresh'
 import { AuthContext } from '../context/AuthContext'
 
 const AdminDashboard = () => {
-  const {theme,categorie,users,setUsers} = useContext(AdminContext)
+  const {theme,categorie,users,setUsers,handleUsersList} = useContext(AdminContext)
   const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken,restoreSession } = useContext(AuthContext);
   const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
@@ -46,8 +46,8 @@ const AdminDashboard = () => {
     restoreSession()
   }
   useEffect(()=>{
-
-  },[users])
+    handleUsersList()
+  },[])
   
   return (
     <div className='w-full'>
