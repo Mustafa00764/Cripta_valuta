@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 
 const UDCard = ({userInfo,index}) => {
   const {status} = useContext(AuthContext)
   const handleUserBan = async () => {
-
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
     const userId = Number(localStorage.getItem("userId"));
