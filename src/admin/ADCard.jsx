@@ -14,7 +14,7 @@ const ADCard = ({item,index}) => {
     <div className='w-[100px]'>
       <p>{index}</p>
     </div>
-    <div className='w-[150px] items-center gap-4 flex justify-center h-full'>
+    <div className='w-[150px] items-center gap-4 flex justify-start h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
         <img className='border-0 ' src={item.photo_url} alt="" />
       </div>
