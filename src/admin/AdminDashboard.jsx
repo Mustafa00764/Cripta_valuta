@@ -10,6 +10,7 @@ import ADCard from './ADCard'
 import chevronDown from "../assets/svg/ChevronDown.svg"
 import axios from 'axios'
 import api from '../components/axiosRefresh'
+import { AuthContext } from '../context/AuthContext'
 
 const AdminDashboard = () => {
   const {theme,categorie} = useContext(AdminContext)
