@@ -49,7 +49,7 @@ const AdminDashboard = () => {
     handleUsersList()
     users.map((item)=>{
       if (item.role == "ADMIN" || item.role == "MODERATOR" || item.role == "OWNER") {
-        setAdmins(admins.push(item))
+        setAdmins([...admins,item])
       }
     })
 
