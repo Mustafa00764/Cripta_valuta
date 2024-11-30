@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
-  const roles = ['MODERATOR', 'ADMIN'];
+  const roles = ['MODERATOR', 'ADMIN', 'OWNER'];
 
   const handleRoleClick = (role) => {
     setSelectedRole(role);
