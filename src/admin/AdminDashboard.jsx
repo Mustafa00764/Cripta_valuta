@@ -13,13 +13,12 @@ import api from '../components/axiosRefresh'
 import { AuthContext } from '../context/AuthContext'
 
 const AdminDashboard = () => {
-  const {theme,categorie,users,setUsers,handleUsersList} = useContext(AdminContext)
+  const {theme,categorie,users,setUsers,handleUsersList,admins, setAdmins} = useContext(AdminContext)
   const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken,restoreSession } = useContext(AuthContext);
   const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
   const roles = ['MODERATOR', 'ADMIN'];
-  const [admins, setAdmins] = useState(null)
 
   const handleRoleClick = (role) => {
     setSelectedRole(role);
@@ -47,12 +46,6 @@ const AdminDashboard = () => {
   }
   useEffect(()=>{
     handleUsersList()
-    users.map((item)=>{
-      if (item.role == "ADMIN" || item.role == "MODERATOR" || item.role == "OWNER") {
-        setAdmins([...admins,item])
-      }
-    })
-
   },[])
   
   return (

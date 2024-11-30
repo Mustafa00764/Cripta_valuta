@@ -29,6 +29,7 @@ const AdminProvider = ({ children }) => {
   const [articleModel,setArticleModel] = useState(false)
   const [article,setArticle] = useState({})
   const [users,setUsers] = useState([])
+  const [admins, setAdmins] = useState(null)
 
   const toggleTheme = () => {
     const newTheme = theme ? 'dark' : 'light';
@@ -93,6 +94,13 @@ const AdminProvider = ({ children }) => {
 
       console.log(responseUsers);
       setUsers(responseUsers.data)
+
+      users.map((item)=>{
+        if (item.role == "ADMIN" || item.role == "MODERATOR" || item.role == "OWNER") {
+          setAdmins([...admins,item])
+        }
+      })
+      
       
     } catch (error) {
       console.log(error);
@@ -140,7 +148,7 @@ const AdminProvider = ({ children }) => {
   },[])
 
   return (
-    <AdminContext.Provider value={{handleUsersList, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
+    <AdminContext.Provider value={{handleUsersList, admins, setAdmins, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
       {children}
     </AdminContext.Provider>
   )
