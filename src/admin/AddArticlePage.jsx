@@ -409,7 +409,7 @@ const AddArticlePage = () => {
         },
       });
   
-      const posterUrl = "https://legitcommunity.uz" + uploadPosterResponse.data;
+      const posterUrl = "https://legitcommunity.uz" + uploadPosterResponse.data.path;
       console.log("Poster uploaded:", posterUrl);
       console.log("Posterrrr", uploadPosterResponse, uploadPosterResponse.data);
 
