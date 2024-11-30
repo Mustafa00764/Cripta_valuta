@@ -53,7 +53,7 @@ const AdminDashboard = () => {
       }
     })
 
-  },[])
+  },[admins])
   
   return (
     <div className='w-full'>
