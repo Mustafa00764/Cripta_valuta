@@ -433,7 +433,7 @@ const AddArticlePage = () => {
         const uploadImageResponse = await api.post("/upload", formDataImage, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accenewAccessTokenssToken}`,
+            Authorization: `Bearer ${newAccessToken}`,
           },
         });
   
