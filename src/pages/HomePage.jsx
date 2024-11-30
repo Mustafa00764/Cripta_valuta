@@ -53,13 +53,13 @@ const HomePage = () => {
         </div>
         <div className="mt-8 grid grid-cols-3 gap-8 xm:grid-cols-2 lm:grid-cols-1 xm:gap-6">
           {
-            articles.map((item)=>{
+            Array.isArray(articles) ? articles.map((item)=>{
               if (item) {
                 return(
                   <ArticleCard key={item.id} item={item} author={item.author} id={item.id} subtitle={item.subtitle} title={item.title} poster={item.poster} categories={item.categories[0]} createdAt={item.createdAt} photo_url={item.author.photo_url} name={item.author.name}/>
                 )
               }
-            })
+            }):console.error('o is not an array')
           }
         </div>
         <div>

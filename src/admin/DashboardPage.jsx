@@ -126,15 +126,13 @@ const DashboardPage = () => {
           </div>
           <div className=' relative'>
             {
-              articles.map((item,index)=>{
-                if (item) {
-                  if (index+1<=articleSort*articlePagination && index+1> (articlePagination-1)*articleSort) {
-                    return (
-                      <DCard key={item.id} item={item} index={index+1}/>
-                    )
-                  }
+              Array.isArray(articles) ? articles.map((item,index)=>{
+                if (index+1<=articleSort*articlePagination && index+1> (articlePagination-1)*articleSort) {
+                  return (
+                    <DCard key={item.id} item={item} index={index+1}/>
+                  )
                 }
-              })
+              }):console.error('o is not an array')
             }
           </div>
         </div>
