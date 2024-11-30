@@ -56,6 +56,11 @@ const AuthProvider = ({children}) => {
               const response = await api.get(`/users/${userId}`, {
                 headers: { Authorization: `Bearer ${newAccessToken}` },
               });
+              const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
+                headers: { Authorization: `Bearer ${newAccessToken}` },
+              })
+              console.log(responseIsSubscribed + "22222");
+              
               setUser(response.data);
               setIsAuthenticated(true);
             } catch (err) {
