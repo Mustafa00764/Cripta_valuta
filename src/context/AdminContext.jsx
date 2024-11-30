@@ -95,11 +95,11 @@ const AdminProvider = ({ children }) => {
       console.log(responseUsers);
       setUsers(responseUsers.data)
 
-      users.map((item)=>{
-        if (item.role == "ADMIN" || item.role == "MODERATOR" || item.role == "OWNER") {
-          setAdmins([...admins,item])
+      users.forEach((item) => {
+        if (["ADMIN", "MODERATOR", "OWNER"].includes(item.role)) {
+          setAdmins((prevAdmins) => [...prevAdmins, item]);
         }
-      })
+      });
       
       
     } catch (error) {
