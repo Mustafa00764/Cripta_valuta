@@ -389,11 +389,14 @@ const AddArticlePage = () => {
   
     try {
       // Обрезка основного изображения (poster)
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
       const canvas = document.createElement("canvas");
       const croppedBlob = await getCroppedImg(poster, croppedAreaPixels, canvas);
       if (!croppedBlob) {
         throw new Error("Ошибка при обрезке изображения.");
       }
+      
   
       const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
       const formDataPoster = new FormData();
@@ -402,12 +405,14 @@ const AddArticlePage = () => {
       const uploadPosterResponse = await api.post("/upload", formDataPoster, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         },
       });
   
       const posterUrl = "https://legitcommunity.uz" + uploadPosterResponse.data;
       console.log("Poster uploaded:", posterUrl);
+      console.log("Poster uploaded:", uploadPosterResponse, uploadPosterResponse.data);
+
   
       // Загрузка остальных изображений
       const updatedImgUrls = [];
@@ -428,7 +433,7 @@ const AddArticlePage = () => {
         const uploadImageResponse = await api.post("/upload", formDataImage, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${accenewAccessTokenssToken}`,
           },
         });
   
@@ -456,12 +461,10 @@ const AddArticlePage = () => {
         authorId  : userId,
         status: "Draft",
         poster: posterUrl,
-        mediaUrls: [posterUrl],
         tags,
         categories: [cid],
       };
-      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
-      const newAccessToken = responses.data.accessToken;
+
   
       // Отправка статьи на сервер
       const response = await api.post("/articles", articleData,{

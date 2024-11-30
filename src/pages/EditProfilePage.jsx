@@ -117,7 +117,8 @@ const EditProfilePage = () => {
       // Создаем canvas для обрезки изображения
         const canvas = document.createElement("canvas");
         const croppedBlob = await getCroppedImg(photo, croppedAreaPixels, canvas);
-        
+        const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+        const newAccessToken = responses.data.accessToken;
         if (!croppedBlob) {
           throw new Error("Ошибка при обрезке изображения.");
         }
