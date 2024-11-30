@@ -29,7 +29,7 @@ const AdminProvider = ({ children }) => {
   const [articleModel,setArticleModel] = useState(false)
   const [article,setArticle] = useState({})
   const [users,setUsers] = useState([])
-  const [admins, setAdmins] = useState(null)
+  const [admins, setAdmins] = useState([])
 
   const toggleTheme = () => {
     const newTheme = theme ? 'dark' : 'light';

@@ -84,11 +84,11 @@ const AdminDashboard = () => {
           </div>
           <div className=' relative'>
             {
-              admins.map((item,index)=>{
+              Array.isArray(admins)?admins.map((item,index)=>{
                 return(
                   <ADCard key={item.id} item={item} index={index+1}/>
                 )
-              })
+              }):""
             }
           </div>
         </div>
