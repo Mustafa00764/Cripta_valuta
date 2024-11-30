@@ -411,7 +411,7 @@ const AddArticlePage = () => {
   
       const posterUrl = "https://legitcommunity.uz" + uploadPosterResponse.data;
       console.log("Poster uploaded:", posterUrl);
-      console.log("Poster", uploadPosterResponse, uploadPosterResponse.data);
+      console.log("Posterrrr", uploadPosterResponse, uploadPosterResponse.data);
 
   
       // Загрузка остальных изображений
