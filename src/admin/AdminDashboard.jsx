@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
   const roles = ['MODERATOR', 'ADMIN'];
-  const [admins, setAdmins] = useState([])
+  const [admins, setAdmins] = useState(null)
 
   const handleRoleClick = (role) => {
     setSelectedRole(role);
@@ -50,10 +50,12 @@ const AdminDashboard = () => {
     users.map((item)=>{
       if (item.role == "ADMIN" || item.role == "MODERATOR" || item.role == "OWNER") {
         setAdmins([...admins,item])
+      }else{
+        setAdmins(admins)
       }
     })
 
-  },[admins])
+  },[])
   
   return (
     <div className='w-full'>
