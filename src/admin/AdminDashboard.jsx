@@ -18,7 +18,8 @@ const AdminDashboard = () => {
   const [userId,setUserId] = useState('')
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
-  const roles = ['MODERATOR', 'ADMIN', 'OWNER'];
+  const roles = ['MODERATOR', 'ADMIN'];
+  const [admins, setAdmins] = useState([])
 
   const handleRoleClick = (role) => {
     setSelectedRole(role);
@@ -46,6 +47,12 @@ const AdminDashboard = () => {
   }
   useEffect(()=>{
     handleUsersList()
+    users.map((item)=>{
+      if (item.role == "ADMIN" || item.role == "MODERATOR" || item.role == "OWNER") {
+        setAdmins([...admins,item])
+      }
+    })
+
   },[])
   
   return (
@@ -84,12 +91,10 @@ const AdminDashboard = () => {
           </div>
           <div className=' relative'>
             {
-              users.map((item,index)=>{
-                if (item.role == "ADMIN" || item.role == "MODERATOR") {
-                  return(
-                    <ADCard key={item.id} item={item} index={index+1}/>
-                  )
-                }
+              admins.map((item,index)=>{
+                return(
+                  <ADCard key={item.id} item={item} index={index+1}/>
+                )
               })
             }
           </div>
