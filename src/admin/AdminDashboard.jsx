@@ -50,8 +50,6 @@ const AdminDashboard = () => {
     users.map((item)=>{
       if (item.role == "ADMIN" || item.role == "MODERATOR" || item.role == "OWNER") {
         setAdmins([...admins,item])
-      }else{
-        setAdmins(admins)
       }
     })
 
