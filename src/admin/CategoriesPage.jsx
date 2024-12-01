@@ -90,7 +90,6 @@ const CategoriesPage = () => {
       // Отправляем данные на /upload
       const uploadResponse1 = await api.post("/upload", formData1, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${newAccessToken}`,
         },
       });
@@ -111,7 +110,6 @@ const CategoriesPage = () => {
 
       const response = await api.post('/categories', categoryData, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${newAccessToken}`,
         },
       })
