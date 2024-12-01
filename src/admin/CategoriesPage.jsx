@@ -69,6 +69,8 @@ const CategoriesPage = () => {
     }
 
     try {
+      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = responses.data.accessToken;
 
       let posterFile = poster;
       if (typeof poster === "string") {
@@ -89,7 +91,7 @@ const CategoriesPage = () => {
       const uploadResponse1 = await api.post("/upload", formData1, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         },
       });
 
@@ -110,7 +112,7 @@ const CategoriesPage = () => {
       const response = await api.post('/categories', categoryData, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${newAccessToken}`,
         },
       })
       handleRestore()
