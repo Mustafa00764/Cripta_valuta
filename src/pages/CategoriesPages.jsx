@@ -67,11 +67,11 @@ const CategoriesPages = () => {
               <div className='flex gap-8 mt-[56px] lg:flex-col xm:gap-4 md:mt-[45px] sm:mt-[40px]'>
                 <div className='w-[74.41%] h-auto flex flex-col gap-4 lg:w-full md:grid md:grid-cols-2 sm:grid-cols-1'>
                   {
-                    articles.map((item)=>{
+                    Array.isArray(articles) ? articles.map((item)=>{
                       return(
                         <PagesCard key={item.id} item={item} author={item.author} id={item.id} subtitle={item.subtitle} title={item.title} poster={item.poster} categories={item.categories[0]} createdAt={item.createdAt} photo_url={item.author.photo_url} name={item.author.name}/>
                       )
-                    })
+                    }):""
                   }
                 </div>
                 <div className='w-[calc(25.59%-32px)] xm:w-[calc(25.59%-16px)] lg:w-full flex flex-col gap-8'>
