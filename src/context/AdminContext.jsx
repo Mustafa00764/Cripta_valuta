@@ -143,6 +143,11 @@ const AdminProvider = ({ children }) => {
   },[])
 
   useEffect(() => {
+    setAdmins(
+      users.filter((item) =>
+        ["ADMIN", "MODERATOR", "OWNER"].includes(item.role)
+      )
+    );
     const interval = setInterval(() => {
       setAdmins(
         users.filter((item) =>
