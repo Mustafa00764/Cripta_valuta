@@ -145,7 +145,7 @@ const AdminProvider = ({ children }) => {
       }, 15000);
   
       return () => clearInterval(intervalId);
-  },[])
+  },[admins])
 
   return (
     <AdminContext.Provider value={{handleUsersList, admins, setAdmins, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
