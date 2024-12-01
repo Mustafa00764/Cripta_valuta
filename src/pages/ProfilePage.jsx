@@ -1,17 +1,116 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ArticleCard from "../components/ArticleCard";
 import AirdropCard from "../components/AirdropCard";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { io } from 'socket.io-client';
+import api from '../components/axiosRefresh';
+import axios from 'axios';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
   const {user, setUser,setLastOnline,setStatus,lastOnline,status} = useContext(AuthContext)
   const [about, setAbout] = useState(user?user.about:"");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
+  const {id} = useParams()
+  const [userProfile, setUserProfile] = useState(null)
+
+  const refreshAccessToken = async (refreshToken) => {
+    try {
+      const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
+      const newAccessToken = response.data.accessToken;
+      localStorage.setItem('accessToken', newAccessToken);
+      return newAccessToken;
+    } catch (error) {
+      console.error('Ошибка обновления токена:', error);
+      return null;
+    }
+  };
+
+
+  const restoreSession = async () => {
+    const accessToken = localStorage.getItem('accessToken');  
+    const refreshToken = localStorage.getItem('refreshToken');
+    const userId = id;
+
+    if (accessToken && userId) {
+      try {
+        const response = await api.get(`/users/${userId}`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        console.log(responseIsSubscribed.data + " 22222");
+
+        // Успешно получили данные пользователя
+        setUserProfile(response.data);
+        console.log(response);
+      } catch (error) {
+        // Если токен истек, пробуем обновить его с помощью refreshToken
+        if (error.response && error.response.status === 401 && refreshToken) {
+          const newAccessToken = await refreshAccessToken(refreshToken);
+          if (newAccessToken) {
+            try {
+              const response = await api.get(`/users/${userId}`, {
+                headers: { Authorization: `Bearer ${newAccessToken}` },
+              });
+              
+              setUserProfile(response.data);
+            } catch (err) {
+              console.error('Ошибка при восстановлении данных пользователя', err);
+            } finally {
+              setLoading(false);
+            }
+          }
+        } else {
+          console.error('Ошибка при получении данных пользователя', error);
+        }
+      }
+    }
+  };
 
   useEffect(()=>{
+    restoreSession()
+    const userId = id;
+    const accessToken = localStorage.getItem('accessToken');  
 
+    // Подключаем WebSocket
+    const socket = io('https://legitcommunity.uz/status', {
+      query: { userId },
+      extraHeaders: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    // Событие подключения
+    socket.on('connect', () => {
+      console.log('WebSocket connected');
+    });
+
+    // Обработка обновления статуса
+    socket.on('status-update', (data) => {
+      console.log('Status update received:', data);
+
+      if (data.userId === userId) {
+        setStatus(data.status);
+        if (data.status === 'offline') {
+          setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
+        }
+      }
+    });
+
+    // Обработка отключения
+    socket.on('disconnect', () => {
+      console.log('WebSocket disconnected');
+    });
+
+    // Очистка WebSocket при размонтировании
+    return () => {
+      socket.disconnect();
+      console.log('WebSocket connection closed.');
+    };
   },[user])
 
   return ( 
@@ -24,14 +123,14 @@ const ProfilePage = () => {
           <div className='flex md:flex-col w-full'>
             <div className='flex flex-col gap-5 '>
               <div className='p-[10px] w-[222.5px] h-[222.5px] mx-auto rounded-[15px] border border-[#494E5B] -mt-[20px] bg-bgMode'>
-                <img src={user?user.photo_url:""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
+                <img src={userProfile?userProfile.photo_url:""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
               </div>
               <div className=' text-[24px] font-semibold text-start md:text-center'>
-                <p>{user?user.username:"User"}</p>
+                <p>{userProfile?userProfile.username:"User"}</p>
               </div>
               <div className='hidden md:flex flex-col gap-5 text-center'>
                 <div className=''>
-                  <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
+                  <p className='text-[32px] font-semibold leading-[32px] break-words'>{userProfile?userProfile.firstName:"User"}</p>
                 </div>
                 <Link to={'/settings/profile'} className='w-full flex'>
                   <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
@@ -51,7 +150,7 @@ const ProfilePage = () => {
                   </div>
                   <div className='flex items-center gap-2 '>
                     <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                    <p>{status}</p>
+                    <p>{userProfile.status}</p>
                   </div>
                 </div>
               </div>
@@ -64,16 +163,16 @@ const ProfilePage = () => {
                 </div>
                 <div className='flex items-center gap-2 '>
                   <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                  <p>{status} {status == "offline"?lastOnline:""}</p>
+                  <p>{userProfile.status} {userProfile.status == "offline"?userProfile.lastOnline:""}</p>
                 </div>
               </div>
             </div>
             <div className='py-5 max-w-[631.4px] w-auto relative pr-5 pl-[30px] md:pl-0 flex flex-col gap-[10px]'>
               <div className='md:hidden'>
-                <p className='text-[32px] font-semibold leading-[32px] break-words'>{user?user.firstName:"User"}</p>
+                <p className='text-[32px] font-semibold leading-[32px] break-words'>{userProfile?userProfile.firstName:"User"}</p>
               </div>
               <div>
-                <p>{about}</p>
+                <p>{userProfile.about }</p>
               </div>
             </div>
           </div>

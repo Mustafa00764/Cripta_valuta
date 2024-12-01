@@ -92,7 +92,7 @@ const UserLayout = () => {
           <Route path='/defi-2024' element={<HDeFiPage/>}/> */}
           <Route path='/a' element={<AdminPanel/>}/>
           <Route path='/airdrop' element={<AirdropPage/>}/>
-          <Route path='/profile' element={<ProfilePage/>}/>
+          <Route path='/profile/:id' element={<ProfilePage/>}/>
           <Route path='/settings/profile' element={<EditProfilePage/>}/>
           <Route path='/*' element={<NotFoundPage/>}/>
         </Routes>
