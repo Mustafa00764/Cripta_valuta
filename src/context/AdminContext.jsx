@@ -95,11 +95,7 @@ const AdminProvider = ({ children }) => {
       console.log(responseUsers);
       setUsers(responseUsers.data)
 
-      users.forEach((item) => {
-        if (["ADMIN", "MODERATOR", "OWNER"].includes(item.role)) {
-          setAdmins((prevAdmins) => [...prevAdmins, item]);
-        }
-      });
+
       
       
     } catch (error) {
@@ -142,6 +138,11 @@ const AdminProvider = ({ children }) => {
 
     const intervalId = setInterval(() => {
       handleUsersList()
+      users.forEach((item) => {
+        if (["ADMIN", "MODERATOR", "OWNER"].includes(item.role)) {
+          setAdmins((prevAdmins) => [...prevAdmins, item]);
+        }
+      });
       }, 15000);
   
       return () => clearInterval(intervalId);
