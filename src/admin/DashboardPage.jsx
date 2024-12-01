@@ -29,7 +29,7 @@ const DashboardPage = () => {
           Authorization: `Bearer ${newAccessToken}`,
         },
       })
-      console.log(responseArticle.data);
+      console.log(responseArticle);
       
       setArticles(responseArticle.data)
       
