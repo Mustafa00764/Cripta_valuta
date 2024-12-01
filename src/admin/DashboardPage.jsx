@@ -18,17 +18,13 @@ const DashboardPage = () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const Id = Number(localStorage.getItem("userId"))
+    const userId = Number(localStorage.getItem("userId"))
     try {
 
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = responses.data.accessToken;
 
-      const userId = {
-        userId: Id
-      }
-
-      const responseArticle = await api.get("/articles",userId,{
+      const responseArticle = await api.get(`/articles?userId=${userId}`,{
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${newAccessToken}`,
