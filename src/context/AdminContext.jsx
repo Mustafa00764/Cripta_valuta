@@ -94,11 +94,6 @@ const AdminProvider = ({ children }) => {
 
       console.log(responseUsers);
       setUsers(responseUsers.data)
-
-      const updatedAdmins = users.filter((item) =>
-        ["ADMIN", "MODERATOR", "OWNER"].includes(item.role)
-      );
-      setAdmins(updatedAdmins);
       
       
     } catch (error) {
@@ -145,7 +140,19 @@ const AdminProvider = ({ children }) => {
       }, 15000);
   
       return () => clearInterval(intervalId);
-  },[admins])
+  },[])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAdmins(
+        users.filter((item) =>
+          ["ADMIN", "MODERATOR", "OWNER"].includes(item.role)
+        )
+      );
+    }, 15000);
+
+    return () => clearInterval(interval); // Очищаем интервал при размонтировании
+  }, [users]); // Зависимость от users
 
   return (
     <AdminContext.Provider value={{handleUsersList, admins, setAdmins, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
