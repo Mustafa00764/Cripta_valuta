@@ -437,7 +437,7 @@ const AddArticlePage = () => {
           },
         });
   
-        const uploadedUrl = "https://legitcommunity.uz" + uploadImageResponse.data;
+        const uploadedUrl = "https://legitcommunity.uz" + uploadImageResponse.data.path;
         updatedImgUrls.push(uploadedUrl);
         console.log("Image uploaded:", uploadedUrl);
       }
