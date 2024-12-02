@@ -4,6 +4,7 @@ import AdminPanel from './admin/AdminPanel'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import LoadingScreen from './components/LoadingScreen';
+import SubModel from './components/SubModel';
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,6 +24,7 @@ const App = () => {
         <Route path='/*' element={<UserLayout/>}/>
         <Route path='/admin/*' element={<AdminPanel/>}/>
       </Routes>
+      <SubModel/>
     </div>
   )
 }

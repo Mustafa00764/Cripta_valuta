@@ -12,7 +12,7 @@ const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState("online"); // Статус пользователя
   const [lastOnline, setLastOnline] = useState(null); 
-
+  const [isSubscribed, setIsSubscribed] = useState(false)
   const handleLogin = (userData) => {
     localStorage.setItem('accessToken', userData.accessToken);
     setUser(userData.user);
@@ -48,7 +48,8 @@ const AuthProvider = ({children}) => {
           headers: { Authorization: `Bearer ${newAccessToken}` },
         })
         console.log(responseIsSubscribed.data + " 22222");
-
+        
+        setIsSubscribed(responseIsSubscribed.data)
         // Успешно получили данные пользователя
         setUser(response.data);
         setIsAuthenticated(true);
@@ -149,7 +150,7 @@ const AuthProvider = ({children}) => {
 
 
   return (
-    <AuthContext.Provider value={{user,refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
+    <AuthContext.Provider value={{user, isSubscribed, setIsSubscribed, refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
       {children}
     </AuthContext.Provider>
   )
