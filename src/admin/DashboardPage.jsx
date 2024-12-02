@@ -125,7 +125,7 @@ const DashboardPage = () => {
               <p>options</p>
             </div>
           </div>
-          <div className=' relative'>
+          <div className=' relative overflow-hidden'>
             {
               Array.isArray(articles) ? articles.map((item,index)=>{
                 if (index+1<=articleSort*articlePagination && index+1> (articlePagination-1)*articleSort) {

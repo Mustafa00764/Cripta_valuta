@@ -26,7 +26,7 @@ const DCard = ({item,index}) => {
   },[])
 
   return (
-    <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
+    <div className='flex text-center options text-[#72787F] cursor-default even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
       <div className='w-[100px]'>
         <p>{index}</p>
       </div>
