@@ -105,7 +105,7 @@ const ArticleInfo = () => {
     image.onerror = (err) => {
       console.error("Ошибка загрузки изображения:", err);
     };
-  },[id])
+  },[id,article])
 
   return (
     <div className="articleInfo">
