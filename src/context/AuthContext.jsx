@@ -31,6 +31,41 @@ const AuthProvider = ({children}) => {
     }
   };
 
+  const handleIsSubscribed = async () => {
+    const accessToken = localStorage.getItem('accessToken');  
+    const refreshToken = localStorage.getItem('refreshToken');
+    const userId = localStorage.getItem('userId');
+    if (accessToken && userId) {
+      try {
+        const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        console.log(responseIsSubscribed.data + " 22222");
+        
+        setIsSubscribed(responseIsSubscribed.data)
+      } catch (error) {
+        if (error.response && error.response.status === 401 && refreshToken) {
+          const newAccessToken = await refreshAccessToken(refreshToken);
+          if (newAccessToken){
+            try {
+              const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
+                headers: { Authorization: `Bearer ${newAccessToken}` },
+              })
+              console.log(responseIsSubscribed.data + " 22222");
+              
+              setIsSubscribed(responseIsSubscribed.data)
+            } catch (err) {
+              console.error('Ошибка при восстановлении данных пользователя', err);
+            } finally {
+              setLoading(false);
+            }
+          }
+        }
+      }
+
+    }
+  }
+
 
   const restoreSession = async () => {
     const accessToken = localStorage.getItem('accessToken');  
@@ -39,17 +74,11 @@ const AuthProvider = ({children}) => {
 
     if (accessToken && userId) {
       try {
-        const newAccessToken = await refreshAccessToken(refreshToken);
         const response = await api.get(`/users/${userId}`, {
-          headers: { Authorization: `Bearer ${newAccessToken}` },
+          headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
-          headers: { Authorization: `Bearer ${newAccessToken}` },
-        })
-        console.log(responseIsSubscribed.data + " 22222");
-        
-        setIsSubscribed(responseIsSubscribed.data)
+
         // Успешно получили данные пользователя
         setUser(response.data);
         setIsAuthenticated(true);
@@ -93,8 +122,18 @@ const AuthProvider = ({children}) => {
   // }
 
   // Восстановление сессии при загрузке компонента
+  useEffect(()=>{
+    handleIsSubscribed()
+    const intervalId = setInterval(() => {
+      handleIsSubscribed()
+
+      }, 30000);
+  
+      return () => clearInterval(intervalId);
+  },[])
   useEffect(() => {
     restoreSession();
+
     const storedToken = localStorage.getItem('accessToken');
     if (storedToken) {
       setIsAuthenticated(true);
@@ -146,6 +185,7 @@ const AuthProvider = ({children}) => {
       socket.disconnect();
       console.log('WebSocket connection closed.');
     };
+
   }, [setStatus]);
 
 
