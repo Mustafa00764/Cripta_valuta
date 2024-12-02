@@ -344,8 +344,24 @@ const AddArticlePage = () => {
   };
 
   const getContentAsHTML = () => {
+    const options = {
+      entityStyleFn: (entity) => {
+        if (entity.getType() === "IMAGE") {
+          const data = entity.getData();
+          return {
+            element: "img",
+            attributes: {
+              src: data.src,
+              crossOrigin: "anonymous", // Добавляем атрибут crossOrigin
+              alt: data.alt || "Image",
+            },
+          };
+        }
+        return null;
+      },
+    }
     const contentState = editorState.getCurrentContent();
-    return stateToHTML(contentState); // Преобразование контента в HTML
+    return stateToHTML(contentState, options); // Преобразование контента в HTML
   };
 
   const newDate = (e) => {
