@@ -69,7 +69,8 @@ const ArticleInfo = () => {
 
       const responseArticle = await api.get(`/articles/${id}?userId=${userId}`,{
         headers: {
-          "Content-Type": "application/json",
+          'Cross-Origin-Resource-Policy': 'cross-origin',
+          'Cross-Origin-Embedder-Policy': 'require-corp',
           Authorization: `Bearer ${newAccessToken}`,
         },
       })
@@ -109,7 +110,7 @@ const ArticleInfo = () => {
         </div>
         <div className="w-full bg-bgMode rounded-[15px] text-textMode md:rounded-none h-auto relative overflow-hidden ">
           <div className=" relative ">
-            <div
+            <div crossorigin="anonymous"
               className="h-[408px] ms:h-[344px] w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"
               style={{ backgroundImage: `url(${article.poster})` }}
             >
