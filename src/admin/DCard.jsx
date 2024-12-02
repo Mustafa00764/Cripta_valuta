@@ -31,7 +31,7 @@ const DCard = ({item,index}) => {
         <p>{index}</p>
       </div>
       <div className='w-[200px] items-center flex justify-center h-full'>
-        <img className='w-[40%] h-[90%] ' src={item.poster} alt="" />
+        <img className='w-[40%] h-[90%] ' src={item.poster} crossOrigin="anonymous"  alt="" />
       </div>
       <div className='w-[200px] items-center gap-4 flex justify-start h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
