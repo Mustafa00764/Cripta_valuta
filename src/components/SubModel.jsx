@@ -11,7 +11,7 @@ const SubModel = () => {
 
         <div className='w-full flex justify-center gap-6 items-center'>
           <a href="https://t.me/mycryptochannel111" target="_blank" rel="noopener noreferrer" className='w-full'>
-            <button className='mt-4  w-full h-[50px] text-[24px] rounded-[8px] bg-red-500 text-white'>
+            <button className='mt-4  w-full h-[50px] text-[24px] rounded-[8px] bg-blue-500 text-white'>
               Subscribed
             </button>
           </a>
