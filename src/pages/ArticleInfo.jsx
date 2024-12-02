@@ -111,7 +111,10 @@ const ArticleInfo = () => {
             <div 
               className="h-[408px] ms:h-[344px] w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"
             >
-              <img src={article.poster} alt="" crossOrigin="anonymous" className="w-full bg-blurMode h-full object-cover backdrop-blur-2xl"/>
+              <div className="w-full bg-blurMode h-full backdrop-blur-2xl">
+
+              <img src={article.poster} alt="" crossOrigin="anonymous" className="w-full h-full object-cover "/>
+              </div>
               <div className="  w-full h-[101%] "></div>
             </div>
             <div className="px-[64px] xl:px-[48px] md:px-6 md:pt-4 xl:pt-[66px] flex xm:flex-col-reverse gap-8 pt-[88px] relative">
