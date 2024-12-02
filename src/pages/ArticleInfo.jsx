@@ -107,9 +107,9 @@ const ArticleInfo = () => {
           </button>
         </div>
         <div className="w-full bg-bgMode rounded-[15px] text-textMode md:rounded-none h-auto relative overflow-hidden ">
-          <div className=" relative h-[408px] ms:h-[344px]">
-              <img src={article.poster} alt="" crossOrigin="anonymous" className="h-full w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"/>
-              <div className=" backdrop-blur-2xl w-full h-[101%] bg-blurMode"></div>
+          <div className=" relative ">
+              <img src={article.poster} alt="" crossOrigin="anonymous" className="h-[408px] ms:h-[344px] w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"/>
+              <div className=" backdrop-blur-2xl w-full h-[412px] ms:h-[350px] bg-blurMode"></div>
             <div className="px-[64px] xl:px-[48px] md:px-6 md:pt-4 xl:pt-[66px] flex xm:flex-col-reverse gap-8 pt-[88px] relative">
               <div>
                 <div
