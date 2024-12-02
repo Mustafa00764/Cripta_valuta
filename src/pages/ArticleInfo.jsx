@@ -67,7 +67,7 @@ const ArticleInfo = () => {
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = responses.data.accessToken;
 
-      const responseArticle = await api.get(`/articles/${id}?userId=${userId}`,{
+      const responseArticle = await api.get(`/articles/${id}`,{
         headers: {
           'Cross-Origin-Resource-Policy': 'cross-origin',
           'Cross-Origin-Embedder-Policy': 'require-corp',
