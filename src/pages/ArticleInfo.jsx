@@ -60,12 +60,14 @@ const ArticleInfo = () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
+    const userId = Number(localStorage.getItem("userId"))
+    
     try {
 
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = responses.data.accessToken;
 
-      const responseArticle = await api.get(`/articles/${id}`,{
+      const responseArticle = await api.get(`/articles?userId=${userId}/${id}`,{
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${newAccessToken}`,
@@ -225,13 +227,7 @@ const ArticleInfo = () => {
               </div>
               <div className="mt-[56px]">
                 <p className="leading-6 pr-5 font-normal">
-                  Также в 2022 году на рынок видеокарт выйдет и Intel. Их
-                  линейка называется Archemist, а одна из самых массовых
-                  видеокарт получит название Intel Arc A380. В Intel признают,
-                  что в этих GPU не будет ограничителя майнинга, но в первую
-                  очередь эти графические процессоры подойдут геймерам и
-                  создателям контента. При этом все производители отмечают, что
-                  в мире все еще существуют проблемы с поставками микрочипов.
+                  {article.conclusion}
                 </p>
               </div>
               <div className="mt-[88px] w-full border border-pageMode gap-2 flex flex-wrap rounded-[15px] p-4">
