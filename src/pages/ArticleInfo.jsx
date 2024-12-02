@@ -110,6 +110,7 @@ const ArticleInfo = () => {
         <div className="w-full bg-bgMode rounded-[15px] text-textMode md:rounded-none h-auto relative overflow-hidden ">
           <div className=" relative ">
             <div 
+              crossOrigin="anonymous"
               className="h-[408px] ms:h-[344px] w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"
               style={{ backgroundImage: `url(${article.poster})` }}
             >
@@ -118,6 +119,7 @@ const ArticleInfo = () => {
             <div className="px-[64px] xl:px-[48px] md:px-6 md:pt-4 xl:pt-[66px] flex xm:flex-col-reverse gap-8 pt-[88px] relative">
               <div>
                 <div
+                  crossOrigin="anonymous"
                   className="w-[629px] xm:w-full sm:h-[312px] ms:h-[232px] h-[416px] p-8 ms:p-4 bg-cover bg-center flex items-end"
                   style={{ backgroundImage: `url(${article.poster})` }}
                 >
