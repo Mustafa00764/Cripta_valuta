@@ -92,12 +92,12 @@ const ArticleInfo = () => {
     window.scrollTo(0,0)
     console.log("rrr" + id);
     handleArticles()
-
     handleArticlesList()
     const image = new Image();
     image.crossOrigin = "anonymous"; // Устанавливаем crossOrigin
     image.src = article.poster; // URL вашего изображения
-
+    console.log(article.poster);
+    
     image.onload = () => {
       setBackgroundImage(`url(${image.src})`); // Устанавливаем background после загрузки
     };
@@ -105,7 +105,7 @@ const ArticleInfo = () => {
     image.onerror = (err) => {
       console.error("Ошибка загрузки изображения:", err);
     };
-  },[id,article])
+  },[id])
 
   return (
     <div className="articleInfo">
