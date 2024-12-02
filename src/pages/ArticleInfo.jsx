@@ -111,8 +111,8 @@ const ArticleInfo = () => {
             <div 
               className="h-[408px] ms:h-[344px] w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"
             >
-              <img src={article.poster} alt="" crossOrigin="anonymous" className="w-full h-full object-cover"/>
-              <div className=" backdrop-blur-2xl z-10 w-full h-[101%] bg-blurMode"></div>
+              <img src={article.poster} alt="" crossOrigin="anonymous" className="w-full bg-blurMode h-full object-cover backdrop-blur-2xl"/>
+              <div className="  w-full h-[101%] "></div>
             </div>
             <div className="px-[64px] xl:px-[48px] md:px-6 md:pt-4 xl:pt-[66px] flex xm:flex-col-reverse gap-8 pt-[88px] relative">
               <div>
@@ -121,7 +121,7 @@ const ArticleInfo = () => {
                 >
                   <img src={article.poster} crossOrigin="anonymous" alt="img" className="w-full h-full absolute object-cover"/>
 
-                  <button className="py-1 px-6 m-8 rounded-full bg-[#779CFF] shadow-tagBtn text-[#fff]">
+                  <button className="py-1 px-6 m-8 rounded-full z-[1] bg-[#779CFF] shadow-tagBtn text-[#fff]">
                     {article.categories}
                   </button> 
 
