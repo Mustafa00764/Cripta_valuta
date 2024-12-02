@@ -67,10 +67,9 @@ const ArticleInfo = () => {
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = responses.data.accessToken;
 
-      const responseArticle = await api.get(`/articles/${id}`,{
+      const responseArticle = await api.get(`/articles/${id}?userId=${userId}`,{
         headers: {
-          'Cross-Origin-Resource-Policy': 'cross-origin',
-          'Cross-Origin-Embedder-Policy': 'require-corp',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${newAccessToken}`,
         },
       })
@@ -110,7 +109,7 @@ const ArticleInfo = () => {
         </div>
         <div className="w-full bg-bgMode rounded-[15px] text-textMode md:rounded-none h-auto relative overflow-hidden ">
           <div className=" relative ">
-            <div crossorigin="anonymous"
+            <div 
               className="h-[408px] ms:h-[344px] w-full absolute top-0 left-0 bg-no-repeat bg-cover bg-center"
               style={{ backgroundImage: `url(${article.poster})` }}
             >
