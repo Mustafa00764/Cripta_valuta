@@ -99,11 +99,11 @@ const AuthProvider = ({children}) => {
   const handleIsSubscribed = async () => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
-    console.log(userId);
-    
+    const decoded = parseJwt(accessToken); // Декодируем токен
+    const Id = decoded?.userId;
     if (accessToken) {
       try {
-        const responseIsSubscribed = await api.get(`/users/${userId}/subscription`, {
+        const responseIsSubscribed = await api.get(`/users/${Id}/subscription`, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         console.log(responseIsSubscribed.data + " 22222");
@@ -114,7 +114,7 @@ const AuthProvider = ({children}) => {
           const newAccessToken = await refreshAccessToken(refreshToken);
           if (newAccessToken) {
             try {
-              const responseIsSubscribed = await api.get(`/users/${userId}/subscription`, {
+              const responseIsSubscribed = await api.get(`/users/${Id}/subscription`, {
                 headers: { Authorization: `Bearer ${newAccessToken}` },
               })
               console.log(responseIsSubscribed.data + " 22222");
