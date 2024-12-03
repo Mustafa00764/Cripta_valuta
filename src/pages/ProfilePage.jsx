@@ -9,7 +9,7 @@ import axios from 'axios';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
   const {user, setUser,setLastOnline,lastOnline} = useContext(AuthContext)
-  const [about, setAbout] = useState(user?user.about:"");
+  const [about, setAbout] = useState("");
   const [status, setStatus] = useState("");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
   const {id} = useParams()
@@ -166,7 +166,7 @@ const ProfilePage = () => {
                 <p className='text-[32px] font-semibold leading-[32px] break-words'>{userProfile?userProfile.firstName:"User"}</p>
               </div>
               <div>
-                <p>{userProfile.about }</p>
+                <p>{userProfile ? userProfile.about:"" }</p>
               </div>
             </div>
           </div>
