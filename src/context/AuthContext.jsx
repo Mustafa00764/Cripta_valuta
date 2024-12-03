@@ -56,8 +56,6 @@ const AuthProvider = ({children}) => {
               setIsSubscribed(responseIsSubscribed.data)
             } catch (err) {
               console.error('Ошибка при восстановлении данных пользователя', err);
-            } finally {
-              setLoading(false);
             }
           }
         }
@@ -97,8 +95,6 @@ const AuthProvider = ({children}) => {
               setIsAuthenticated(true);
             } catch (err) {
               console.error('Ошибка при восстановлении данных пользователя', err);
-            } finally {
-              setLoading(false);
             }
           }
         } else {
@@ -123,13 +119,17 @@ const AuthProvider = ({children}) => {
 
   // Восстановление сессии при загрузке компонента
   useEffect(()=>{
-    handleIsSubscribed()
-    const intervalId = setInterval(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const userId = localStorage.getItem('userId');
+    if (accessToken && userId) {
       handleIsSubscribed()
-
-      }, 30000);
+      const intervalId = setInterval(() => {
+        handleIsSubscribed()
   
-      return () => clearInterval(intervalId);
+        }, 30000);
+    
+        return () => clearInterval(intervalId);
+    }
   },[])
   useEffect(() => {
     restoreSession();
