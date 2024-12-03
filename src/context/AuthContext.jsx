@@ -140,7 +140,6 @@ const AuthProvider = ({children}) => {
 
   useEffect(() => {
     restoreSession();
-    const userId = userId
     const storedToken = localStorage.getItem('accessToken');
     if (storedToken) {
       setIsAuthenticated(true);
