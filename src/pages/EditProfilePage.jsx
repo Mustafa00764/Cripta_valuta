@@ -24,9 +24,14 @@ const EditProfilePage = () => {
   const [name, setName] = useState(user ? user.firstName : "");
   const [about, setAbout] = useState("");
   const [file, setFile] = useState(null);
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
   const handleImageUpload = async (e, setImage) => {
     const file = e.target.files[0];
+    if (file.size > MAX_FILE_SIZE) {
+      alert('Файл слишком большой. Максимальный размер: 5 MB.');
+      return;
+    }
     if (file && /\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
       const reader = new FileReader();
       reader.onload = () => {
