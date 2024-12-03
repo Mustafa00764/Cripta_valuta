@@ -12,7 +12,7 @@ const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState("online"); // Статус пользователя
   const [lastOnline, setLastOnline] = useState(null); 
-  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [isSubscribed, setIsSubscribed] = useState(true)
   const handleLogin = (userData) => {
     localStorage.setItem('accessToken', userData.accessToken);
     setUser(userData.user);
@@ -104,24 +104,7 @@ const AuthProvider = ({children}) => {
     }
   };
 
-  // const handleUsersList = async () => {
-  //   const accessToken = localStorage.getItem('accessToken');  
-  //   const refreshToken = localStorage.getItem('refreshToken');
-  //   try {
-
-  //     const response = await api.get("/users")
-  //     console.log(response.data);
-      
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // Восстановление сессии при загрузке компонента
   useEffect(()=>{
-    const accessToken = localStorage.getItem('accessToken');
-    const userId = localStorage.getItem('userId');
-    if (accessToken && userId) {
       handleIsSubscribed()
       const intervalId = setInterval(() => {
         handleIsSubscribed()
@@ -129,8 +112,8 @@ const AuthProvider = ({children}) => {
         }, 30000);
     
         return () => clearInterval(intervalId);
-    }
   },[])
+
   useEffect(() => {
     restoreSession();
 
