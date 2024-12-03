@@ -140,7 +140,7 @@ const EditProfilePage = () => {
         },
       });
       console.log(uploadResponse1.data);
-      const image1Path = "https://legitcommunity.uz" + uploadResponse1.data;
+      const image1Path = "https://legitcommunity.uz" + uploadResponse1.data.path;
       if (!image1Path) {
         throw new Error("Ошибка загрузки изображений на сервер.");
       }
