@@ -134,7 +134,7 @@ const AuthProvider = ({children}) => {
     handleIsSubscribed()
     const intervalId = setInterval(() => {
       handleIsSubscribed()
-    }, 2000);
+    }, 30000);
     return () => clearInterval(intervalId);
   },[])
 
