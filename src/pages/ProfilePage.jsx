@@ -65,47 +65,8 @@ const ProfilePage = () => {
 
   useEffect(()=>{
     restoreSession()
-    const userId = id;
-    const accessToken = localStorage.getItem('accessToken');  
 
-    // Подключаем WebSocket
-    const socket = io('https://legitcommunity.uz/status', {
-      query: { userId },
-      extraHeaders: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
 
-    // Событие подключения
-    socket.on('connect', () => {
-      console.log('WebSocket connected');
-    });
-
-    // Обработка обновления статуса
-    socket.on('status-update', (data) => {
-      console.log('Status update received:', data);
-
-      if (data.userId === userId) {
-        setStatus(data.status);
-        console.log(data.status);
-        
-        if (data.status === 'offline') {
-          setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
-        }
-      }
-    });
-
-    // Обработка отключения
-    socket.on('disconnect', () => {
-      console.log('WebSocket disconnected');
-    });
-
-    // Очистка WebSocket при размонтировании
-    return () => {
-      socket.disconnect();
-      console.log('WebSocket connection closed.');
-    };
   }, [status, id, userId])
 
   return ( 
