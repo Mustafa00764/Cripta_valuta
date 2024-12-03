@@ -105,7 +105,7 @@ const ProfilePage = () => {
       socket.disconnect();
       console.log('WebSocket connection closed.');
     };
-  },[setStatus])
+  },[setStatus,id])
 
   return ( 
     <div className='text-textMode'>
