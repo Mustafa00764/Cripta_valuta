@@ -99,6 +99,8 @@ const AuthProvider = ({children}) => {
   const handleIsSubscribed = async () => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
+    console.log(userId);
+    
     if (accessToken) {
       try {
         const responseIsSubscribed = await api.get(`/users/${userId}/subscription`, {
