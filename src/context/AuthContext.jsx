@@ -131,7 +131,7 @@ const AuthProvider = ({children}) => {
       handleIsSubscribed()
       const intervalId = setInterval(() => {
         handleIsSubscribed()
-  
+        
         }, 30000);
     
         return () => clearInterval(intervalId);
@@ -148,7 +148,7 @@ const AuthProvider = ({children}) => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     // Проверяем наличие токена
-    if (!accessToken || !userId) {
+    if (accessToken || userId) {
       console.warn("Токен или userId отсутствуют. Подключение WebSocket отменено.");
       return;
     }
