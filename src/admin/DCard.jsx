@@ -15,13 +15,23 @@ const DCard = ({item,index}) => {
     setDeleteArticleModel(!deleteArticleModel)
     setArticle(item)
   }
+  const date = new Date(pubData); // Преобразуем в объект Date
+
+  // Получение компонентов даты
+  const day = date.getDate().toString().padStart(2, '0'); // День с ведущим нулем
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Месяц с ведущим нулем
+  const year = date.getFullYear(); // Год
+
+  // Преобразование в строку "DD.MM.YYYY"
+  const formattedDate = `${day}.${month}.${year}`;
 
   useEffect(()=>{
     // item.content.forEach(item=>{
     //   item.type == "cover"?setCover(item.content):""
     //   item.type == "headings"?setHeadings(item.content):""
     // })
-    console.log(cover);
+
+
     
   },[])
 
@@ -40,7 +50,7 @@ const DCard = ({item,index}) => {
       <p>{item.author.name}</p>
       </div>
       <div className='w-[150px]'>
-        <p>{pubData}</p>
+        <p>{formattedDate}</p>
       </div>
       <div className='w-[300px] flex justify-center h-[24px]  relative overflow-hidden'>
         <p className='w-[250px] whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{item.title}</p>
