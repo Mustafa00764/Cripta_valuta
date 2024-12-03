@@ -35,7 +35,7 @@ const AuthProvider = ({children}) => {
   const handleIsSubscribed = async () => {
     const accessToken = localStorage.getItem('accessToken');  
     const refreshToken = localStorage.getItem('refreshToken');
-    if (accessToken && userId) {
+    if (accessToken) {
       try {
         const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -128,13 +128,12 @@ const AuthProvider = ({children}) => {
   };
 
   useEffect(()=>{
+    handleIsSubscribed()
+    const intervalId = setInterval(() => {
       handleIsSubscribed()
-      const intervalId = setInterval(() => {
-        handleIsSubscribed()
-        
-        }, 2000);
+    }, 2000);
     
-        return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId);
   },[])
 
   useEffect(() => {
