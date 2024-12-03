@@ -8,8 +8,9 @@ import api from '../components/axiosRefresh';
 import axios from 'axios';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
-  const {user, setUser,setLastOnline,setStatus,lastOnline,status} = useContext(AuthContext)
+  const {user, setUser,setLastOnline,lastOnline} = useContext(AuthContext)
   const [about, setAbout] = useState(user?user.about:"");
+  const [status, setStatus] = useState("");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
   const {id} = useParams()
   const [userProfile, setUserProfile] = useState(null)
@@ -104,7 +105,7 @@ const ProfilePage = () => {
       socket.disconnect();
       console.log('WebSocket connection closed.');
     };
-  },[])
+  },[setStatus])
 
   return ( 
     <div className='text-textMode'>
@@ -143,7 +144,7 @@ const ProfilePage = () => {
                   </div>
                   <div className='flex items-center gap-2 '>
                     <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                    <p>{userProfile ? userProfile.status:"offline"}</p>
+                    <p>{}</p>
                   </div>
                 </div>
               </div>
@@ -156,7 +157,7 @@ const ProfilePage = () => {
                 </div>
                 <div className='flex items-center gap-2 '>
                   <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                  <p>{userProfile.status} {userProfile.status == "offline"?userProfile.lastOnline:""}</p>
+                  <p>{status} {status == "offline"?userProfile.lastOnline:""}</p>
                 </div>
               </div>
             </div>
