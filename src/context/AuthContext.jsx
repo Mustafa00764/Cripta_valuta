@@ -32,37 +32,7 @@ const AuthProvider = ({children}) => {
     }
   };
 
-  const handleIsSubscribed = async () => {
-    const accessToken = localStorage.getItem('accessToken');  
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (accessToken) {
-      try {
-        const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        console.log(responseIsSubscribed.data + " 22222");
-        
-        setIsSubscribed(responseIsSubscribed.data)
-      } catch (error) {
-        if (error.response && error.response.status === 401 && refreshToken) {
-          const newAccessToken = await refreshAccessToken(refreshToken);
-          if (newAccessToken){
-            try {
-              const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
-                headers: { Authorization: `Bearer ${newAccessToken}` },
-              })
-              console.log(responseIsSubscribed.data + " 22222");
-              
-              setIsSubscribed(responseIsSubscribed.data)
-            } catch (err) {
-              console.error('Ошибка при восстановлении данных пользователя', err);
-            }
-          }
-        }
-      }
 
-    }
-  }
   const parseJwt = (token) => {
     try {
       const base64Url = token.split('.')[1]; // Получаем payload
@@ -126,15 +96,45 @@ const AuthProvider = ({children}) => {
       }
     }
   };
+  const handleIsSubscribed = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (accessToken) {
+      try {
+        const responseIsSubscribed = await api.get(`/users/${userId}/subscription`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        console.log(responseIsSubscribed.data + " 22222");
+
+        setIsSubscribed(responseIsSubscribed.data)
+      } catch (error) {
+        if (error.response && error.response.status === 401 && refreshToken) {
+          const newAccessToken = await refreshAccessToken(refreshToken);
+          if (newAccessToken) {
+            try {
+              const responseIsSubscribed = await api.get(`/users/${userId}/subscription`, {
+                headers: { Authorization: `Bearer ${newAccessToken}` },
+              })
+              console.log(responseIsSubscribed.data + " 22222");
+
+              setIsSubscribed(responseIsSubscribed.data)
+            } catch (err) {
+              console.error('Ошибка при восстановлении данных пользователя', err);
+            }
+          }
+        }
+      }
+
+    }
+  }
 
   useEffect(()=>{
     handleIsSubscribed()
     const intervalId = setInterval(() => {
       handleIsSubscribed()
     }, 2000);
-    
     return () => clearInterval(intervalId);
-  },[])
+  },[usertId])
 
   useEffect(() => {
     restoreSession();
