@@ -19,7 +19,7 @@ const EditProfilePage = () => {
   const [croppedImage, setCroppedImage] = useState();
   const [textLength, setTextLength] = useState(0)
   const [hints, setHints] = useState('')
-  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin, refreshAccessToken, restoreSession } = useContext(AuthContext);
+  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin, refreshAccessToken, restoreSession, userId } = useContext(AuthContext);
   const [photo, setPhoto] = useState(user ? user.photo_url : LC_logo)
   const [name, setName] = useState(user ? user.firstName : "");
   const [about, setAbout] = useState("");
@@ -113,7 +113,6 @@ const EditProfilePage = () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = localStorage.getItem('userId');
 
     if (!accessToken || !refreshToken) {
       return;
@@ -221,7 +220,7 @@ const EditProfilePage = () => {
       console.log(user);
     }
     users()
-  }, [user])
+  }, [user, userId])
 
   return (
     <div className='w-full'>
