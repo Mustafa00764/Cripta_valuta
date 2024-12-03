@@ -146,7 +146,7 @@ const ProfilePage = () => {
                   </div>
                   <div className='flex items-center gap-2 '>
                     <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                    <p>{status}</p>
+                    <p>{userProfile?userProfile.status:"offline"}</p>
                   </div>
                 </div>
               </div>
@@ -159,7 +159,7 @@ const ProfilePage = () => {
                 </div>
                 <div className='flex items-center gap-2 '>
                   <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                  <p>{status} {status == "offline"?userProfile.lastOnline:""}</p>
+                  <p>{userProfile ? userProfile.status : "offline"} {userProfile.status == "offline"?userProfile.lastOnline:""}</p>
                 </div>
               </div>
             </div>
