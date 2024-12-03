@@ -134,7 +134,7 @@ const AuthProvider = ({children}) => {
       handleIsSubscribed()
     }, 2000);
     return () => clearInterval(intervalId);
-  },[usertId])
+  },[])
 
   useEffect(() => {
     restoreSession();
