@@ -35,11 +35,16 @@ const CategoriesPage = () => {
   const [description, setDescription] = useState(subtitled);
   const [poster, setPoster] = useState(postered)
   const {setCategory,category} = useContext(AdminContext)
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
 
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];    
+    if (file.size > MAX_FILE_SIZE) {
+      alert('Файл слишком большой. Максимальный размер: 5 MB.');
+      return;
+    }
     if (file && /\.(jpe?g|png|gif|webp|svg)$/i.test(file.name)) {
       const reader = new FileReader();
       reader.onload = () => {
