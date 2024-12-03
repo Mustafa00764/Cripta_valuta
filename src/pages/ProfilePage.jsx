@@ -14,7 +14,7 @@ const ProfilePage = () => {
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
   const {id} = useParams()
   const [userProfile, setUserProfile] = useState(null)
-
+  const youId = localStorage.getItem("userId")
   const refreshAccessToken = async (refreshToken) => {
     try {
       const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
@@ -128,15 +128,18 @@ const ProfilePage = () => {
                 <div className=''>
                   <p className='text-[32px] font-semibold leading-[32px] break-words'>{userProfile?userProfile.firstName:"User"}</p>
                 </div>
-                <Link to={'/settings/profile'} className='w-full flex'>
-                  <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
-                    <svg enableBackground="new 0 0 24 24" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
-                    <path d="m0 0h24v24h-24z" fill="none"/>
-                    <path d="m19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.91 3.32c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zm-7.14 2.66c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill='#ffffff'/>
-                    </svg>
-                    Edit Profile
-                  </button>
-                </Link>
+                {
+                  id == youId ? <Link to={'/settings/profile'} className='w-full flex'>
+                    <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
+                      <svg enableBackground="new 0 0 24 24" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m0 0h24v24h-24z" fill="none" />
+                        <path d="m19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.91 3.32c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zm-7.14 2.66c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill='#ffffff' />
+                      </svg>
+                      Edit Profile
+                    </button>
+                  </Link>:""
+                }
+
                 <div className='flex text-[14px] flex-col gap-3'>
                   <div className='flex items-center gap-2'>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,15 +176,17 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className='p-5 w-[55%] min-w-[200px] md:hidden'>
-            <Link to={'/settings/profile'}>
-            <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
-              <svg enableBackground="new 0 0 24 24" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
-              <path d="m0 0h24v24h-24z" fill="none"/>
-              <path d="m19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.91 3.32c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zm-7.14 2.66c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill='#ffffff'/>
-              </svg>
-              Edit Profile
-            </button>
-            </Link>
+            {
+              id == youId ? <Link to={'/settings/profile'}>
+                <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
+                  <svg enableBackground="new 0 0 24 24" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m0 0h24v24h-24z" fill="none" />
+                    <path d="m19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.91 3.32c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zm-7.14 2.66c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill='#ffffff' />
+                  </svg>
+                  Edit Profile
+                </button>
+              </Link>:""
+            }
           </div>
         </div>
         <div>
