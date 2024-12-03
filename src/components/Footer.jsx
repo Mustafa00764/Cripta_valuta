@@ -1,5 +1,5 @@
 import React from 'react'
-import LC_logo from '../assets/images/LC_logo.jpeg'
+import LC_logo from '../assets/images/LC_logo.png'
 import Telegram from "../assets/svg/telegram_icon.svg"
 import Tiktok from "../assets/svg/tiktok_icon.svg"
 import VK from "../assets/svg/Vk_icon.svg"
