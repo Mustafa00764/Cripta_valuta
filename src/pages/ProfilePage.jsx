@@ -89,6 +89,8 @@ const ProfilePage = () => {
 
       if (data.userId === userId) {
         setStatus(data.status);
+        console.log(data.status);
+        
         if (data.status === 'offline') {
           setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
         }
