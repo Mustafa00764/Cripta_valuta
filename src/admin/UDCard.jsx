@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import api from '../components/axiosRefresh';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const UDCard = ({userInfo,index}) => {
   const {status} = useContext(AuthContext)
@@ -58,6 +59,7 @@ const UDCard = ({userInfo,index}) => {
       <p className=' whitespace-nowrap text-left overflow-hidden text-ellipsis h-[24px]'>{userInfo.role.toLowerCase()}</p>
     </div>
     <div className='flex w-[200px] justify-center items-center gap-4 '>
+        <Link to={`/profile/${userInfo ? userInfo.id : ""}`}>
       <div className='options_search transition-all'>
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_179_730)">
@@ -70,6 +72,7 @@ const UDCard = ({userInfo,index}) => {
         </defs>
         </svg>
       </div>
+      </Link>
       <div className='blocked transition-all'>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_2214_768)">
