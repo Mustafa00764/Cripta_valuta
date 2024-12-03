@@ -63,12 +63,35 @@ const AuthProvider = ({children}) => {
 
     }
   }
+  const parseJwt = (token) => {
+    try {
+      const base64Url = token.split('.')[1]; // Получаем payload
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload); // Преобразуем в объект
+    } catch (e) {
+      console.error('Invalid token', e);
+      return null;
+    }
+  };
 
 
   const restoreSession = async () => {
     const accessToken = localStorage.getItem('accessToken');  
     const refreshToken = localStorage.getItem('refreshToken');
-    const userId = localStorage.getItem('userId');
+    const userId = ""
+    if (accessToken) {
+      const decoded = parseJwt(accessToken); // Декодируем токен
+      userId = decoded?.userId; // Извлечение userId
+      console.log(userId);
+    } else {
+      console.log('Access token not found');
+    }
 
     if (accessToken && userId) {
       try {
