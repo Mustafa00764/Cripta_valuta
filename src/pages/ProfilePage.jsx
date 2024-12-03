@@ -8,13 +8,12 @@ import api from '../components/axiosRefresh';
 import axios from 'axios';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
-  const {user, setUser,setLastOnline,lastOnline} = useContext(AuthContext)
+  const {user, setUser,setLastOnline,lastOnline,userId,setUserId} = useContext(AuthContext)
   const [about, setAbout] = useState("");
   const [status, setStatus] = useState("");
   const [posterPhoto, setPosterPhoto] = useState('https://cdn-edge.kwork.ru/files/cover/header11.jpg')
   const {id} = useParams()
   const [userProfile, setUserProfile] = useState(null)
-  const youId = localStorage.getItem("userId")
   const refreshAccessToken = async (refreshToken) => {
     try {
       const response = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
@@ -107,7 +106,7 @@ const ProfilePage = () => {
       socket.disconnect();
       console.log('WebSocket connection closed.');
     };
-  },[status,id])
+  }, [status, id, userId])
 
   return ( 
     <div className='text-textMode'>
@@ -129,7 +128,7 @@ const ProfilePage = () => {
                   <p className='text-[32px] font-semibold leading-[32px] break-words'>{userProfile?userProfile.firstName:"User"}</p>
                 </div>
                 {
-                  id == youId ? <Link to={'/settings/profile'} className='w-full flex'>
+                  id == userId ? <Link to={'/settings/profile'} className='w-full flex'>
                     <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
                       <svg enableBackground="new 0 0 24 24" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
                         <path d="m0 0h24v24h-24z" fill="none" />
@@ -177,7 +176,7 @@ const ProfilePage = () => {
           </div>
           <div className='p-5 w-[55%] min-w-[200px] md:hidden'>
             {
-              id == youId ? <Link to={'/settings/profile'}>
+              id == userId ? <Link to={'/settings/profile'}>
                 <button className=' w-full text-[#fff] bg-[#2F2F2F] flex items-center justify-center gap-3 h-[60px] rounded-[8px] text-[20px]' >
                   <svg enableBackground="new 0 0 24 24" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
                     <path d="m0 0h24v24h-24z" fill="none" />

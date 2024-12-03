@@ -30,7 +30,7 @@ const Header = () => {
   const {mobileSearch, setMobileSearch} = useContext(SearchContext)
   const {theme, setTheme, toggleTheme} = useContext(AdminContext)
   const [loading, setLoading] = useState(true);
-  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken } = useContext(AuthContext);
+  const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin,refreshAccessToken,userId,setUserId } = useContext(AuthContext);
   const crypto = [
     {
       id: 1,
@@ -84,8 +84,7 @@ const Header = () => {
         // Сохраняем токены и userId в localStorage
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('userId', userId);
-
+        setUserId(userId)
         // Устанавливаем состояние авторизации и данные пользователя
         setIsAuthenticated(true);
         setUser(response.data.user);

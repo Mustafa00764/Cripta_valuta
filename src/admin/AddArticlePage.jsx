@@ -136,7 +136,7 @@ const AddArticlePage = () => {
   const [category, setCategory] = useState("");
   const [imgUrl, setImgUrl] = useState([])
   const [cid, setCid] = useState()
-
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
   // Добавление тега по нажатию клавиши Enter
   const handleAddTag = (e) => {
@@ -208,6 +208,10 @@ const AddArticlePage = () => {
   };
   const handleImageUploade = (e) => {
     const files = e.target.files;
+    if (files.size > MAX_FILE_SIZE) {
+      alert('Файл слишком большой. Максимальный размер: 5 MB.');
+      return;
+    }
   
     // Пробегаемся по каждому файлу
     Array.from(files).forEach((file) => {
@@ -291,6 +295,10 @@ const AddArticlePage = () => {
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
+    if (file.size > MAX_FILE_SIZE) {
+      alert('Файл слишком большой. Максимальный размер: 5 MB.');
+      return;
+    }
     
     if (file && /\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
       const reader = new FileReader();
