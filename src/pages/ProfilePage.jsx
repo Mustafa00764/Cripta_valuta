@@ -38,11 +38,6 @@ const ProfilePage = () => {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        console.log(responseIsSubscribed.data + " 22222");
-
         // Успешно получили данные пользователя
         setUserProfile(response.data);
         console.log(response);
@@ -59,8 +54,6 @@ const ProfilePage = () => {
               setUserProfile(response.data);
             } catch (err) {
               console.error('Ошибка при восстановлении данных пользователя', err);
-            } finally {
-              setLoading(false);
             }
           }
         } else {
@@ -111,7 +104,7 @@ const ProfilePage = () => {
       socket.disconnect();
       console.log('WebSocket connection closed.');
     };
-  },[user])
+  },[])
 
   return ( 
     <div className='text-textMode'>
