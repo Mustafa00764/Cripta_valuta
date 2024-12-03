@@ -78,7 +78,6 @@ const AdminProvider = ({ children }) => {
   const handleUsersList = async () => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = localStorage.getItem('userId');
     try {
 
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });

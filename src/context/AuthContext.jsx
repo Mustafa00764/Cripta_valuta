@@ -35,7 +35,6 @@ const AuthProvider = ({children}) => {
   const handleIsSubscribed = async () => {
     const accessToken = localStorage.getItem('accessToken');  
     const refreshToken = localStorage.getItem('refreshToken');
-    const userId = localStorage.getItem('userId');
     if (accessToken && userId) {
       try {
         const responseIsSubscribed = await api.get(`/users/${userId}/subscription`,{
@@ -191,7 +190,7 @@ const AuthProvider = ({children}) => {
       console.log('WebSocket connection closed.');
     };
 
-  }, [setStatus]);
+  }, [setStatus,userId]);
 
 
   return (
