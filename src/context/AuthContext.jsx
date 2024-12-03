@@ -132,7 +132,7 @@ const AuthProvider = ({children}) => {
       const intervalId = setInterval(() => {
         handleIsSubscribed()
         
-        }, 30000);
+        }, 2000);
     
         return () => clearInterval(intervalId);
   },[])
@@ -148,10 +148,7 @@ const AuthProvider = ({children}) => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     // Проверяем наличие токена
-    if (accessToken || userId) {
-      console.warn("Токен или userId отсутствуют. Подключение WebSocket отменено.");
-      return;
-    }
+
 
     // Подключаем WebSocket
     const socket = io('https://legitcommunity.uz/status', {
