@@ -65,7 +65,45 @@ const ProfilePage = () => {
 
   useEffect(()=>{
     restoreSession()
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    // Проверяем наличие токена
+    // Подключаем WebSocket
+    const socket = io('https://legitcommunity.uz/status', {
+      query: { id },
+      extraHeaders: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
+    // Событие подключения
+    socket.on('connect', () => {
+      console.log('WebSocket connected');
+    });
+
+    // Обработка обновления статуса
+    socket.on('status-update', (data) => {
+      console.log('Status update received:', data);
+
+      if (data.userId === id) {
+        setStatus(data.status);
+        if (data.status === 'offline') {
+          // setLastOnline(data.lastOnline); // Сохраняем время последнего подключения
+        }
+      }
+    });
+
+    // Обработка отключения
+    socket.on('disconnect', () => {
+      console.log('WebSocket disconnected');
+    });
+
+    // Очистка WebSocket при размонтировании
+    return () => {
+      socket.disconnect();
+      console.log('WebSocket connection closed.');
+    };
   }, [status, id, userId])
 
   return ( 
@@ -108,7 +146,7 @@ const ProfilePage = () => {
                   </div>
                   <div className='flex items-center gap-2 '>
                     <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                    <p>{userProfile?userProfile.status:"offline"}</p>
+                    <p>{userProfile ? userProfile.status : "offline"} {status}</p>
                   </div>
                 </div>
               </div>
@@ -121,7 +159,7 @@ const ProfilePage = () => {
                 </div>
                 <div className='flex items-center gap-2 '>
                   <span className='w-3 h-3 rounded-full bg-gradient-to-r from-[#2b9b1f] to-[#00db0a] m-[6px]'></span>
-                  <p>{userProfile ? userProfile.status : "offline"} </p>
+                  <p>{userProfile ? userProfile.status : "offline"} {status}</p>
                 </div>
               </div>
             </div>
