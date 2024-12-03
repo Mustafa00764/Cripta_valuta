@@ -9,16 +9,17 @@ import Sort from './Sort'
 import axios from 'axios'
 import api from '../components/axiosRefresh'
 import DAModel from './DAModel'
+import { AuthContext } from '../context/AuthContext'
 
 const DashboardPage = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
+  const { userId, setUserId } = useContext(AuthContext)
   const [articles,setArticles] = useState([])
 
   const handleArticlesList = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = Number(localStorage.getItem("userId"))
     try {
 
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });

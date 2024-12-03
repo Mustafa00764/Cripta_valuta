@@ -13,6 +13,7 @@ const AuthProvider = ({children}) => {
   const [status, setStatus] = useState("online"); // Статус пользователя
   const [lastOnline, setLastOnline] = useState(null); 
   const [isSubscribed, setIsSubscribed] = useState(true)
+  const [userId, setUserId] = useState(0)
   const handleLogin = (userData) => {
     localStorage.setItem('accessToken', userData.accessToken);
     setUser(userData.user);
@@ -84,10 +85,10 @@ const AuthProvider = ({children}) => {
   const restoreSession = async () => {
     const accessToken = localStorage.getItem('accessToken');  
     const refreshToken = localStorage.getItem('refreshToken');
-    let userId = ""
+    
     if (accessToken) {
       const decoded = parseJwt(accessToken); // Декодируем токен
-      userId = decoded?.userId; // Извлечение userId
+      setUserId(decoded?.userId); // Извлечение userId
       console.log(userId);
     } else {
       console.log('Access token not found');
@@ -139,7 +140,7 @@ const AuthProvider = ({children}) => {
 
   useEffect(() => {
     restoreSession();
-
+    const userId = userId
     const storedToken = localStorage.getItem('accessToken');
     if (storedToken) {
       setIsAuthenticated(true);
@@ -147,7 +148,6 @@ const AuthProvider = ({children}) => {
     }
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = Number(localStorage.getItem("userId"));
 
     // Проверяем наличие токена
     if (!accessToken || !userId) {
@@ -196,7 +196,7 @@ const AuthProvider = ({children}) => {
 
 
   return (
-    <AuthContext.Provider value={{user, isSubscribed, setIsSubscribed, refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
+    <AuthContext.Provider value={{ user, isSubscribed, setIsSubscribed, userId, setUserId, refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
       {children}
     </AuthContext.Provider>
   )
