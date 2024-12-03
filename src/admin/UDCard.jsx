@@ -45,7 +45,7 @@ const UDCard = ({userInfo,index}) => {
     </div>
     <div className='w-[150px] items-center gap-4 flex justify-start h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 rounded-full'  src={userInfo.photo_url} alt="" />
+        <img className='border-0 rounded-full' crossOrigin="anonymous" src={userInfo.photo_url} alt="" />
       </div>
       <p>{userInfo.firstName}</p>
     </div>
