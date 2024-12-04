@@ -192,7 +192,7 @@ const AuthProvider = ({children}) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, isSubscribed, setIsSubscribed, userId, setUserId, refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
+    <AuthContext.Provider value={{ user, isSubscribed, parseJwt, setIsSubscribed, userId, setUserId, refreshAccessToken,restoreSession,setLastOnline,setStatus,lastOnline,status, setUser,setIsAuthenticated, isAuthenticated, handleLogin}}>
       {children}
     </AuthContext.Provider>
   )

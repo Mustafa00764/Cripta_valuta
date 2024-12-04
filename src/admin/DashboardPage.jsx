@@ -13,13 +13,14 @@ import { AuthContext } from '../context/AuthContext'
 
 const DashboardPage = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
-  const { userId, setUserId } = useContext(AuthContext)
+  const { userId, setUserId, parseJwt } = useContext(AuthContext)
   const [articles,setArticles] = useState([])
 
   const handleArticlesList = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
+
     try {
 
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
@@ -43,7 +44,7 @@ const DashboardPage = () => {
 
   useEffect(()=>{
     handleArticlesList()
-  },[])
+  }, [userId])
   return (
     <div className='w-full'>
       <PanelHeader title={'Main'}/>
