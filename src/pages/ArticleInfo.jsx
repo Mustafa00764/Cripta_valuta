@@ -25,6 +25,8 @@ const ArticleInfo = () => {
   const {id} = useParams()
   const [article,setArticle] = useState({})
   const [articles,setArticles] = useState([])
+  const { userId, setUserId, parseJwt } = useContext(AuthContext)
+
   const goBack = () => {
     navigate(-1);
   };
@@ -59,7 +61,6 @@ const ArticleInfo = () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = Number(localStorage.getItem("userId"))
     
     try {
 
