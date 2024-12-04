@@ -40,7 +40,7 @@ const ProfilePage = () => {
 
         // Успешно получили данные пользователя
         setUserProfile(response.data);
-        setPosterPhoto(response.data.profileHeader)
+        setPosterPhoto(response.data.profileHeader ? response.data.profileHeader : 'https://cdn-edge.kwork.ru/files/cover/header11.jpg')
         console.log(response);
       } catch (error) {
         // Если токен истек, пробуем обновить его с помощью refreshToken
@@ -117,7 +117,7 @@ const ProfilePage = () => {
           <div className='flex md:flex-col w-full'>
             <div className='flex flex-col gap-5 '>
               <div className='p-[10px] w-[222.5px] h-[222.5px] mx-auto rounded-[15px] border border-[#494E5B] -mt-[20px] bg-bgMode'>
-                <img src={userProfile ? userProfile.photo_url : ""} alt="" crossOrigin="anonymous" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
+                <img crossOrigin="anonymous" src={userProfile ? userProfile.photo_url : ""} alt=""  className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
               </div>
               <div className=' text-[24px] font-semibold text-start md:text-center'>
                 <p>{userProfile?userProfile.username:"User"}</p>
