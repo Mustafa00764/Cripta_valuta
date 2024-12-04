@@ -13,7 +13,7 @@ import { AuthContext } from '../context/AuthContext'
 
 const DashboardPage = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
-  const { userId, setUserId, parseJwt } = useContext(AuthContext)
+  const { userId, setUserId } = useContext(AuthContext)
   const [articles,setArticles] = useState([])
 
   const handleArticlesList = async () => {
