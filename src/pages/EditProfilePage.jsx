@@ -120,62 +120,74 @@ const EditProfilePage = () => {
 
     try {
       // Создаем canvas для обрезки изображения
-      const canvas = document.createElement("canvas");
-      const croppedBlob = await getCroppedImg(photo, croppedAreaPixels, canvas);
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = responses.data.accessToken;
-      if (!croppedBlob) {
-        throw new Error("Ошибка при обрезке изображения.");
-      }
-
-      // Преобразуем Blob в File
-      const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
-      const formData1 = new FormData();
-      formData1.append("file", croppedFile);
-
-      const uploadResponse1 = await api.post("/upload", formData1, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${newAccessToken}`,
-        },
-      });
-      console.log(uploadResponse1.data.path);
-      const image1Path = photo == user.photo_url ? photo : "https://legitcommunity.uz" + uploadResponse1.data.path;
-      if (!image1Path) {
-        throw new Error("Ошибка загрузки изображений на сервер.");
-      }
-
-
-      // Проверяем, является ли posterPhoto строкой (URL)
-      let posterFile = posterPhoto;
-      if (typeof posterPhoto === "string") {
-        const response = await fetch(posterPhoto);
-        if (!response.ok) {
-          throw new Error("Ошибка загрузки posterPhoto.");
+      let image1Path = ""
+      let image2Path = ""
+      if (photo != user.photo_url) {
+        const canvas = document.createElement("canvas");
+        const croppedBlob = await getCroppedImg(photo, croppedAreaPixels, canvas);
+        if (!croppedBlob) {
+          throw new Error("Ошибка при обрезке изображения.");
         }
-        const posterBlob = await response.blob();
-        posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
+
+        // Преобразуем Blob в File
+        const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
+        const formData1 = new FormData();
+        formData1.append("file", croppedFile);
+
+        const uploadResponse1 = await api.post("/upload", formData1, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+        });
+        console.log(uploadResponse1.data.path);
+        image1Path = "https://legitcommunity.uz" + uploadResponse1.data.path;
+        if (!image1Path) {
+          throw new Error("Ошибка загрузки изображений на сервер.");
+        }
+      }else{
+        image1Path = photo
       }
 
-      // Создаем FormData
-      const formData2 = new FormData();
+      if (posterPhoto != user.profileHeader) {
+        // Проверяем, является ли posterPhoto строкой (URL)
+        let posterFile = posterPhoto;
+        if (typeof posterPhoto === "string") {
+          const response = await fetch(posterPhoto);
+          if (!response.ok) {
+            throw new Error("Ошибка загрузки posterPhoto.");
+          }
+          const posterBlob = await response.blob();
+          posterFile = new File([posterBlob], "poster-image.jpg", { type: "image/jpeg" });
+        }
 
-      formData2.append("file", posterFile);
+        // Создаем FormData
+        const formData2 = new FormData();
 
-      // Отправляем данные на /upload
-      const uploadResponse2 = await api.post("/upload", formData2, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${newAccessToken}`,
-        },
-      });
-      console.log(uploadResponse2.data);
+        formData2.append("file", posterFile);
 
-      const image2Path = posterPhoto == user.profileHeader ? posterPhoto : "https://legitcommunity.uz" + uploadResponse2.data.path;
+        // Отправляем данные на /upload
+        const uploadResponse2 = await api.post("/upload", formData2, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+        });
+        console.log(uploadResponse2.data.path);
 
-      if (!image2Path) {
-        throw new Error("Ошибка загрузки изображений на сервер.");
+        image2Path = "https://legitcommunity.uz" + uploadResponse2.data.path;
+
+        if (!image2Path) {
+          throw new Error("Ошибка загрузки изображений на сервер.");
+        }
+      }else{
+        image2Path = posterPhoto
       }
+
+
+
 
       // Обновление профиля пользователя
       const userData = {
@@ -238,7 +250,7 @@ const EditProfilePage = () => {
     <div className='w-full'>
       <div className="mx-auto max-w-[1012px] w-full py-5 px-3">
         <div className='mt-5'>
-          <p className='text-[32px] text-textMode font-semibold leading-[42px] md:text-[24px] md:leading-[32px]'>Настройки hello diarbek</p>
+          <p className='text-[32px] text-textMode font-semibold leading-[42px] md:text-[24px] md:leading-[32px]'>Настройки</p>
         </div>
         <div className='flex w-full'>
           <div className='flex max-w-[684px] w-full flex-col border text-textMode bg-bgMode border-[#494E5B] py-[15px] px-6 rounded-[6px] mt-5'>

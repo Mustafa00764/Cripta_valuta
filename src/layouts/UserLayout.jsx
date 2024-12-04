@@ -75,21 +75,10 @@ const UserLayout = () => {
           {
             categories.map(item=>{
               return(
-                <Route path={`/${item.name.toLowerCase()}`} element={<CategoriesPages/>}/>
+                <Route key={item.id} path={`/${item.name.toLowerCase()}`} element={<CategoriesPages/>}/>
               )
             })
           }
-          {/* <Route path='/bitcoin' element={<BitcoinPage/>}/>
-          <Route path='/blockchain' element={<BlockchainPage/>}/>
-          <Route path='/nft' element={<NFTPage/>}/>
-          <Route path='/defi' element={<DeFiPage/>}/>
-          <Route path='/p2e' element={<P2EPage/>}/>
-          <Route path='/ethereum' element={<EthereumPage/>}/>
-          <Route path='/Stablecoin' element={<StablecoinsPage/>}/>
-          <Route path='/altcoin' element={<AltcoinsPage/>}/>
-          <Route path='/meme-coin' element={<Meme_coinsPage/>}/>
-          <Route path='/utility-token' element={<UtilityTokensPage/>}/>
-          <Route path='/defi-2024' element={<HDeFiPage/>}/> */}
           <Route path='/a' element={<AdminPanel/>}/>
           <Route path='/airdrop' element={<AirdropPage/>}/>
           <Route path='/profile/:id' element={<ProfilePage/>}/>
