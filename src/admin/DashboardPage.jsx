@@ -13,20 +13,27 @@ import { AuthContext } from '../context/AuthContext'
 
 const DashboardPage = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
-  const { userId, setUserId } = useContext(AuthContext)
+  const { userId, setUserId, parseJwt } = useContext(AuthContext)
   const [articles,setArticles] = useState([])
 
   const handleArticlesList = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-
+    let Id = 0
+    if (accessToken) {
+      const decoded = parseJwt(accessToken); // Декодируем токен
+      Id = decoded?.userId; // Извлечение userId
+      console.log(userId);
+    } else {
+      console.log('Access token not found');
+    }
     try {
 
       const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
       const newAccessToken = responses.data.accessToken;
 
-      const responseArticle = await api.get(`/articles?userId=${userId}`,{
+      const responseArticle = await api.get(`/articles?userId=${Id}`,{
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${newAccessToken}`,
