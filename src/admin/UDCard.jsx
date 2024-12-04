@@ -38,10 +38,10 @@ const UDCard = ({userInfo,index}) => {
 
   }, [userId])
   const photoUrl = () => {
-    if (!userInfo) {
+    if (userInfo == null) {
       return;
     }
-    if (userInfo && userInfo.photo_url.startsWith("https://legitcommunity.uz")) {
+    if (userInfo.photo_url.startsWith("https://legitcommunity.uz")) {
       return <img src={userInfo.photo_url} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" />
     } else {
       return <img src={userInfo.photo_url} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' />
