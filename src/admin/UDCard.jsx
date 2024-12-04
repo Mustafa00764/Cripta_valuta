@@ -43,9 +43,9 @@ const UDCard = ({userInfo,index}) => {
       return;
     }
     if (userInfo && userInfo.photo_url.startsWith("https://legitcommunity.uz")) {
-      return <img src={userInfo ? userInfo.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" />
+      return <img src={userInfo.photo_url} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" />
     } else {
-      return <img src={userInfo ? userInfo.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' />
+      return <img src={userInfo.photo_url} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' />
     }
   }
   return (
