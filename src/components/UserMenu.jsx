@@ -26,6 +26,7 @@ const UserMenu = ({ hidden }) => {
       return <img src={user ? user.photo_url : ""} alt="" className='w-[60px] h-[60px] rounded-full' />
     }
   }
+
   return (
     <div
       className={
@@ -126,7 +127,7 @@ const UserMenu = ({ hidden }) => {
                 <NavLink key={item.id} to={`/${item.name}`} onClick={() => setMenu(!menu)} className={(navData) => (navData.isActive ? ` font-extrabold` : " ")}>
                   <div className={`w-full hover:font-extrabold transition-all h-[50px] flex gap-[20px] items-center cursor-pointer`}>
                     <img src={item.icon} className="w-[28px] h-[28px] rounded-full" alt=""  />
-                    <p>Bitcoin</p>
+                    <p>{item.name}</p>
                   </div>
                 </NavLink>
               )
