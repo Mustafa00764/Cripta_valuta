@@ -43,12 +43,14 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
+        <Link to={`/profile/${user?user.id:""}`}>
         <div className={`w-full h-[56px] flex px-[14px] gap-[15px] items-center cursor-pointer transition-all`}>
           <div className='w-[32px] h-[32px] rounded-full bg-[#494E5B]'>
             {photoUrl()}
           </div>
           <p>{user ? user.firstName : ""}</p>
         </div>
+        </Link>
         <NavLink to={"/admin/dashboard"} className={(navData) => (navData.isActive ? ` ${theme ? 'navlinkElementDark' : 'navlinkElementLight'} font-medium` : " ")}>
           <div className={`w-full ${theme ? 'sideBarElementDark' : 'sideBarElementLight'} transition-all h-[56px] flex px-[20px] gap-[20px] items-center cursor-pointer`}>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
