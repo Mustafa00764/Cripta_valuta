@@ -8,10 +8,11 @@ import PagesCard from '../components/PagesCard';
 import refresh from "../assets/svg/refresh.svg";
 import axios from 'axios';
 import api from '../components/axiosRefresh';
-
+import { useLocation } from "react-router-dom";
 const CategoriesPages = () => {
   const {categories,categoryName,setCategoryName,handleRestore} = useContext(AdminContext)
-
+  const location = useLocation();
+  const path = location.pathname.split("/").filter(Boolean).pop(); 
   const [articles,setArticles] = useState([])
 
   const handleArticlesList = async () => {
@@ -48,9 +49,9 @@ const CategoriesPages = () => {
     <div>
       {
         categories.map((item) => {
-          if (item.name === categoryName) {
+          if (item.name.toLowerCase() === path) {
             return(
-              <div className="container">
+              <div key={item.id} className="container">
               <div className="flex mt-9 mb-7 ">
                 <button className="flex cursor-pointer items-center gap-1">
                   <Link to={'/'}>

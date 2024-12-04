@@ -30,7 +30,6 @@ const UserMenu = ({ hidden }) => {
 
   const category = () => {
     setMenu(!menu)
-    setCategoryName(item.name)
   }
 
   return (
