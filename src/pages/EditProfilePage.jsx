@@ -208,7 +208,6 @@ const EditProfilePage = () => {
   };
 
   useEffect(() => {
-    console.log('hello diarbek');
     
     const users = async () => {
       if (user) {
@@ -239,7 +238,7 @@ const EditProfilePage = () => {
     <div className='w-full'>
       <div className="mx-auto max-w-[1012px] w-full py-5 px-3">
         <div className='mt-5'>
-          <p className='text-[32px] text-textMode font-semibold leading-[42px] md:text-[24px] md:leading-[32px]'>Настройки</p>
+          <p className='text-[32px] text-textMode font-semibold leading-[42px] md:text-[24px] md:leading-[32px]'>Настройки hello diarbek</p>
         </div>
         <div className='flex w-full'>
           <div className='flex max-w-[684px] w-full flex-col border text-textMode bg-bgMode border-[#494E5B] py-[15px] px-6 rounded-[6px] mt-5'>
