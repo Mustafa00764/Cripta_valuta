@@ -39,10 +39,9 @@ const UDCard = ({userInfo,index}) => {
   }, [userId])
 
   const photoUrl = () => {
-    if (userInfo == null) {
+    if (!userInfo) {
       return;
     }
-    console.log(userInfo);
     if (!userInfo.photo_url) {
       return;
     }
