@@ -108,6 +108,14 @@ const ProfilePage = () => {
     };
   }, [status, id, userId])
 
+  const photoUrl = () => {
+    if (userProfile.photo_url.startsWith("https://legitcommunity.uz")) {
+      return <img src={userProfile ? userProfile.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" />
+    }else{
+      return <img src={userProfile ? userProfile.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
+    }
+  }
+
   return ( 
     <div className='text-textMode'>
       <div className='w-full h-[226px]'>
@@ -119,7 +127,7 @@ const ProfilePage = () => {
             <div className='flex flex-col gap-5 '>
               <div className='p-[10px] w-[222.5px] h-[222.5px] mx-auto rounded-[15px] border border-[#494E5B] -mt-[20px] bg-bgMode'>
                 {
-                  userProfile.photo_url.startsWith("https://legitcommunity.uz") ? <img src={userProfile ? userProfile.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" /> : <img src={userProfile ? userProfile.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' />
+                  photoUrl()
                 }
                 <img src={userProfile ? userProfile.photo_url : ""} alt=""  className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
               </div>
