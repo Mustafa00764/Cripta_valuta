@@ -38,10 +38,10 @@ const DCard = ({item,index}) => {
     if (!item) {
       return;
     }
-    if (item.photo_url.startsWith("https://legitcommunity.uz")) {
-      return <img src={item ? item.photo_url : ""} alt="" className='border-0 rounded-full' crossOrigin="anonymous" />
+    if (item.author.photo_url.startsWith("https://legitcommunity.uz")) {
+      return <img src={item ? item.author.photo_url : ""} alt="" className='border-0 rounded-full' crossOrigin="anonymous" />
     } else {
-      return <img src={item ? item.photo_url : ""} alt="" className='border-0 rounded-full' />
+      return <img src={item ? item.author.photo_url : ""} alt="" className='border-0 rounded-full' />
     }
   }
 
