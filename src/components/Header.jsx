@@ -105,6 +105,7 @@ const Header = () => {
     }
   }
 
+
   return (
     <div className='w-[100vw] h-[136px] bg-[#2F2F2F] relative lg:h-[100px] md:h-[80px] ms:h-[64px]'>
       <div className='container'>
@@ -113,7 +114,6 @@ const Header = () => {
             <div className=" flex justify-between">
               <div className="flex items-center gap-2 text-white">
                 {photoUrl('w-[60px] h-[60px] rounded-full')}
-                {/* <img className="w-[60px] h-[60px] rounded-full " crossOrigin="anonymous" src={user ? user.photo_url : ""} alt="photo" /> */}
                 <p className="text-[22px] flex flex-col">
                   {user ? user.firstName : ""}
                   <span className="text-[10px]">@{user ? user.username : ""}</span>
@@ -230,7 +230,6 @@ const Header = () => {
               <div className=' flex lg:hidden flex-col items-center gap-1 h-full justify-center' onMouseOver={() => setDmenu(true)} onMouseOut={() => setDmenu(false)}>
                 <div className='w-[50px] h-[50px]'>
                     {photoUrl('w-full h-full rounded-full')}
-                  {/* <img src={user ? user.photo_url : ""} crossOrigin="anonymous" alt="photo" className='w-full h-full rounded-full' /> */}
                 </div>
                 <p>{user ? user.firstName : ""}{""}</p>
               </div>
