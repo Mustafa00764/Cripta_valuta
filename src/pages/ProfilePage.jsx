@@ -134,7 +134,6 @@ const ProfilePage = () => {
                 {
                   photoUrl()
                 }
-                <img src={userProfile ? userProfile.photo_url : ""} alt=""  className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
               </div>
               <div className=' text-[24px] font-semibold text-start md:text-center'>
                 <p>{userProfile?userProfile.username:"User"}</p>
