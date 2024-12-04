@@ -171,7 +171,7 @@ const EditProfilePage = () => {
       });
       console.log(uploadResponse2.data);
 
-      const image2Path = "https://legitcommunity.uz" + uploadResponse2.data.path;
+      const image2Path = posterPhoto == user.profileHeader ? posterPhoto : "https://legitcommunity.uz" + uploadResponse2.data.path;
 
       if (!image2Path) {
         throw new Error("Ошибка загрузки изображений на сервер.");
@@ -222,6 +222,17 @@ const EditProfilePage = () => {
     users()
   }, [user, userId])
 
+  const photoUrl = () => {
+    if (!user) {
+      return;
+    }
+    if (user.photo_url.startsWith("https://legitcommunity.uz")) {
+      return <img src={user ? user.photo_url : ""} alt="" className=' absolute w-full h-full object-cover' crossOrigin="anonymous" />
+    } else {
+      return <img src={user ? user.photo_url : ""} alt="" className=' absolute w-full h-full object-cover' />
+    }
+  }
+
   return (
     <div className='w-full'>
       <div className="mx-auto max-w-[1012px] w-full py-5 px-3">
@@ -245,6 +256,7 @@ const EditProfilePage = () => {
               <div className={` flex gap-4 flex-wrap transition-all items-center`} onMouseOver={() => hint('photo', 'over')} onMouseOut={() => hint('photo', 'out')}>
                 <div>
                   <label htmlFor="photo" className={` w-[200px] [&>svg]:hover:opacity-[1] cursor-pointer h-[200px] flex overflow-hidden justify-center items-center relative rounded-[12px] border border-[#262E34]`}>
+                    {photoUrl()}
                     <img src={user ? user.photo_url:""} alt="" className=' absolute w-full h-full object-cover' crossOrigin="anonymous" />
                     <input type="file" id='photo' accept='image/*' onChange={(e) => handleImageUpload(e, setPhoto)} name='poster' className=' w-0 h-0' />
                     <svg className={photo ? " opacity-0 transition-all md:hidden" : "md:hidden"} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -286,7 +298,8 @@ const EditProfilePage = () => {
               </div>
               <div className='flex flex-col' onMouseOver={() => hint('profile header', 'over')} onMouseOut={() => hint('profile header', 'out')}>
                 <label htmlFor="profile_header" className='text-[14px] font-semibold leading-6'>Profile Header</label>
-                <label htmlFor="profile_header" style={{ backgroundImage: `url(${posterPhoto})` }} className='w-full [&>svg]:hover:opacity-[1] rounded-[4px] cursor-pointer h-[74px] bg-cover bg-no-repeat bg-center flex justify-center items-center border border-[#262E34]'>
+                <label htmlFor="profile_header" className='w-full [&>svg]:hover:opacity-[1] rounded-[4px] cursor-pointer h-[74px] flex justify-center items-center border border-[#262E34]'>
+                  <img src={posterPhoto} alt="" crossOrigin="anonymous" className='w-full h-full object-cover' />
                   <input type="file" name="" id="profile_header" onChange={(e) => handleImageUpload(e, setPosterPhoto)} className=' w-0 h-0' />
                   <svg className={posterPhoto ? " opacity-0 transition-all md:hidden" : " md:hidden"} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M45.8334 14.0625C46.6963 14.0625 47.3959 13.3629 47.3959 12.5C47.3959 11.6371 46.6963 10.9375 45.8334 10.9375V14.0625ZM29.1667 10.9375C28.3038 10.9375 27.6042 11.6371 27.6042 12.5C27.6042 13.3629 28.3038 14.0625 29.1667 14.0625V10.9375ZM39.0625 4.16666C39.0625 3.30372 38.3629 2.60416 37.5 2.60416C36.6371 2.60416 35.9375 3.30372 35.9375 4.16666H39.0625ZM35.9375 20.8333C35.9375 21.6962 36.6371 22.3958 37.5 22.3958C38.3629 22.3958 39.0625 21.6962 39.0625 20.8333H35.9375ZM45.8334 10.9375H37.5V14.0625H45.8334V10.9375ZM37.5 10.9375H29.1667V14.0625H37.5V10.9375ZM35.9375 4.16666V12.5H39.0625V4.16666H35.9375ZM35.9375 12.5V20.8333H39.0625V12.5H35.9375Z" fill={"#FFFFFF"} />
