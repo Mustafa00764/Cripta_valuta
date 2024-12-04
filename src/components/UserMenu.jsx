@@ -15,6 +15,17 @@ const UserMenu = ({ hidden }) => {
   const mode = () => {
     toggleTheme()
   }
+
+  const photoUrl = () => {
+    if (!user) {
+      return;
+    }
+    if (user.photo_url.startsWith("https://legitcommunity.uz")) {
+      return <img src={user ? user.photo_url : ""} alt="" className='w-[60px] h-[60px] rounded-full' crossOrigin="anonymous" />
+    } else {
+      return <img src={user ? user.photo_url : ""} alt="" className='w-[60px] h-[60px] rounded-full' />
+    }
+  }
   return (
     <div
       className={
@@ -26,7 +37,7 @@ const UserMenu = ({ hidden }) => {
       <div className="w-full h-[110px] p-[24px] border-b-2 border-[#0C1013]">
         <div className=" flex justify-between">
           <div className="flex items-center gap-2 text-white">
-            <img className="w-[60px] h-[60px] rounded-full " crossOrigin="anonymous" src={user ? user.photo_url : ""} alt="photo" />
+            {photoUrl()}
             <p className="text-[22px] flex flex-col">
               {user ? user.firstName : ""}
               <span className="text-[10px]">@{user ? user.username : ""}</span>
@@ -43,7 +54,7 @@ const UserMenu = ({ hidden }) => {
       </div>
       <div className=" text-[14px]">
         <div className=" px-6 h-[100%] text-[#fff] flex flex-col border-b-2 border-[#0C1013]">
-          <NavLink to={"/profile"} onClick={() => setMenu(!menu)} className={(navData) => (navData.isActive ? ` font-extrabold` : " ")}>
+          <NavLink to={`/profile/${user?user.id:""}`} onClick={() => setMenu(!menu)} className={(navData) => (navData.isActive ? ` font-extrabold` : " ")}>
             <div className={`w-full hover:font-extrabold transition-all h-[50px] flex gap-[20px] items-center cursor-pointer`}>
               <svg width="28" height="28" strokeWidth="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="#F4F7FF" strokeLinecap="round" strokeLinejoin="round" />
