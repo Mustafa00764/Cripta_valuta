@@ -21,7 +21,7 @@ const EditProfilePage = () => {
   const [hints, setHints] = useState('')
   const { isAuthenticated, user, setIsAuthenticated, setUser, handleLogin, refreshAccessToken, restoreSession, userId } = useContext(AuthContext);
   const [photo, setPhoto] = useState(user ? user.photo_url : LC_logo)
-  const [name, setName] = useState(user ? user.firstName : "");
+  const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [file, setFile] = useState(null);
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
@@ -220,7 +220,7 @@ const EditProfilePage = () => {
   };
 
   useEffect(() => {
-    
+    setName(user ? user.name:"")
     const users = async () => {
       if (user) {
         if (user.profileHeader != undefined) {
