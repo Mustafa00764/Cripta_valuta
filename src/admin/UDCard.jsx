@@ -37,11 +37,15 @@ const UDCard = ({userInfo,index}) => {
 
 
   }, [userId])
+
   const photoUrl = () => {
     if (userInfo == null) {
       return;
     }
     console.log(userInfo);
+    if (!userInfo.photo_url) {
+      return;
+    }
     
     if (userInfo.photo_url.startsWith("https://legitcommunity.uz")) {
       return <img src={userInfo.photo_url} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" />
