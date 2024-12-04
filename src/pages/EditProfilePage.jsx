@@ -311,7 +311,7 @@ const EditProfilePage = () => {
               </div>
               <div className='w-full flex items-center py-5 justify-between md:flex-col gap-5'>
                 <button type='submit' className='bg-[#2F2F2F] text-[#fff] text-[14px] py-[18px] px-[31px] md:w-full rounded-[8px] transition-all hover:bg-[#2f2f2fe6]'>Save changes</button>
-                <Link to={'/profile'}>
+                <Link to={`/profile/${user ? user.id : ""}`}>
                   <p className='text-[#177DE5] hover:text-[#177de5cc] leading-5 border-b border-[#177DE5]'>View profile</p>
                 </Link>
               </div>
