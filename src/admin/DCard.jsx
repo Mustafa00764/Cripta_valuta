@@ -34,6 +34,16 @@ const DCard = ({item,index}) => {
 
     
   },[])
+  const photoUrl = () => {
+    if (!item) {
+      return;
+    }
+    if (item.photo_url.startsWith("https://legitcommunity.uz")) {
+      return <img src={item ? item.photo_url : ""} alt="" className='border-0 rounded-full' crossOrigin="anonymous" />
+    } else {
+      return <img src={item ? item.photo_url : ""} alt="" className='border-0 rounded-full' />
+    }
+  }
 
   return (
     <div className='flex text-center options text-[#72787F] cursor-default even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
@@ -45,7 +55,7 @@ const DCard = ({item,index}) => {
       </div>
       <div className='w-[200px] items-center gap-4 flex justify-start h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 rounded-full'  src={item.author.photo_url} alt="" />
+          {photoUrl()}
       </div>
       <p>{item.author.name}</p>
       </div>

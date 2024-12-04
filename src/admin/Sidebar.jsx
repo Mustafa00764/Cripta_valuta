@@ -14,6 +14,17 @@ const Sidebar = () => {
   useEffect(() => {
 
   }, [user])
+
+  const photoUrl = () => {
+    if (!user) {
+      return;
+    }
+    if (user.photo_url.startsWith("https://legitcommunity.uz")) {
+      return <img src={user ? user.photo_url : ""} alt="" className='rounded-full' crossOrigin="anonymous" />
+    } else {
+      return <img src={user ? user.photo_url : ""} alt="" className=' rounded-full' />
+    }
+  }
   return (
     <div className={`max-w-[60px] hover:max-w-[320px] overflow-hidden w-full h-screen flex flex-col justify-between ${theme ? 'bg-sideBarLight' : 'bg-sideBarDark'} transition-all ${theme ? 'text-sideBarTextDark' : 'text-sideBarTextLight'} relative py-2`}>
       <div className='w-[320px] h-auto flex flex-col font-light absolute'>
@@ -34,7 +45,7 @@ const Sidebar = () => {
         </div>
         <div className={`w-full h-[56px] flex px-[14px] gap-[15px] items-center cursor-pointer transition-all`}>
           <div className='w-[32px] h-[32px] rounded-full bg-[#494E5B]'>
-            <img src={user ? user.photo_url : ""} alt="" className=' rounded-full' />
+            {photoUrl()}
           </div>
           <p>{user ? user.firstName : ""}</p>
         </div>

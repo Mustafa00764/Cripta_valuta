@@ -109,9 +109,7 @@ const ProfilePage = () => {
   }, [status, id, userId])
 
   const photoUrl = () => {
-    if (userProfile) {
-      
-    }else{
+    if (!userProfile) {
       return;
     }
     if (userProfile.photo_url.startsWith("https://legitcommunity.uz")) {
