@@ -208,6 +208,8 @@ const EditProfilePage = () => {
   };
 
   useEffect(() => {
+    console.log('hello diarbek');
+    
     const users = async () => {
       if (user) {
         if (user.profileHeader != undefined) {
