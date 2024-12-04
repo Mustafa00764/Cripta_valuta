@@ -20,10 +20,9 @@ const DashboardPage = () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    let Id = 0
     if (accessToken) {
       const decoded = parseJwt(accessToken); // Декодируем токен
-      Id = decoded?.userId; // Извлечение userId
+      setUserId(decoded?.userId); // Извлечение userId
       console.log(userId);
     } else {
       console.log('Access token not found');
