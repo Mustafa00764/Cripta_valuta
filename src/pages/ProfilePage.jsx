@@ -6,6 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 import { io } from 'socket.io-client';
 import api from '../components/axiosRefresh';
 import axios from 'axios';
+import { userInfo } from 'os';
 const ProfilePage = () => {
   const [news,setNews] = useState('Articles')
   const {user, setUser,setLastOnline,lastOnline,userId,setUserId} = useContext(AuthContext)
@@ -117,6 +118,9 @@ const ProfilePage = () => {
           <div className='flex md:flex-col w-full'>
             <div className='flex flex-col gap-5 '>
               <div className='p-[10px] w-[222.5px] h-[222.5px] mx-auto rounded-[15px] border border-[#494E5B] -mt-[20px] bg-bgMode'>
+                {
+                  userProfile.photo_url.startsWith("https://legitcommunity.uz") ? <img src={userProfile ? userProfile.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" /> : <img src={userProfile ? userProfile.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' />
+                }
                 <img src={userProfile ? userProfile.photo_url : ""} alt=""  className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]'/>
               </div>
               <div className=' text-[24px] font-semibold text-start md:text-center'>
