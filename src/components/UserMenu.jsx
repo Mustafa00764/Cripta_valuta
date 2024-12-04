@@ -124,7 +124,7 @@ const UserMenu = ({ hidden }) => {
                 return;
               }
               return(
-                <NavLink key={item.id} to={`/${item.name}`} onClick={() => setMenu(!menu)} className={(navData) => (navData.isActive ? ` font-extrabold` : " ")}>
+                <NavLink key={item.id} to={`/${item.name.toLowerCase()}`} onClick={() => setMenu(!menu)} className={(navData) => (navData.isActive ? ` font-extrabold` : " ")}>
                   <div className={`w-full hover:font-extrabold transition-all h-[50px] flex gap-[20px] items-center cursor-pointer`}>
                     <img src={item.icon} className="w-[28px] h-[28px] rounded-full" alt="" crossOrigin="anonymous" />
                     <p>{item.name}</p>
