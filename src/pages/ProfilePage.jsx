@@ -40,6 +40,7 @@ const ProfilePage = () => {
 
         // Успешно получили данные пользователя
         setUserProfile(response.data);
+        setPosterPhoto(response.data.profileHeader)
         console.log(response);
       } catch (error) {
         // Если токен истек, пробуем обновить его с помощью refreshToken
