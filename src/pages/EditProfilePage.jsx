@@ -298,7 +298,7 @@ const EditProfilePage = () => {
               </div>
               <div className='flex flex-col' onMouseOver={() => hint('profile header', 'over')} onMouseOut={() => hint('profile header', 'out')}>
                 <label htmlFor="profile_header" className='text-[14px] font-semibold leading-6'>Profile Header</label>
-                <label htmlFor="profile_header" className='w-full [&>svg]:hover:opacity-[1] rounded-[4px] cursor-pointer h-[74px] flex justify-center items-center border border-[#262E34]'>
+                <label htmlFor="profile_header" className='w-full [&>svg]:hover:opacity-[1] relative rounded-[4px] cursor-pointer h-[74px] flex justify-center items-center border border-[#262E34]'>
                   <img src={posterPhoto} alt="" crossOrigin="anonymous" className='w-full absolute top-0 left-0 h-full object-cover' />
                   <input type="file" name="" id="profile_header" onChange={(e) => handleImageUpload(e, setPosterPhoto)} className=' w-0 h-0' />
                   <svg className={posterPhoto ? " opacity-0 transition-all md:hidden" : " md:hidden"} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
