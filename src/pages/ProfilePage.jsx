@@ -109,6 +109,11 @@ const ProfilePage = () => {
   }, [status, id, userId])
 
   const photoUrl = () => {
+    if (userProfile) {
+      
+    }else{
+      return;
+    }
     if (userProfile.photo_url.startsWith("https://legitcommunity.uz")) {
       return <img src={userProfile ? userProfile.photo_url : ""} alt="" className='border w-full h-full border-[#494E5B] object-cover rounded-[10px]' crossOrigin="anonymous" />
     }else{
