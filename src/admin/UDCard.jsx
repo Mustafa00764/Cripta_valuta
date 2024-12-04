@@ -5,11 +5,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const UDCard = ({userInfo,index}) => {
-  const {status} = useContext(AuthContext)
+  const {status,userId} = useContext(AuthContext)
   const handleUserBan = async () => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = Number(localStorage.getItem("userId"));
     try {
 
       const userData = {
@@ -37,7 +36,7 @@ const UDCard = ({userInfo,index}) => {
   useEffect(()=>{
 
 
-  },[])
+  }, [userId])
   const photoUrl = () => {
     if (!userInfo) {
       return;
