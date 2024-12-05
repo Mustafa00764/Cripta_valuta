@@ -110,7 +110,7 @@ const combinedDecorator = new CompositeDecorator([
 
 
 const EditArticlePage = () => {
-  const { setCategories, setMain, setImage, setSelectedCategory, selectedCategory, setPostered, conclusione, setConclusione, postered, setPubDate, setSubtitled, setTitled, image, main, categories, pubDate, titled, subtitled } = useContext(AdminContext)
+  const { setMain, selectedCategory, setPostered, conclusione, setConclusione, postered, setSubtitled, setTitled, image, main, titled, subtitled } = useContext(AdminContext)
   const [minDate, setMinDate] = useState('');
   const [title, setTitle] = useState(titled);
   const [subtitle, setSubtitle] = useState(subtitled);
@@ -124,13 +124,15 @@ const EditArticlePage = () => {
   const previewCanvasRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const {userId , setUserId} = useContext(AuthContext)
-  const contentState = stateFromHTML(main);
+  let contentState = ""
   const editorStates = EditorState.createWithContent(contentState, combinedDecorator);
 
   const [editorState, setEditorState] = useState(editorStates);
   const fileInputRef = useRef(null);
   const [fontSize, setFontSize] = useState(16);
   const [imagesList, setImagesList] = useState([]);
+  const [pubDate, setPubDate] = useState("");
+
   const [publishDate, setPublishDate] = useState(pubDate.split("-").reverse().join("-"));
   const [date, setDate] = useState('');
   const [tags, setTags] = useState([]);
@@ -141,6 +143,7 @@ const EditArticlePage = () => {
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
   const {id} = useParams()
   const [editArticle,setEditArticle] = useState(null)
+  const [mainContent,setMainContent] = useState()
 
   // Добавление тега по нажатию клавиши Enter
   const handleAddTag = (e) => {
@@ -387,14 +390,16 @@ const EditArticlePage = () => {
 
   useEffect(() => {
     handleArticle()
-    setImage(croppedImage)
-    setPubDate(publishDate)
-    setSubtitled(subtitle)
-    setTitled(title)
-    setSelectedCategory(category)
-    setConclusione(conclusion)
-    setPostered(poster)
+    // setImage(editArticle.poster)
+    setPubDate(editArticle.createdAt)
+    setSubtitled(editArticle.subtitle)
+    setTitled(editArticle.title)
+    setCid(editArticle.categories[0])
+    setConclusione(editArticle.conclusion)
+    setPoster(editArticle.poster)
+    setTags([...tags])
     setMain(getContentAsHTML());
+    contentState = stateFromHTML(editArticle.content);
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
@@ -402,7 +407,7 @@ const EditArticlePage = () => {
     setMinDate(`${year}-${month}-${day}`);
     // setCategory(categories[0]);
 
-  }, [selectedCategory, croppedImage, poster, publishDate, subtitle, title, conclusion, main, setMain, getContentAsHTML()])
+  }, [selectedCategory, contentState, croppedImage, poster, publishDate, subtitle, title, conclusion, main, setMain, getContentAsHTML()])
 
   const sendToBackend = async (event) => {
     event.preventDefault();
@@ -539,7 +544,7 @@ const EditArticlePage = () => {
 
                 {isOpen && (
                   <ul className={`absolute w-[300px] z-[1] mt-1 ${theme ? 'bg-sideBarLight' : 'bg-sideBarDark'} transition-all ${theme ? 'text-sideBarTextDark' : 'text-sideBarTextLight'} shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
-                    {categories.map((v) => (
+                    {cid.map((v) => (
                       <li
                         key={v.id}
                         onClick={() => handleCategoryClick(v.name, v.id)}
