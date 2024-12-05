@@ -124,7 +124,7 @@ const EditArticlePage = () => {
   const previewCanvasRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const {userId , setUserId} = useContext(AuthContext)
-  let contentState = ""
+  const contentState = stateFromHTML(editArticle.content)
   const editorStates = EditorState.createWithContent(contentState, combinedDecorator);
 
   const [editorState, setEditorState] = useState(editorStates);
@@ -399,7 +399,6 @@ const EditArticlePage = () => {
     setPoster(editArticle.poster)
     setTags([...tags])
     setMain(getContentAsHTML());
-    contentState = stateFromHTML(editArticle.content);
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
