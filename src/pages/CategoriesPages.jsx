@@ -43,6 +43,8 @@ const CategoriesPages = () => {
   useEffect(()=>{
     handleRestore()
     handleArticlesList()
+    console.log(path);
+    
   },[])
 
   return (
