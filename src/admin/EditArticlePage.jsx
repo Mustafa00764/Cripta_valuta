@@ -369,13 +369,11 @@ const EditArticlePage = () => {
     const refreshToken = localStorage.getItem("refreshToken");
     const Id = userId;
     try {
-      const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
-      const newAccessToken = responses.data.accessToken;
 
       const responseArticle = await api.get(`/articles/${id}?userId=${Id}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${newAccessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       console.log(responseArticle.data);
