@@ -391,6 +391,9 @@ const EditArticlePage = () => {
 
   useEffect(() => {
     handleArticle()
+    if (!editArticle) {
+      return;
+    }
     // setImage(editArticle.poster)
     setPubDate(editArticle.createdAt)
     setSubtitled(editArticle.subtitle)
