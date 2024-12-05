@@ -124,7 +124,7 @@ const EditArticlePage = () => {
   const previewCanvasRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const {userId , setUserId} = useContext(AuthContext)
-  const contentState = stateFromHTML(editArticle.content)
+  const contentState = stateFromHTML()
   const editorStates = EditorState.createWithContent(contentState, combinedDecorator);
 
   const [editorState, setEditorState] = useState(editorStates);
@@ -381,6 +381,7 @@ const EditArticlePage = () => {
       })
       console.log(responseArticle.data);
       setEditArticle(responseArticle.data)
+      setEditorState(EditorState.createWithContent(stateFromHTML(responseArticle.data.content)))
       
     } catch (error) {
       console.log(error);
