@@ -13,6 +13,7 @@ import UsersDashboard from './UsersDashboard'
 import AuthorsDashboard from './AuthorsDashboard'
 import StatisticPage from './StatisticPage'
 import CategoriesPage from './CategoriesPage'
+import EditArticlePage from './EditArticlePage'
 
 const AdminPanel = () => {
   const {theme} = useContext(AdminContext)
@@ -33,6 +34,7 @@ const AdminPanel = () => {
           <Route path='authors' element={<AuthorsDashboard/>}/>
           <Route path='statistic' element={<StatisticPage/>}/>
           <Route path='categories' element={<CategoriesPage/>}/>
+          <Route path='editarticle/:id' element={<EditArticlePage />} />
         </Routes>
       </div>
     </div>
