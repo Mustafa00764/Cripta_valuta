@@ -20,6 +20,7 @@ import DemoCard from './DemoCard.jsx';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ArticleDemo from './ArticleDemo.jsx';
 import api from '../components/axiosRefresh';
+import { AuthContext } from '../context/AuthContext.jsx';
 const ImageComponent = ({ block, blockProps }) => {
   const { src } = blockProps;
 
@@ -121,6 +122,7 @@ const AddArticlePage = () => {
   const [croppedImage, setCroppedImage] = useState(image);
   const previewCanvasRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const {userId,setUserId} = useContext(AuthContext)
 
   const contentState = stateFromHTML(main);
   const editorStates = EditorState.createWithContent(contentState, combinedDecorator);
@@ -402,7 +404,7 @@ const AddArticlePage = () => {
     // Проверяем авторизацию
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = Number(localStorage.getItem("userId"));
+    const Id = userId;
   
     if (!accessToken || !refreshToken) {
       return;
@@ -482,7 +484,7 @@ const AddArticlePage = () => {
         content: updatedHTML,
         conclusion,
         publishDate: date,
-        authorId  : userId,
+        authorId: Id,
         status: "Draft",
         poster: posterUrl,
         tags,

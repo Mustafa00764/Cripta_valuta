@@ -21,6 +21,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ArticleDemo from './ArticleDemo.jsx';
 import api from '../components/axiosRefresh';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext.jsx';
 const ImageComponent = ({ block, blockProps }) => {
   const { src } = blockProps;
 
@@ -122,7 +123,7 @@ const EditArticlePage = () => {
   const [croppedImage, setCroppedImage] = useState(image);
   const previewCanvasRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-
+  const {userId , setUserId} = useContext(AuthContext)
   const contentState = stateFromHTML(main);
   const editorStates = EditorState.createWithContent(contentState, combinedDecorator);
 
@@ -139,6 +140,7 @@ const EditArticlePage = () => {
   const [cid, setCid] = useState()
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
   const {id} = useParams()
+  const [editArticle,setEditArticle] = useState(null)
 
   // Добавление тега по нажатию клавиши Enter
   const handleAddTag = (e) => {
@@ -362,7 +364,28 @@ const EditArticlePage = () => {
     setDate(new Date(date).toISOString())
   }
 
+  const handleArticle = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    const Id = userId;
+    try {
+      const response = api.get(`/articles/${id}?userId=${Id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      setEditArticle(response.data)
+      console.log(response.data);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   useEffect(() => {
+    handleArticle()
     setImage(croppedImage)
     setPubDate(publishDate)
     setSubtitled(subtitle)
@@ -386,7 +409,7 @@ const EditArticlePage = () => {
     // Проверяем авторизацию
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    const userId = Number(localStorage.getItem("userId"));
+    const Id = userId;
 
     if (!accessToken || !refreshToken) {
       return;
@@ -466,7 +489,7 @@ const EditArticlePage = () => {
         content: updatedHTML,
         conclusion,
         publishDate: date,
-        authorId: userId,
+        authorId: Id,
         status: "Draft",
         poster: posterUrl,
         tags,
