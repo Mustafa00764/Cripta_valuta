@@ -389,12 +389,7 @@ const EditArticlePage = () => {
     }
   }
 
-  useEffect(() => {
-    handleArticle()
-    if (!editArticle) {
-      return;
-    }
-    // setImage(editArticle.poster)
+  const handleB = () => {
     setPubDate(editArticle.createdAt)
     setSubtitled(editArticle.subtitle)
     setTitled(editArticle.title)
@@ -408,9 +403,19 @@ const EditArticlePage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
     const day = String(today.getDate()).padStart(2, '0');
     setMinDate(`${year}-${month}-${day}`);
+  }
+
+  useEffect(() => {
+    handleArticle()
+    if (!editArticle) {
+      return;
+    }
+    handleB()
+    // setImage(editArticle.poster)
+
     // setCategory(categories[0]);
 
-  }, [selectedCategory, editArticle, contentState, croppedImage, poster, publishDate, subtitle, title, conclusion, main, setMain, getContentAsHTML()])
+  }, [selectedCategory, contentState, croppedImage, poster, publishDate, editorState,tags,cid, subtitle, title, conclusion, main, setMain, getContentAsHTML()])
 
   const sendToBackend = async (event) => {
     event.preventDefault();
