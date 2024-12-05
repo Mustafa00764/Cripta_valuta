@@ -406,7 +406,7 @@ const EditArticlePage = () => {
     setMinDate(`${year}-${month}-${day}`);
     // setCategory(categories[0]);
 
-  }, [selectedCategory, contentState, croppedImage, poster, publishDate, subtitle, title, conclusion, main, setMain, getContentAsHTML()])
+  }, [selectedCategory, editArticle, contentState, croppedImage, poster, publishDate, subtitle, title, conclusion, main, setMain, getContentAsHTML()])
 
   const sendToBackend = async (event) => {
     event.preventDefault();
