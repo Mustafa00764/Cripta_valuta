@@ -81,7 +81,7 @@ const UsersDashboard = () => {
                 if (usersStatus == "USERS") {
                   return <UDCard userInfo={item} key={item.id} index={index+1}/>
                 } else if (usersStatus == "BLOCKED USERS" && item.isBlocked == true){
-                  setNum(num++)
+                  setNum(num+=1)
                   return <UDCard userInfo={item} key={item.id} index={index + 1} />
                 }
               })
