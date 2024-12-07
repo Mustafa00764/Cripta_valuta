@@ -11,10 +11,13 @@ import UBModel from './UBModel'
 const UsersDashboard = () => {
   const { theme, users, setUsers, handleUsersList } = useContext(AdminContext)
   const [username,setUserName] = useState('')
+  const [usersStatus, setUsersStatus] = useState('')
+
   const {status,setStatus} = useContext(AuthContext)
 
   useEffect(()=>{
     handleUsersList()
+    setUsersStatus("USERS")
   },[])
 
 
@@ -23,12 +26,12 @@ const UsersDashboard = () => {
       <PanelHeader title={'Users'}/>
       <div className='px-[60px] mt-[6px]'>
         <div className='h-[78px] py-[14px] gap-4 flex max-w-full'>
-          <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+          <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`} onClick={() => setUsersStatus("USERS")}>
             <img src={userss} alt="article"/>
             <p>USERS</p>
             <p>{users.length}</p>
           </div>
-          <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+          <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`} onClick={() => setUsersStatus("BLOCKED USERS")}>
             <img src={blockedUsers} alt="article"/>
             <p>BLOCKED USERS</p>
             <p>0</p>
@@ -75,7 +78,11 @@ const UsersDashboard = () => {
           <div className=' relative'>
             {
               users.map((item,index)=>{
-                return <UDCard userInfo={item} key={item.id} index={index+1}/>
+                if (usersStatus == "USERS" && item.isBlocked == false) {
+                  return <UDCard userInfo={item} key={item.id} index={index+1}/>
+                } else if (usersStatus == "BLOCKED USERS" && item.isBlocked == true){
+                  return <UDCard userInfo={item} key={item.id} index={index + 1} />
+                }
               })
             }
             {/* <UDCard status={"user"}/> */}
