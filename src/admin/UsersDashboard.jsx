@@ -7,6 +7,7 @@ import UDCard from './UDCard'
 import api from '../components/axiosRefresh'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
+import UBModel from './UBModel'
 const UsersDashboard = () => {
   const { theme, users, setUsers, handleUsersList } = useContext(AdminContext)
   const [username,setUserName] = useState('')
@@ -81,6 +82,7 @@ const UsersDashboard = () => {
           </div>
         </div>
       </div>
+      <UBModel/>
     </div>
   )
 }
