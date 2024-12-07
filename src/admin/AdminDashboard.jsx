@@ -27,12 +27,14 @@ const AdminDashboard = () => {
 
   const handleRole = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    const Id = Number(userId);
+    const Id = userId;
     const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
     const newAccessToken = responses.data.accessToken;
+    const userData = {
+      role: selectedRole
+    };
 
-
-    const userResponse = await api.put(`/users/${userId}`, {
+    const userResponse = await api.put(`/users/${Id}`, userData, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${newAccessToken}`,
