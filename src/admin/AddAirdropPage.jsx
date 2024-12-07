@@ -150,6 +150,5 @@ const AddAirdropPage = () => {
     </div>
   )
 }
-};
 
 export default AddAirdropPage;
