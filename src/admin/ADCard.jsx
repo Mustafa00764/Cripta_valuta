@@ -27,7 +27,6 @@ const ADCard = ({item,index}) => {
       handleUsersList()
     } catch (error) {
       console.log(error);
-      
     }
   }
 
