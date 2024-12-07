@@ -8,7 +8,7 @@ import api from '../components/axiosRefresh'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
 const UsersDashboard = () => {
-  const {theme,users,setUsers,handleUsersList} = useContext(AdminContext)
+  const { theme, users, setUsers, handleUsersList } = useContext(AdminContext)
   const [username,setUserName] = useState('')
   const {status,setStatus} = useContext(AuthContext)
 

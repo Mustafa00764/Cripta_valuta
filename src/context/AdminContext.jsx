@@ -30,6 +30,9 @@ const AdminProvider = ({ children }) => {
   const [article,setArticle] = useState({})
   const [users,setUsers] = useState([])
   const [admins, setAdmins] = useState([])
+  const [blockUser, setBlockUser] = useState(false)
+  const [blockUserId, setBlockUserId] = useState()
+
 
   const toggleTheme = () => {
     const newTheme = theme ? 'dark' : 'light';
@@ -159,7 +162,7 @@ const AdminProvider = ({ children }) => {
   }, [users]); // Зависимость от users
 
   return (
-    <AdminContext.Provider value={{handleUsersList, admins, setAdmins, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
+    <AdminContext.Provider value={{ handleUsersList, blockUserId, setBlockUserId, blockUser, setBlockUser, admins, setAdmins, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
       {children}
     </AdminContext.Provider>
   )

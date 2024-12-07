@@ -142,7 +142,7 @@ const AddAdvertisingPage = () => {
           </div>
         </form>
         <div className='mt-[15px]'>
-        <label htmlFor="subtitle" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Preview <span className='text-[#FF8F00] text-[14px] '>(click and watch demo)</span></label>
+        <label htmlFor="subtitle" className='pl-[15px] text-textMode flex gap-[5px] mb-[10px] items-center'>Preview <span className='text-[#FF8F00] text-[14px] '>(click and watch demo)</span></label>
         </div>
         <div>
           <button className="mt-4 px-4 py-2 bg-blue-500 text-white" >
