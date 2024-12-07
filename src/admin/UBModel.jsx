@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AdminContext } from "../context/AdminContext";
 import api from "../components/axiosRefresh";
 
@@ -25,6 +25,9 @@ const UBModel = () => {
       
     }
   }
+  useEffect(()=>{
+
+  }, [blockUser, blockUserId])
   return (
     <div className={blockUser ? 'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center z-[25] opacity-[1]' : 'w-full h-full absolute top-0 left-0 flex justify-center transition-all bg-[rgba(0,0,0,.5)] items-center -z-10 opacity-0'}>
       <div className='max-w-[767px] w-full flex flex-col gap-4 h-auto p-6 bg-bgMode rounded-[15px] '>
