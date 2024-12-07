@@ -200,7 +200,8 @@ canvas{
 }
 
 .options:hover .unlocked svg path{
-  
+  stroke: #008000;
+  transition: all .15s;
 }
 
 .navlinkElementDark div svg path{
