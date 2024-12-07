@@ -7,7 +7,7 @@ import { AdminContext } from '../context/AdminContext';
 
 const UDCard = ({userInfo,index}) => {
   const {status,userId} = useContext(AuthContext)
-  const { setBlockUser, blockUser, blockUserId, setBlockUserId } = useContext(AdminContext)
+  const { setBlockUser, blockUser, blockUserId, setBlockUserId,handleUsersList } = useContext(AdminContext)
   const handleUserBan = async () => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -40,10 +40,31 @@ const UDCard = ({userInfo,index}) => {
     setBlockUserId(userInfo.id)
   }
 
+  const handleUnlock = async () => {
+
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    try {
+      const user = {
+        isBlocked: false
+      }
+      const responseUser = await api.put(`/users/${userInfo.id}`, user,{
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        }
+      })
+      console.log(responseUser.data);
+      handleUsersList()
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   useEffect(()=>{
 
 
-  }, [userId])
+  }, [userId,blockUser, blockUserId])
 
   const photoUrl = () => {
     if (!userInfo) {
@@ -96,7 +117,7 @@ const UDCard = ({userInfo,index}) => {
       </Link>
       {
         userInfo.isBlocked?
-        <div className='blocked transition-all' onClick={() => blockModel()}>
+        <div className='unlocked transition-all' onClick={() => handleUnlock()}>
         <svg
         xmlns="http://www.w3.org/2000/svg"
         width="22"
