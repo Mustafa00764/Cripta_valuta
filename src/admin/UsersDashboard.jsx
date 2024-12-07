@@ -12,7 +12,7 @@ const UsersDashboard = () => {
   const { theme, users, setUsers, handleUsersList } = useContext(AdminContext)
   const [username,setUserName] = useState('')
   const [usersStatus, setUsersStatus] = useState('')
-
+  let num = 0
   const {status,setStatus} = useContext(AuthContext)
 
   useEffect(()=>{
@@ -34,7 +34,7 @@ const UsersDashboard = () => {
           <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`} onClick={() => setUsersStatus("BLOCKED USERS")}>
             <img src={blockedUsers} alt="article"/>
             <p>BLOCKED USERS</p>
-            <p>0</p>
+            <p>{num}</p>
           </div>
         </div>
         <div className='w-full h-[50px] mt-[5px]'>
@@ -81,6 +81,7 @@ const UsersDashboard = () => {
                 if (usersStatus == "USERS") {
                   return <UDCard userInfo={item} key={item.id} index={index+1}/>
                 } else if (usersStatus == "BLOCKED USERS" && item.isBlocked == true){
+                  num++
                   return <UDCard userInfo={item} key={item.id} index={index + 1} />
                 }
               })
