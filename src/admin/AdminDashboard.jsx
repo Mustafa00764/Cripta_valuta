@@ -32,7 +32,7 @@ const AdminDashboard = () => {
     const newAccessToken = responses.data.accessToken;
 
 
-    const userResponse = await api.put(`/users/${userId}`, selectedRole, {
+    const userResponse = await api.put(`/users/${userId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${newAccessToken}`,
