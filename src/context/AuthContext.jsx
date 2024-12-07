@@ -56,7 +56,8 @@ const AuthProvider = ({children}) => {
     const refreshToken = localStorage.getItem('refreshToken');
     
     if (accessToken) {
-      const decoded = parseJwt(accessToken); // Декодируем токен
+      const token = refreshAccessToken(refreshToken)
+      const decoded = parseJwt(token); // Декодируем токен
       setUserId(decoded?.userId); // Извлечение userId
       console.log(userId);
     } else {
