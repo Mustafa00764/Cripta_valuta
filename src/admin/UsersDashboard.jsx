@@ -17,7 +17,7 @@ const UsersDashboard = () => {
   useEffect(()=>{
     handleUsersList()
     setUsersStatus("USERS")
-  },[num])
+  },[])
 
 
   return (
@@ -33,6 +33,7 @@ const UsersDashboard = () => {
           <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`} onClick={() => setUsersStatus("BLOCKED USERS")}>
             <img src={blockedUsers} alt="article"/>
             <p>BLOCKED USERS</p>
+            <p></p>
           </div>
         </div>
         <div className='w-full h-[50px] mt-[5px]'>
