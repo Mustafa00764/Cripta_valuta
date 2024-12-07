@@ -34,10 +34,6 @@ const AuthProvider = ({children}) => {
 
 
   const parseJwt = (token) => {
-    if (!token || typeof token !== 'string' || !token.includes('.')) {
-      console.error('Invalid token format');
-      return null;
-    }
   
     try {
       const base64Url = token.split('.')[1]; // Получаем payload
