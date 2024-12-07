@@ -34,6 +34,11 @@ const AuthProvider = ({children}) => {
 
 
   const parseJwt = (token) => {
+    if (!token || typeof token !== 'string' || !token.includes('.')) {
+      console.error('Invalid token format');
+      return null;
+    }
+  
     try {
       const base64Url = token.split('.')[1]; // Получаем payload
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -45,10 +50,11 @@ const AuthProvider = ({children}) => {
       );
       return JSON.parse(jsonPayload); // Преобразуем в объект
     } catch (e) {
-      console.error('Invalid token', e);
+      console.error('Error parsing token', e);
       return null;
     }
   };
+  
 
 
   const restoreSession = async () => {
