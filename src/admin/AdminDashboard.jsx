@@ -30,11 +30,9 @@ const AdminDashboard = () => {
     const Id = Number(userId);
     const responses = await axios.post('https://legitcommunity.uz/auth/refresh-token', { refreshToken: refreshToken });
     const newAccessToken = responses.data.accessToken;
-    const userData = {
-      selectedRole
-    };
 
-    const userResponse = await api.put(`/users/${userId}`, userData, {
+
+    const userResponse = await api.put(`/users/${userId}`, selectedRole, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${newAccessToken}`,
