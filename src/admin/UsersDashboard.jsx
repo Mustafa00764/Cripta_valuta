@@ -78,7 +78,7 @@ const UsersDashboard = () => {
           <div className=' relative'>
             {
               users.map((item,index)=>{
-                if (usersStatus == "USERS" && item.isBlocked == false) {
+                if (usersStatus == "USERS") {
                   return <UDCard userInfo={item} key={item.id} index={index+1}/>
                 } else if (usersStatus == "BLOCKED USERS" && item.isBlocked == true){
                   return <UDCard userInfo={item} key={item.id} index={index + 1} />
