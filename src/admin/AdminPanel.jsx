@@ -36,8 +36,7 @@ const AdminPanel = () => {
           <Route path='statistic' element={<StatisticPage/>}/>
           <Route path='categories' element={<CategoriesPage/>}/>
           <Route path='editarticle/:id' element={<EditArticlePage />} />
-          <Route path='/admin/add/airdrop' element={<AddAirdropPage />} />
-
+          <Route path='add/airdrop' element={<AddAirdropPage />} />
         </Routes>
       </div>
     </div>
