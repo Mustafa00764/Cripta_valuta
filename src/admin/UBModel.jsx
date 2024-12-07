@@ -3,7 +3,7 @@ import { AdminContext } from "../context/AdminContext";
 import api from "../components/axiosRefresh";
 
 const UBModel = () => {
-  const { blockUser, setBlockUser,blockUserId, setBlockUserId } = useContext(AdminContext)
+  const { blockUser, setBlockUser, blockUserId, setBlockUserId, handleUsersList } = useContext(AdminContext)
 
   const handleSubmite = async() => {
 
@@ -19,7 +19,8 @@ const UBModel = () => {
         }
       })
       console.log(responseUser.data);
-      
+      handleUsersList()
+      setBlockUser(false)
     } catch (error) {
       console.log(error);
       
