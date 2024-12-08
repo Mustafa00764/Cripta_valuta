@@ -51,7 +51,15 @@ const AirdropDashboard = () => {
         <div className='h-[78px] py-[14px] flex gap-[25px] items-center w-full'>
 
           <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
-            <img src={article} alt="article"/>
+            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+                <path d="m12.5495 12.9201c-1.64.39-3.07-1.04-2.68-2.68.19-.77002.82-1.39999 1.59-1.58999 1.35-.33 2.57.59998 2.73 1.84999" />
+                <path d="m7.64093 3.1499c-2.65 1.51-4.42999 4.36996-4.42999 7.64 0 2.54 1.08 4.8299 2.81 6.4299" />
+                <path d="m18.01 17.19c1.71-1.6 2.78-3.87 2.78-6.4 0-4.86002-3.94-8.79-8.79-8.79" />
+                <path d="m7.99977 14.55c-.92-.98-1.49-2.3-1.49-3.76 0-3.02996 2.46-5.48995 5.49003-5.48995 3.03 0 5.49 2.45999 5.49 5.48995 0 1.46-.57 2.77-1.49 3.76" />
+                <path d="m10.3007 16.66-1.43999 1.7901c-1.14 1.43-.13 3.5399 1.69999 3.5399h2.87c1.83 0 2.85-2.1199 1.7-3.5399l-1.44-1.7901c-.86-1.09-2.52-1.09-3.39 0z" />
+              </g>
+            </svg>
             <p>AIRDROPS</p>
             <p>{airdrops.length}</p>
           </div>
