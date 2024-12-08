@@ -134,7 +134,8 @@ const UDCard = ({userInfo,index}) => {
       </svg>
       </div>
 
-      :        
+      :
+      userInfo.role == "OWNER"?"":       
       <div className='blocked transition-all' onClick={() => blockModel()}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_2214_768)">
