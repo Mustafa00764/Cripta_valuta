@@ -17,7 +17,7 @@ const AddPage = () => {
           <Link>
           <button className='w-[200px] h-[50px] rounded-[4px] bg-gradient-to-t to-[#FF003C] from-[rgba(255,0,60,.5)] text-[#fff] font-bold'>Edit Top - 10</button>
           </Link>
-          <Link>
+          <Link to={"/admin/add/airdrop"}>
           <button className='w-[200px] h-[50px] rounded-[4px] bg-gradient-to-t to-[#FF8F00] from-[rgba(255,143,0,.5)] text-[#fff] font-bold'>Add New AirDrop</button>
           </Link>
         </div>

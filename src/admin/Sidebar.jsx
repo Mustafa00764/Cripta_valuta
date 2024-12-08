@@ -117,7 +117,7 @@ const Sidebar = () => {
           <p>Authors</p>
         </div>
         </NavLink> */}
-        <NavLink to={"/admin/add/airdrop"} className={(navData) => (navData.isActive ? ` ${theme ? 'navlinkElementDarkAir' : 'navlinkElementLightAir'} font-medium` : " ")}>
+        <NavLink to={"/a"} className={(navData) => (navData.isActive ? ` ${theme ? 'navlinkElementDarkAir' : 'navlinkElementLightAir'} font-medium` : " ")}>
           <div className={`w-full h-[56px] flex px-[18px] gap-[20px] items-center cursor-pointer ${theme ? 'sideBarElementDarkAir' : 'sideBarElementLightAir'} transition-all`}>
             <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
               <g stroke="#494E5B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
