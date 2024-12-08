@@ -2,7 +2,12 @@ import React, { useContext } from 'react'
 import { AdminContext } from '../context/AdminContext'
 
 const Sort = () => {
-  const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
+  const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort,airdropSort,setAirdropSort, airdropPagination,setAirdropPagination} = useContext(AdminContext)
+
+  const handleSort = (sort) => {
+    setArticleSort(sort)
+    setAirdropSort(sort)
+  }
 
 
   return (
@@ -15,7 +20,7 @@ const Sort = () => {
         className={`w-[50px] h-[50px] ${
           articleSort === 10 ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
         }`}
-        onClick={() => setArticleSort(10)}
+        onClick={() => handleSort(10)}
       >
         10
       </button>
@@ -23,7 +28,7 @@ const Sort = () => {
         className={`w-[50px] h-[50px] ${
           articleSort === 15 ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
         }`}
-        onClick={() => setArticleSort(15)}
+        onClick={() => handleSort(15)}
       >
         15
       </button>
@@ -31,7 +36,7 @@ const Sort = () => {
         className={`w-[50px] h-[50px] ${
           articleSort === 20 ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
         }`}
-        onClick={() => setArticleSort(20)}
+        onClick={() => handleSort(20)}
       >
         20
       </button>
@@ -39,7 +44,7 @@ const Sort = () => {
         className={`w-[50px] h-[50px] ${
           articleSort === 25 ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
         }`}
-        onClick={() => setArticleSort(25)}
+        onClick={() => handleSort(25)}
       >
         25
       </button>
@@ -47,7 +52,7 @@ const Sort = () => {
         className={`w-[50px] h-[50px] ${
           articleSort === 50 ? ` border-2 border-[#262E34] ${theme?'text-sideBarTextDark':'text-white'} bg-pageMode  transition-all` : ` border-2 ${theme?'text-sideBarTextDark':'text-white'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} border-[#262E34] transition-all ${theme?'hover:bg-sideBarLight':'hover:bg-[#151B1F]'} `
         }`}
-        onClick={() => setArticleSort(50)}
+        onClick={() => handleSort(50)}
       >
         50
       </button>

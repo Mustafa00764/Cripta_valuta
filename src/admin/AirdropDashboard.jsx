@@ -12,7 +12,7 @@ import DAModel from './DAModel'
 import { AuthContext } from '../context/AuthContext'
 
 const AirdropDashboard = () => {
-  const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
+  const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort ,airdropSort,setAirdropSort, airdropPagination,setAirdropPagination} = useContext(AdminContext)
   const { userId, setUserId, parseJwt } = useContext(AuthContext)
   const [airdrops,setAirdrops] = useState([])
 
@@ -115,7 +115,7 @@ const AirdropDashboard = () => {
           <div className=' relative overflow-hidden'>
             {
               Array.isArray(airdrops) ? airdrops.map((item,index)=>{
-                if (index+1<=articleSort*articlePagination && index+1> (articlePagination-1)*articleSort) {
+                if (index+1<=airdropSort*airdropPagination && index+1> (airdropPagination-1)*airdropSort) {
                   return (
                     <DCard key={item.id} item={item} index={index+1}/>
                   )
@@ -125,10 +125,10 @@ const AirdropDashboard = () => {
           </div>
         </div>
         <div>
-          {/* <Pagination length={airdrops.length} totalPages={Math.ceil(airdrops.length / articleSort)}/> */}
+          <Pagination length={airdrops.length} totalPages={Math.ceil(airdrops.length / airdropSort)}/>
         </div>
         <div className='flex w-full h-[78px] items-center'>
-          {/* <Sort/> */}
+          <Sort/>
         </div>
       </div>
       {/* <DAModel handleArticlesList={handleArticlesList}/> */}

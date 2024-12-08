@@ -32,6 +32,8 @@ const AdminProvider = ({ children }) => {
   const [admins, setAdmins] = useState([])
   const [blockUser, setBlockUser] = useState(false)
   const [blockUserId, setBlockUserId] = useState()
+  const [airdropPagination,setAirdropPagination] = useState(1)
+  const [airdropSort,setAirdropSort] = useState(10)
 
 
   const toggleTheme = () => {
@@ -162,7 +164,7 @@ const AdminProvider = ({ children }) => {
   }, [users]); // Зависимость от users
 
   return (
-    <AdminContext.Provider value={{ handleUsersList, blockUserId, setBlockUserId, blockUser, setBlockUser, admins, setAdmins, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
+    <AdminContext.Provider value={{ airdropSort,setAirdropSort, airdropPagination,setAirdropPagination,  handleUsersList, blockUserId, setBlockUserId, blockUser, setBlockUser, admins, setAdmins, users,setUsers,articlePagination,deleteArticleModel, setDeleteArticleModel,articleModel,setArticleModel,article,setArticle, setArticlePagination, articleSort, setArticleSort, theme,model,setCategoryName,categoryName,setModel,deleteModel,setSelectedCategory,selectedCategory,setDeleteModel,category,setCategory, setTheme,handleRestore,conclusione,setConclusione, sort, setSort,setPostered,postered,toggleTheme, setCategories,setMain,setImage,setPubDate,setSubtitled,setTitled,image,main,categories,pubDate,titled,subtitled}}>
       {children}
     </AdminContext.Provider>
   )

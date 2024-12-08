@@ -3,11 +3,12 @@ import { AdminContext } from '../context/AdminContext';
 
 const Pagination = ({ totalPages,length }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
+  const {theme, articlePagination, setArticlePagination, articleSort, setArticleSort, airdropSort,setAirdropSort, airdropPagination,setAirdropPagination} = useContext(AdminContext)
 
   const handlePageClick = (page) => {
     setCurrentPage(page);
     setArticlePagination(page)
+    setAirdropPagination(page)
   };
 
   const renderPageNumbers = () => {
