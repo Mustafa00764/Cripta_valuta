@@ -15,6 +15,7 @@ import StatisticPage from './StatisticPage'
 import CategoriesPage from './CategoriesPage'
 import EditArticlePage from './EditArticlePage'
 import AddAirdropPage from './AddAirdropPage'
+import AirdropDashboard from './AirdropDashboard'
 
 const AdminPanel = () => {
   const {theme} = useContext(AdminContext)
@@ -37,6 +38,7 @@ const AdminPanel = () => {
           <Route path='categories' element={<CategoriesPage/>}/>
           <Route path='editarticle/:id' element={<EditArticlePage />} />
           <Route path='add/airdrop' element={<AddAirdropPage />} />
+          <Route path='airdrops' element={<AirdropDashboard />} />
         </Routes>
       </div>
     </div>
