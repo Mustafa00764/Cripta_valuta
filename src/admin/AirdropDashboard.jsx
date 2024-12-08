@@ -14,9 +14,9 @@ import { AuthContext } from '../context/AuthContext'
 const AirdropDashboard = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort} = useContext(AdminContext)
   const { userId, setUserId, parseJwt } = useContext(AuthContext)
-  const [articles,setArticles] = useState([])
+  const [airdrops,setAirdrops] = useState([])
 
-  const handleArticlesList = async () => {
+  const handleAirdropsList = async () => {
 
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -33,7 +33,7 @@ const AirdropDashboard = () => {
       })
       console.log(responseArticle);
       
-      setArticles(responseArticle.data)
+      setAirdrops(responseArticle.data)
       
     } catch (error) {
       console.log(error);
@@ -42,42 +42,20 @@ const AirdropDashboard = () => {
   }
 
   useEffect(()=>{
-    handleArticlesList()
+    handleAirdropsList()
   },[])
   return (
     <div className='w-full'>
-      <PanelHeader title={'Main'}/>
+      <PanelHeader title={'Airdrops'}/>
       <div className='px-[60px] mt-[6px]'>
         <div className='h-[78px] py-[14px] flex gap-[25px] items-center w-full'>
 
           <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
             <img src={article} alt="article"/>
-            <p>ARTICLES</p>
-            <p>{articles.length}</p>
-          </div>
-
-          <div className={`gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
-            <img src={top_10} alt="top_10" />
-            <p>Top - 10</p>
+            <p>AIRDROPS</p>
+            <p>{airdrops.length}</p>
           </div>
           
-        </div>
-        <div className={`w-full h-[41px] flex items-center  ${theme?'text-sideBarTextDark':'text-white'}`}>
-          <p>{"ARTICLES"}/<span className='text-[#88919D]'>{'Category'}</span></p>
-        </div>
-        <div className='w-full h-[50px] flex gap-[10px] items-center'>
-            <div className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
-              <p>All</p>
-            </div>
-            {
-              categories.map((item)=>{
-                return(
-                  <div key={item.id} className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
-                    <p>{item.name}</p>
-                  </div>
-                )
-              })
-            }
         </div>
         <div className='w-full h-[50px] mt-[5px]'>
           <div className={`max-w-[520px] w-full h-full ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} items-center flex transition-all rounded-[12px] border border-[rgba(136,145,157,0.20)] overflow-hidden ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
@@ -108,13 +86,13 @@ const AirdropDashboard = () => {
               <p>author</p>
             </div>
             <div className='w-[150px]'>
-              <p>pubdate</p>
+              <p>startDate</p>
             </div>
             <div className='w-[300px]'>
-              <p>title</p>
+              <p>endDate</p>
             </div>
             <div className='w-[200px]'>
-              <p>category</p>
+              <p>prizePool</p>
             </div>
             <div className='w-[150px]'>
               <p>views</p>
@@ -128,26 +106,43 @@ const AirdropDashboard = () => {
           </div>
           <div className=' relative overflow-hidden'>
             {
-              Array.isArray(articles) ? articles.map((item,index)=>{
+              Array.isArray(airdrops) ? airdrops.map((item,index)=>{
                 if (index+1<=articleSort*articlePagination && index+1> (articlePagination-1)*articleSort) {
                   return (
                     <DCard key={item.id} item={item} index={index+1}/>
                   )
                 }
-              }):console.error('o is not an array')
+              }):console.error('airdrops is not an array')
             }
           </div>
         </div>
         <div>
-          <Pagination length={articles.length} totalPages={Math.ceil(articles.length / articleSort)}/>
+          {/* <Pagination length={airdrops.length} totalPages={Math.ceil(airdrops.length / articleSort)}/> */}
         </div>
         <div className='flex w-full h-[78px] items-center'>
-          <Sort/>
+          {/* <Sort/> */}
         </div>
       </div>
-      <DAModel handleArticlesList={handleArticlesList}/>
+      {/* <DAModel handleArticlesList={handleArticlesList}/> */}
     </div>
   )
 }
 
 export default AirdropDashboard
+
+
+// {
+//   "name": "Campaign Name",
+//   "description": "Campaign Description",
+//   "startDate": "2023-01-01T00:00:00Z",
+//   "endDate": "2023-12-31T23:59:59Z",
+//   "prizePool": 1000000,
+//   "tasks": [
+//     {
+//       "name": "Task 1",
+//       "description": "Complete this task",
+//       "type": "Social",
+//       "openingDate": "2023-01-01T00:00:00Z"
+//     }
+//   ]
+// }
