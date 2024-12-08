@@ -70,7 +70,7 @@ const AddAirdropPage = () => {
       <PanelHeader title={'Add / New Advertising'}/>
       <div className='w-full h-full px-[40px]'>
         <div className={`text-[24px] font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
-          <p>New Advertising</p>
+          <p>New Airdrop</p>
         </div>
         <form >
           <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all mt-[5px] `}>
@@ -125,7 +125,7 @@ const AddAirdropPage = () => {
             />
           </div>
           <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
-          <label htmlFor="url" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Url <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+          <label htmlFor="url" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Description <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"
               maxLength="200"
@@ -152,3 +152,21 @@ const AddAirdropPage = () => {
 }
 
 export default AddAirdropPage;
+
+
+
+// {
+//   "name": "Campaign Name",
+//   "description": "Campaign Description",
+//   "startDate": "2023-01-01T00:00:00Z",
+//   "endDate": "2023-12-31T23:59:59Z",
+//   "prizePool": 1000000,
+//   "tasks": [
+//     {
+//       "name": "Task 1",
+//       "description": "Complete this task",
+//       "type": "Social",
+//       "openingDate": "2023-01-01T00:00:00Z"
+//     }
+//   ]
+// }

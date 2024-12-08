@@ -44,19 +44,3 @@ const AdminPanel = () => {
 }
 
 export default AdminPanel
-
-// {
-//   "name": "Campaign Name",
-//   "description": "Campaign Description",
-//   "startDate": "2023-01-01T00:00:00Z",
-//   "endDate": "2023-12-31T23:59:59Z",
-//   "prizePool": 1000000,
-//   "tasks": [
-//     {
-//       "name": "Task 1",
-//       "description": "Complete this task",
-//       "type": "Social",
-//       "openingDate": "2023-01-01T00:00:00Z"
-//     }
-//   ]
-// }

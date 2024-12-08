@@ -33,6 +33,19 @@ const ADCard = ({item,index}) => {
   useEffect(()=>{
     console.log(cover);
   },[])
+
+
+  const photoUrl = () => {
+    if (!item) {
+      return;
+    }
+    if (item.photo_url.startsWith("https://legitcommunity.uz")) {
+      return <img src={item ? item.photo_url : ""} alt="" className=' border-0' crossOrigin="anonymous" />
+    } else {
+      return <img src={item ? item.photo_url : ""} alt="" className=' border-0' />
+    }
+  }
+
   return (
     <div className='flex text-center options text-[#72787F] cursor-default last:rounded-b-[12px] even:bg-[#EAEAEA] odd:bg-[#fff] h-[50px] items-center'>
     <div className='w-[100px]'>
@@ -40,7 +53,7 @@ const ADCard = ({item,index}) => {
     </div>
     <div className='w-[150px] items-center gap-4 flex justify-start h-full'>
       <div className='w-[32px] h-[32px] rounded-full overflow-hidden bg-[rgba(136,145,157,.2)]'>
-        <img className='border-0 ' src={item.photo_url} alt="" />
+        {photoUrl()}
       </div>
       <p>{item.firstName}</p>
     </div>
