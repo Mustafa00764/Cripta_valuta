@@ -10,6 +10,7 @@ import axios from 'axios'
 import api from '../components/axiosRefresh'
 import DAModel from './DAModel'
 import { AuthContext } from '../context/AuthContext'
+import AirDCard from './AirDCard'
 
 const AirdropDashboard = () => {
   const {theme, articlePagination, categories, setArticlePagination, articleSort, setArticleSort ,airdropSort,setAirdropSort, airdropPagination,setAirdropPagination} = useContext(AdminContext)
@@ -117,7 +118,7 @@ const AirdropDashboard = () => {
               Array.isArray(airdrops) ? airdrops.map((item,index)=>{
                 if (index+1<=airdropSort*airdropPagination && index+1> (airdropPagination-1)*airdropSort) {
                   return (
-                    <DCard key={item.id} item={item} index={index+1}/>
+                    <AirDCard key={item.id} item={item} index={index+1}/>
                   )
                 }
               }):console.error('airdrops is not an array')
