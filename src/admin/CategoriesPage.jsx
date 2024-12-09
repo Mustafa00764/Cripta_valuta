@@ -140,7 +140,7 @@ const CategoriesPage = () => {
       <div className='h-[78px] py-[14px] max-w-[150px]'>
           <label htmlFor="Articles">
             <input type="radio" id='Articles' name='category' className='hidden'/>
-            <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+            <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center bg-bgMode transition-all text-textMode px-5`}>
               <p>Categories</p>
               <p>{categories.length}</p> 
             </div>
@@ -207,7 +207,7 @@ const CategoriesPage = () => {
               placeholder='Enter asset name'
               onChange={(e) => setName(e.target.value)}
               required
-              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
           <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>

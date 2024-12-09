@@ -523,7 +523,7 @@ const AddArticlePage = () => {
               <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-[300px] mt-[5px] gap-[15px] relative h-[50px] flex items-center border border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+                className={`w-[300px] mt-[5px] gap-[15px] relative h-[50px] flex items-center border border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
               >
                 <span className="block truncate">{category}</span>
                 <span className="absolute inset-y-0 right-[15px] flex items-center  pointer-events-none">
@@ -532,13 +532,13 @@ const AddArticlePage = () => {
               </button>
 
               {isOpen && (
-                <ul className={`absolute w-[300px] z-[1] mt-1 ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
+                <ul className={`absolute w-[300px] z-[1] mt-1 bg-bgMode transition-all text-textMode shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
                   {categories.map((v) => (
                     <li
                       key={v.id}
                       onClick={() => handleCategoryClick(v.name,v.id)}
                       className={`cursor-pointer select-none h-[50px]  flex items-center px-[15px] ${
-                      category === v.name ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
+                      category === v.name ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `text-textMode`
                       } ${theme?'hover:bg-sideBarTextLight':'hover:bg-[#151B1F]'}`}
                     >
                       <span className="block truncate">{v.name}</span>
@@ -554,7 +554,7 @@ const AddArticlePage = () => {
               <div className="flex flex-col mt-[5px]">
               <input
                   type="text"
-                  className="w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]"
+                  className="w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]"
                   placeholder="Введите тег и нажмите Enter"
                   value={input}
                   id='tags'
@@ -590,7 +590,7 @@ const AddArticlePage = () => {
                 id="publishDate"
                 required
                 min={minDate}
-                className={`w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+                className={`w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
                 onChange={(e) => newDate(e)} // Установка даты публикации
               />
             </div>
@@ -644,7 +644,7 @@ const AddArticlePage = () => {
               placeholder='Enter asset title'
               onChange={(e) => setTitle(e.target.value)}
               required
-              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
           <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
@@ -657,13 +657,13 @@ const AddArticlePage = () => {
               placeholder='Enter asset subtitle'
               onChange={(e) => setSubtitle(e.target.value)}
               required
-              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
           <div className={`mt-[15px] ${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all`}>
           <label htmlFor="" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Main Content <span className='text-[#FF8F00] text-[14px] '>(unlimited)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
           <div className={`w-full max-w-[1280px] `}>
-            <div className={`border flex flex-wrap gap-1 border-b-0 cursor-pointer h-auto border-[#262E34] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-t-[12px] overflow-hidden`}>
+            <div className={`border flex flex-wrap gap-1 border-b-0 cursor-pointer h-auto border-[#262E34] bg-bgMode transition-all text-textMode rounded-t-[12px] overflow-hidden`}>
               <button form="" className={` w-[40px] flex justify-center items-center h-[40px]`} onClick={() => toggleInlineStyle('BOLD')}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.315 19.5C15.474 19.5 17.433 17.8695 17.433 15.2655C17.433 13.3065 15.957 11.841 13.947 11.6865V11.604C14.7168 11.4881 15.4198 11.1009 15.9292 10.5123C16.4386 9.9237 16.7208 9.17242 16.725 8.394C16.725 6.129 14.982 4.704 12.204 4.704H5.76453V19.5H12.315ZM8.86203 7.011H11.406C12.8505 7.011 13.6815 7.6875 13.6815 8.877C13.6815 10.128 12.738 10.857 11.0865 10.857H8.86203V7.011ZM8.86203 17.193V12.897H11.457C13.2825 12.897 14.277 13.635 14.277 15.0195C14.277 16.434 13.3125 17.193 11.529 17.193H8.86203Z" fill={theme?"#0C1013":"#FFFFFF"}/>
@@ -736,7 +736,7 @@ const AddArticlePage = () => {
               <button form="" onClick={() => toggleBlockTypes('header-one')} className={` w-[50px] h-[40px]`}>24px</button>
               <button form="" className='w-[60px] h-[40px] text-[#0C1013] bg-sideBarTextLight'>{fontSize}px</button>
             </div>
-            <div className={`w-full outline-none border overflow-hidden min-h-[200px] h-auto border-[#262E34] p-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-b-[12px]`}>
+            <div className={`w-full outline-none border overflow-hidden min-h-[200px] h-auto border-[#262E34] p-[15px] bg-bgMode transition-all text-textMode rounded-b-[12px]`}>
               <Editor
                 editorState={editorState}
                 handleKeyCommand={handleKeyCommand}
@@ -757,7 +757,7 @@ const AddArticlePage = () => {
               placeholder='Enter asset conclusion'
               onChange={(e) => setConclusion(e.target.value)}
               required
-              className={`w-full outline-none border min-h-[150px] max-w- border-[#262E34] p-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+              className={`w-full outline-none border min-h-[150px] max-w- border-[#262E34] p-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             ></textarea>
           </div>
           <button className="mt-4 px-4 py-2 bg-blue-500 text-white" type='submit'>

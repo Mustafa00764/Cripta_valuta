@@ -572,7 +572,7 @@ const EditArticlePage = () => {
                 <div className="flex flex-col mt-[5px]">
                   <input
                     type="text"
-                    className="w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]"
+                    className="w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]"
                     placeholder="Введите тег и нажмите Enter"
                     value={input}
                     id='tags'

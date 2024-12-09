@@ -51,7 +51,7 @@ const AirdropDashboard = () => {
       <div className='px-[60px] mt-[6px]'>
         <div className='h-[78px] py-[14px] flex gap-[25px] items-center w-full'>
 
-          <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+          <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center bg-bgMode transition-all text-textMode px-5`}>
             <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
               <g stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
                 <path d="m12.5495 12.9201c-1.64.39-3.07-1.04-2.68-2.68.19-.77002.82-1.39999 1.59-1.58999 1.35-.33 2.57.59998 2.73 1.84999" />
@@ -67,7 +67,7 @@ const AirdropDashboard = () => {
           
         </div>
         <div className='w-full h-[50px] mt-[5px]'>
-          <div className={`max-w-[520px] w-full h-full ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} items-center flex transition-all rounded-[12px] border border-[rgba(136,145,157,0.20)] overflow-hidden ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
+          <div className={`max-w-[520px] w-full h-full text-textMode items-center flex transition-all rounded-[12px] border border-[rgba(136,145,157,0.20)] overflow-hidden bg-bgMode`}>
             <div className={`${theme?'sideBarElementDark':'sideBarElementLight'} transition-all p-[15px]`}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_179_730)">

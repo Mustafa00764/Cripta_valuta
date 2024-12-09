@@ -206,11 +206,11 @@ const Pagination = ({ totalPages,length }) => {
 
   return (
     <div className="flex w-auto items-center h-[78px] mt-2 gap-1 ">
-      <button disabled={currentPage == 1} onClick={()=>handlePageClick(1)} className={`w-[127px] text-[#88919D] h-[50px] ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'}   ${currentPage == 1?"cursor-not-allowed":""}`}>
+      <button disabled={currentPage == 1} onClick={()=>handlePageClick(1)} className={`w-[127px] text-[#88919D] h-[50px] text-textMode transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'}   ${currentPage == 1?"cursor-not-allowed":""}`}>
         First
       </button>
       {renderPageNumbers()}
-      <button disabled={currentPage == totalPages} onClick={()=>handlePageClick(totalPages)} className={` w-[127px] text-[#88919D] h-[50px]  ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} ${currentPage == totalPages?"cursor-not-allowed":""}`}>
+      <button disabled={currentPage == totalPages} onClick={()=>handlePageClick(totalPages)} className={` w-[127px] text-[#88919D] h-[50px]  text-textMode transition-all ${theme?'bg-sideBarLight':'bg-[#262E34]'} ${currentPage == totalPages?"cursor-not-allowed":""}`}>
         Last
       </button>
       <div>

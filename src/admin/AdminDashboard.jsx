@@ -55,7 +55,7 @@ const AdminDashboard = () => {
         <div className='h-[78px] py-[14px] max-w-[150px]'>
           <label htmlFor="Articles">
             <input type="radio" id='Articles' name='category' className='hidden'/>
-            <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+            <div className={`min-w-[100px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center bg-bgMode transition-all text-textMode px-5`}>
               <p>ADMINS</p>
               <p>{admins.length}</p>
             </div>
@@ -102,7 +102,7 @@ const AdminDashboard = () => {
               <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-[300px] mt-[5px] gap-[15px] relative h-[50px] flex items-center border border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+                className={`w-[300px] mt-[5px] gap-[15px] relative h-[50px] flex items-center border border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
               >
                 <span className="block truncate">{selectedRole}</span>
                 <span className="absolute inset-y-0 right-[15px] flex items-center  pointer-events-none">
@@ -111,13 +111,13 @@ const AdminDashboard = () => {
               </button>
 
               {isOpen && (
-                <ul className={`absolute w-[300px] z-[1] mt-1 ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
+                <ul className={`absolute w-[300px] z-[1] mt-1 bg-bgMode transition-all text-textMode shadow-lg max-h-60 rounded-[12px]  text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm`}>
                   {roles.map((role) => (
                     <li
                       key={role}
                       onClick={() => handleRoleClick(role)}
                       className={`cursor-pointer select-none h-[50px]  flex items-center px-[15px] ${
-                        selectedRole === role ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `${theme?'text-sideBarTextDark':'text-sideBarTextLight'}`
+                        selectedRole === role ? `${theme?'bg-sideBarTextLight':'bg-[#151B1F]'}` : `text-textMode`
                       } ${theme?'hover:bg-sideBarTextLight':'hover:bg-[#151B1F]'}`}
                     >
                       <span className="block truncate">{role}</span>
@@ -135,7 +135,7 @@ const AdminDashboard = () => {
               placeholder='Enter admin id'
               onChange={(e) => setUserId(e.target.value)}
               required
-              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} rounded-[12px]`}
+              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
           <button className="mt-4 px-4 py-2 bg-blue-500 text-white" onClick={()=>handleRole()}>

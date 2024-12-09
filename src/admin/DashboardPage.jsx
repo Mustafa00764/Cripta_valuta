@@ -50,13 +50,13 @@ const DashboardPage = () => {
       <div className='px-[60px] mt-[6px]'>
         <div className='h-[78px] py-[14px] flex gap-[25px] items-center w-full'>
 
-          <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+          <div className={`min-w-[186px] gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center bg-bgMode transition-all text-textMode px-5`}>
             <img src={article} alt="article"/>
             <p>ARTICLES</p>
             <p>{articles.length}</p>
           </div>
 
-          <div className={`gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center ${theme?'bg-sideBarLight':'bg-sideBarDark'} transition-all ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} px-5`}>
+          <div className={`gap-5 cursor-pointer relative w-auto h-[50px] justify-between rounded-[15px] flex items-center bg-bgMode transition-all text-textMode px-5`}>
             <img src={top_10} alt="top_10" />
             <p>Top - 10</p>
           </div>
@@ -66,13 +66,13 @@ const DashboardPage = () => {
           <p>{"ARTICLES"}/<span className='text-[#88919D]'>{'Category'}</span></p>
         </div>
         <div className='w-full h-[50px] flex gap-[10px] items-center'>
-            <div className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
+            <div className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 text-textMode transition-all text-[15px] leading-[10px] bg-bgMode`}>
               <p>All</p>
             </div>
             {
               categories.map((item)=>{
                 return(
-                  <div key={item.id} className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} transition-all text-[15px] leading-[10px] ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
+                  <div key={item.id} className={`py-[15px] rounded-[20px] hover:bg-[#88919D] hover:text-sideBarTextDark px-5 text-textMode transition-all text-[15px] leading-[10px] bg-bgMode`}>
                     <p>{item.name}</p>
                   </div>
                 )
@@ -80,7 +80,7 @@ const DashboardPage = () => {
             }
         </div>
         <div className='w-full h-[50px] mt-[5px]'>
-          <div className={`max-w-[520px] w-full h-full ${theme?'text-sideBarTextDark':'text-sideBarTextLight'} items-center flex transition-all rounded-[12px] border border-[rgba(136,145,157,0.20)] overflow-hidden ${theme?'bg-sideBarLight':'bg-sideBarDark'}`}>
+          <div className={`max-w-[520px] w-full h-full text-textMode items-center flex transition-all rounded-[12px] border border-[rgba(136,145,157,0.20)] overflow-hidden bg-bgMode`}>
             <div className={`${theme?'sideBarElementDark':'sideBarElementLight'} transition-all p-[15px]`}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_179_730)">
