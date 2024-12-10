@@ -126,16 +126,7 @@ const AddAirdropPage = () => {
           </div>
           <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
           <label htmlFor="description" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Description <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
-          <textarea name="" id="description" placeholder='Enter asset url' onChange={(e) => setUrl(e.target.value)} required  className={`w-full outline-none border min-h-[250px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}></textarea>
-            <input
-              type="text"
-              maxLength="200"
-              value={url}
-              id='url'
-              onChange={(e) => setUrl(e.target.value)}
-              required
-              className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
-            />
+          <textarea name="" id="description" placeholder='Enter asset description' onChange={(e) => setUrl(e.target.value)} required  className={`w-full outline-none border p-4 min-h-[250px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}></textarea>
           </div>
         </form>
         <div className='mt-[15px]'>
