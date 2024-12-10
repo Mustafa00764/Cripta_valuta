@@ -25,6 +25,9 @@ const AddAirdropPage = () => {
   const [minDate, setMinDate] = useState('');
   const [title, setTitle] = useState(titled);
   const [pool, setPool] = useState('');
+  const [startDate, setStartDatel] = useState('');
+  const [endDate, setEndDate] = useState('');
+
   const [url, setUrl] = useState(subtitled);
   const [conclusion, setConclusion] = useState(conclusione);
   const {theme, setTheme} = useContext(AdminContext)
@@ -74,8 +77,28 @@ const AddAirdropPage = () => {
           <p>New Airdrop</p>
         </div>
         <form >
-          <div className={`text-textMode transition-all mt-[5px] `}>
-          </div>
+            <div className={`text-textMode mt-[15px] transition-all`}>
+              <label htmlFor="startDate" className='pl-[15px] flex gap-[5px] mb-[5px] items-center'>Start Date <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+              <input
+                type="date"
+                id="startDate"
+                required
+                min={startDate}
+                className={`w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
+                onChange={(e) => setStartDatel(e)} // Установка даты публикации
+              />
+            </div>
+            <div className={`text-textMode mt-[15px] transition-all`}>
+              <label htmlFor="endDate" className='pl-[15px] flex gap-[5px] mb-[5px] items-center'>Edn Date <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+              <input
+                type="date"
+                id="endDate"
+                required
+                min={endDate}
+                className={`w-[300px] outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
+                onChange={(e) => setEndDate(e)} // Установка даты публикации
+              />
+            </div>
           {/* Poster */}
           <div className={`text-textMode mt-[15px] flex items-end transition-all`}>
             <div>
