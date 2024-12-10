@@ -79,7 +79,7 @@ const AddAirdropPage = () => {
           {/* Poster */}
           <div className={`text-textMode mt-[15px] flex items-end transition-all`}>
             <div>
-            <label htmlFor="poster" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Poster <span className='text-[#FF8F00] text-[14px] '>(16:9)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
+            <label htmlFor="poster" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Poster <span className='text-[#FF8F00] text-[14px] '>(1:1)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <label htmlFor="poster" style={{backgroundImage: poster ? `url(${poster})` : `url(${theme?white_pattern:pattern})`}} className={` w-[288px] cursor-pointer h-[288px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-[12px] border border-[#262E34]`}>
               <input type="file" id='poster' accept='image/*' required onChange={handleImageUpload} name='poster' className=' w-0 h-0'/>
               <svg className={poster?"hidden":""} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +97,7 @@ const AddAirdropPage = () => {
                   image={poster}
                   crop={crop}
                   zoom={zoom}
-                  aspect={4 / 4.5} // Пропорции обрезки 1:1
+                  aspect={1} // Пропорции обрезки 1:1
                   onCropChange={setCrop}
                   onZoomChange={setZoom}
                   onCropComplete={onCropComplete}
@@ -142,9 +142,7 @@ const AddAirdropPage = () => {
           <textarea name="" id="description" placeholder='Enter asset description' onChange={(e) => setUrl(e.target.value)} required  className={`w-full outline-none border p-4 min-h-[250px] transition-colors border-[#262E34] px-[15px] bg-bgMode text-textMode rounded-[12px]`}></textarea>
           </div>
         </form>
-        <div className='mt-[15px]'>
-        <label htmlFor="subtitle" className='pl-[15px] text-textMode flex gap-[5px] mb-[10px] items-center'>Preview <span className='text-[#FF8F00] text-[14px] '>(click and watch demo)</span></label>
-        </div>
+
         <div>
           <button className="mt-4 px-4 py-2 bg-blue-500 text-white" >
             Отправить
