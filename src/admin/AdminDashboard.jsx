@@ -93,7 +93,7 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div>
-          <div className={`text-[24px] font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} mt-[15px] transition-all`}>
+          <div className={`text-[24px] font-bold text-textMode mt-[15px] transition-all`}>
             <p>New Admin</p>
           </div>
           <div>
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
               )}
             </div>
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="title" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Account <span className='text-[#FF8F00] text-[14px] '>(id)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"

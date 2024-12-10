@@ -72,14 +72,14 @@ const AddAdvertisingPage = () => {
     <div className='w-full h-auto'>
       <PanelHeader title={'Add / New Advertising'}/>
       <div className='w-full h-full px-[40px]'>
-        <div className={`text-[24px] font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
+        <div className={`text-[24px] font-bold text-textMode transition-all`}>
           <p>New Advertising</p>
         </div>
         <form >
-          <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all mt-[5px] `}>
+          <div className={`text-textMode transition-all mt-[5px] `}>
           </div>
           {/* Poster */}
-          <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] flex items-end transition-all`}>
+          <div className={`text-textMode mt-[15px] flex items-end transition-all`}>
             <div>
             <label htmlFor="poster" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Poster <span className='text-[#FF8F00] text-[14px] '>(16:9)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <label htmlFor="poster" style={{backgroundImage: poster ? `url(${poster})` : `url(${theme?white_pattern:pattern})`}} className={` w-[288px] cursor-pointer h-[288px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-[12px] border border-[#262E34]`}>
@@ -114,7 +114,7 @@ const AddAdvertisingPage = () => {
               )}
             </div>
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="title" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Title <span className='text-[#FF8F00] text-[14px] '>(100)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"
@@ -127,7 +127,7 @@ const AddAdvertisingPage = () => {
               className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="url" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Url <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"

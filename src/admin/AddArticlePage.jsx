@@ -512,11 +512,11 @@ const AddArticlePage = () => {
     <div className='w-full h-auto'>
       <PanelHeader title={'Add / New Article'}/>
       <div className='w-full h-full px-[40px]'>
-        <div className={`text-[24px] font-bold ${theme?"text-[#0C1013]":"text-[#fff]"} transition-all`}>
+        <div className={`text-[24px] font-bold text-textMode transition-all`}>
           <p>New Article</p>
         </div>
         <form onSubmit={sendToBackend}>
-          <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all mt-[5px] `}>
+          <div className={`text-textMode transition-all mt-[5px] `}>
           <div>
           <label htmlFor="category" className='pl-[15px] flex gap-[5px] items-center'>Category <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <div className="relative mt-1">
@@ -583,7 +583,7 @@ const AddArticlePage = () => {
               </div>
             </div>
             {/* Поле для ввода даты публикации */}
-            <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+            <div className={`text-textMode mt-[15px] transition-all`}>
               <label htmlFor="publishDate" className='pl-[15px] flex gap-[5px] mb-[5px] items-center'>Pub Date <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
               <input
                 type="date"
@@ -598,7 +598,7 @@ const AddArticlePage = () => {
           </div>
           </div>
           {/* Poster */}
-          <div className={`${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] flex items-end flex-wrap gap-5 transition-all`}>
+          <div className={`text-textMode mt-[15px] flex items-end flex-wrap gap-5 transition-all`}>
             <div className='max-w-[512px] w-full'>
             <label htmlFor="poster" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Poster <span className='text-[#FF8F00] text-[14px] '>(16:9)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <label htmlFor="poster" style={{backgroundImage: poster ? `url(${poster})` : `url(${theme?white_pattern:pattern})`}} className={` w-full cursor-pointer h-[288px] bg-cover bg-no-repeat bg-center flex justify-center items-center rounded-[12px] border border-[#262E34]`}>
@@ -634,7 +634,7 @@ const AddArticlePage = () => {
               )}
            </div>
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="title" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Title <span className='text-[#FF8F00] text-[14px] '>(100)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"
@@ -647,7 +647,7 @@ const AddArticlePage = () => {
               className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="subtitle" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Subtitle <span className='text-[#FF8F00] text-[14px] '>(200)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <input
               type="text"
@@ -660,7 +660,7 @@ const AddArticlePage = () => {
               className={`w-full outline-none border h-[50px] border-[#262E34] px-[15px] bg-bgMode transition-all text-textMode rounded-[12px]`}
             />
           </div>
-          <div className={`mt-[15px] ${theme?'text-sideBarTextDark':'text-[#fff]'} transition-all`}>
+          <div className={`mt-[15px] text-textMode transition-all`}>
           <label htmlFor="" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Main Content <span className='text-[#FF8F00] text-[14px] '>(unlimited)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
           <div className={`w-full max-w-[1280px] `}>
             <div className={`border flex flex-wrap gap-1 border-b-0 cursor-pointer h-auto border-[#262E34] bg-bgMode transition-all text-textMode rounded-t-[12px] overflow-hidden`}>
@@ -746,7 +746,7 @@ const AddArticlePage = () => {
             </div>
           </div>
           </div>
-          <div className={` max-w-[1280px] w-full ${theme?'text-sideBarTextDark':'text-[#fff]'} mt-[15px] transition-all`}>
+          <div className={` max-w-[1280px] w-full text-textMode mt-[15px] transition-all`}>
           <label htmlFor="conclusion" className='pl-[15px] flex gap-[5px] mb-[10px] items-center'>Conclusion <span className='text-[#FF8F00] text-[14px] '>(500)</span> <span className='text-[#FF3C00] text-[14px] '>(required)</span></label>
             <textarea
               type="text"
